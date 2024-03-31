@@ -1,0 +1,27 @@
+@import url('../../index.css');
+
+.display-add-custom-field-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  border: 5px solid red;
+}
+.display-add-custom-field-container > * {
+  flex: 1;
+}
+
+button.toggle-display-button {
+  max-width: min-content;
+}
+
+label[for='custom-field-input-type'],
+label[for='custom-field-input-type'] > select,
+label[for='custom-field-label-input'],
+label[for='custom-field-label-input'] > input,
+label[for='custom-field-value-input'],
+label[for='custom-field-value-input'] > input {
+  flex: 1;
+}
+
+.add-custom-field-button {
+}

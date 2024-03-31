@@ -1,0 +1,76 @@
+:root {
+  /* Background colors */
+  --color-background: #212121;
+  --color-container-background: #1b1b1b;
+  --color-primary-text: #fdfffc;
+  --color-primary-accent: #cc9dd7;
+  --color-primary-accent-secondary: #000000;
+}
+
+:root.light-theme {
+  /* Background colors */
+  --background-color: #fdfffc;
+  --color-primary-text: #212121;
+  --color-primary-accent: #694979;
+  --color-primary-accent-secondary: #ffffff;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-primary-text);
+}
+
+button {
+  border: 3px solid transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: var(--color-primary-accent);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-primary-accent-secondary);
+  transition:
+    background-color 0.3s,
+    border-color 0.3s,
+    color 0.3s;
+}
+
+button:hover {
+  background-color: var(--color-primary-accent-secondary);
+  border-color: var(--color-primary-accent);
+  color: var(--color-primary-accent);
+}
+button:hover > svg {
+  fill: var(--color-primary-accent);
+}
+
+svg {
+  width: 32px;
+  height: 32px;
+  fill: var(--color-primary-accent-secondary);
+  transition: fill 0.3s;
+}
+
+label {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+}
+label input {
+  margin-left: auto;
+  padding: 0.25em;
+}
+
+select {
+  padding: 0.25rem;
+}
+option {
+  color: var(--color-primary-accent-secondary);
+}
+option:checked {
+  display: none;
+}
+select option:hover {
+  background-color: var(--color-primary-accent);
+}
