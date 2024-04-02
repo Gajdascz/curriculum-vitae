@@ -1,36 +1,58 @@
 @import url('../../../index.css');
-.drop-down-container {
+
+.drop-down-container,
+.drop-down-container-header {
   display: flex;
+}
+
+.drop-down-container {
   flex-wrap: wrap;
   flex-direction: column;
   align-items: baseline;
   justify-content: center;
-  width: fit-content;
-}
-.drop-down-container > * {
-  flex: 1;
-}
-.drop-down-container-header {
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  width: 100%;
-  gap: 1.5em;
-  border-top: 1px solid var(--color-primary-accent);
-  border-left: 1px solid var(--color-primary-accent);
-  border-right: 1px solid var(--color-primary-accent);
-  background-color: var(--color-container-background);
-}
-.drop-down-container-header > h3 {
-  padding-right: 2em;
 }
 
-button.toggle-display-button {
-  max-width: min-content;
+.drop-down-container,
+.drop-down-container > * {
+  width: 100%;
+}
+
+.drop-down-container,
+.drop-down-container-header {
+  justify-content: start;
+  align-items: center;
+}
+
+.drop-down-container-header > h3 {
+  color: var(--color-primary-accent);
+  padding: 0 var(--space-medium) 0 var(--space-medium);
+}
+.drop-down-container-header,
+.drop-down-container-content {
+  background-color: var(--color-container-background);
+}
+
+.toggle-drop-down-button {
+  border-radius: var(--border-radius) 0 0 0;
 }
 
 .drop-down-chevron {
-  transition: transform 0.5s ease;
+  transition: transform var(--effect-transition-time) ease;
+}
+
+div.drop-down-interactive-header {
+  cursor: pointer;
+}
+
+div.drop-down-interactive-header:hover,
+div.drop-down-interactive-header:hover > h3 {
+  background-color: var(--color-primary-accent);
+  color: var(--color-primary-accent-secondary);
+}
+.drop-down-container-header,
+div.drop-down-interactive-header:hover,
+div.drop-down-interactive-header:hover > h3 {
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
 
 .drop-down-chevron.rotated {
@@ -38,9 +60,7 @@ button.toggle-display-button {
 }
 
 .drop-down-container-content {
-  padding: 1em;
-  background-color: var(--color-container-background);
-  border: 1px solid var(--color-primary-accent);
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
 }
 
 .collapse,
@@ -49,10 +69,10 @@ button.toggle-display-button {
 }
 
 .expand {
-  animation: expand-dropdown 0.75s ease-out;
+  animation: expand-dropdown var(--effect-transition-time) ease-out;
 }
 .collapse {
-  animation: collapse-dropdown 0.75s ease-in forwards;
+  animation: collapse-dropdown var(--effect-transition-time) ease-in forwards;
 }
 
 @keyframes collapse-dropdown {

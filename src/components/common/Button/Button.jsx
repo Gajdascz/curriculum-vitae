@@ -1,11 +1,14 @@
+import './Button.css';
+
 export default function Button({
   className = null,
   text = '',
   handleClick = () => {},
+  type = 'button',
   ...rest
 }) {
   return (
-    <button className={className} onClick={handleClick} {...rest}>
+    <button type={type} className={className} onClick={handleClick} {...rest}>
       {text}
     </button>
   );

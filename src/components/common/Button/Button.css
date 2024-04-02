@@ -1,0 +1,26 @@
+@import url('../../../index.css');
+
+button {
+  border: 3px solid transparent;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-weight: bold;
+  background-color: var(--color-primary-accent);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-primary-accent-secondary);
+  transition:
+    background-color var(--effect-transition-time),
+    border-color var(--effect-transition-time),
+    color var(--effect-transition-time);
+}
+
+button:hover {
+  background-color: var(--color-primary-accent-secondary);
+  border-color: var(--color-primary-accent);
+  color: var(--color-primary-accent);
+}
+button:hover > svg {
+  fill: var(--color-primary-accent);
+}

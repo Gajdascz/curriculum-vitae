@@ -1,36 +1,27 @@
 import { useState } from 'react';
-
-import Section from './Section';
-import Input from './common/Input';
+import Input from './common/Input/Input';
 import AddCustomField from './AddCustomField/AddCustomField';
 
-export default function ContactInfoEditor() {
-  const [inputs, setInputs] = useState([
-    { id: 'name-0', type: 'text', label: 'Name', value: '' },
-    { id: 'email-1', type: 'email', label: 'Email', value: '' },
-    { id: 'phone-2', type: 'tel', label: 'Phone', value: '' },
-    { id: 'address-3', type: 'text', label: 'Address', value: '' }
-  ]);
-
-  const handleAddField = ({ type, label }) => {
+export default function EditorSection({ className, initialInputs = [] }) {
+  const [inputs, setInputs] = useState(initialInputs);
+  const handleAddField = ({ type, label, value }) => {
     setInputs([
       ...inputs,
       {
         id: `${label.toLowerCase().replace(/\s+/g, '-')}-${inputs.length - 1}`,
         type,
-        label,
-        value: ''
+        label: `${label.charAt(0).toUpperCase() + label.slice(1)}`,
+        value
       }
     ]);
   };
-
   const handleInputChange = (id, value) =>
     setInputs(
       inputs.map((input) => (input.id === id ? { ...input, value } : input))
     );
 
   return (
-    <Section name="contact-info-editor">
+    <section className={`${className} editor-section`}>
       {inputs.map((input) => {
         const { id, type, label, value } = input;
         return (
@@ -43,7 +34,7 @@ export default function ContactInfoEditor() {
           />
         );
       })}
-      <AddCustomField onAdd={handleAddField}></AddCustomField>
-    </Section>
+      <AddCustomField onAdd={handleAddField} />
+    </section>
   );
 }

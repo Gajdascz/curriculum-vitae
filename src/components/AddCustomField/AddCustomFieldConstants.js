@@ -1,6 +1,11 @@
-const INPUT_TYPES = { TEXT: 'text', EMAIL: 'email', TEL: 'tel', DATE: 'date' };
+const INPUT_TYPES = {
+  TEXT: 'text',
+  EMAIL: 'email',
+  TEL: 'phone',
+  DATE: 'date'
+};
 
-const CSS = {
+const ATTS = {
   CLASS_DISPLAY_CONTAINER: 'display-container',
   CLASS_CHEVRON: 'expand-options',
   CLASS_PRIMARY_CONTAINER: 'add-custom-field-container',
@@ -13,4 +18,4 @@ const CSS = {
   VALUE_INPUT_PLACEHOLDER: 'example.com'
 };
 
-export { INPUT_TYPES, CSS };
+export { INPUT_TYPES, ATTS };

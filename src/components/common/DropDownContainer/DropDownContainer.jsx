@@ -1,41 +1,96 @@
 import { useState } from 'react';
-import Button from '../Button';
+import Button from '../Button/Button';
 import ChevronDown from '../../icons/ChevronDown';
 import './DropDownContainer.css';
 
-export default function DropDownContainer({ children, containerHeaderText }) {
-  const [status, setStatus] = useState({
-    open: false,
-    closed: true,
-    animating: false
+const ATTS = {
+  CLASSES: {
+    CONTAINER: 'drop-down-container',
+    HEADER: 'drop-down-container-header',
+    INTERACTIVE_HEADER: 'drop-down-interactive-header',
+    BUTTON: 'toggle-drop-down-button',
+    CHEVRON: 'drop-down-chevron',
+    ROTATE: 'rotated',
+    CONTENT: 'drop-down-container-content',
+    COLLAPSE: 'collapse',
+    EXPAND: 'expand'
+  },
+  TITLES: {
+    EXPAND: 'Expand content',
+    COLLAPSE: 'Collapse content'
+  },
+  ANIMATIONS: {
+    COLLAPSE: 'collapse-dropdown',
+    EXPAND: 'expand-dropdown'
+  },
+  NONE: 'none'
+};
+
+const DIRECTIONS = {
+  OPEN: 'open',
+  CLOSE: 'close'
+};
+
+export default function DropDownContainer({
+  children,
+  containerHeaderText,
+  toggle,
+  className = '',
+  isOpen = false,
+  addToggleToHeader = false
+}) {
+  const nextDirection = isOpen ? DIRECTIONS.CLOSE : DIRECTIONS.OPEN;
+  const [animationStatus, setAnimationStatus] = useState({
+    isAnimating: false,
+    nextDirection
   });
+
+  const handleClick = () => {
+    setAnimationStatus({
+      ...animationStatus,
+      isAnimating: true
+    });
+    toggle();
+  };
+  const handleAnimationEnd = (e) => {
+    e.stopPropagation();
+    animationStatus.nextDirection = null;
+  };
+
+  const headerProps = addToggleToHeader
+    ? {
+        onClick: handleClick,
+        onKeyDown: (e) => {
+          if (e.key === 'Enter' || e.key === ' ') handleClick();
+        },
+        className: `${ATTS.CLASSES.HEADER} ${ATTS.CLASSES.INTERACTIVE_HEADER}`,
+        tabIndex: 0,
+        'aria-expanded': isOpen
+      }
+    : { className: ATTS.CLASSES.HEADER };
+
   return (
-    <div className="container drop-down-container">
-      <div className="drop-down-container-header">
+    <div className={`${ATTS.CLASSES.CONTAINER} ${className}`}>
+      <div {...headerProps}>
         <Button
           text={
             <ChevronDown
-              title={status.open ? 'Collapse content' : 'Expand content'}
-              className={`drop-down-chevron ${status.open ? 'rotated' : ''}`}
+              title={isOpen ? ATTS.TITLES.COLLAPSE : ATTS.TITLES.EXPAND}
+              className={`${ATTS.CLASSES.CHEVRON} ${nextDirection === DIRECTIONS.CLOSE ? ATTS.CLASSES.ROTATE : ''}`}
             />
           }
-          className="toggle-content-button"
-          handleClick={() => setStatus({ ...status, animating: true })}
+          className={ATTS.CLASSES.BUTTON}
+          handleClick={handleClick}
+          aria-expanded={isOpen}
         />
         {containerHeaderText && <h3>{containerHeaderText}</h3>}
       </div>
       <div
-        className={`drop-down-container-content ${!status.animating ? '' : status.open ? 'collapse' : 'expand'}`}
-        style={{ display: status.animating || status.open ? '' : 'none' }}
-        onAnimationEnd={(e) => {
-          const statusStrategy = {
-            ['collapse-dropdown']: () =>
-              setStatus({ animating: false, closed: true, open: false }),
-            ['expand-dropdown']: () =>
-              setStatus({ animating: false, closed: false, open: true })
-          };
-          statusStrategy[e.animationName]();
+        className={`${ATTS.CLASSES.CONTENT} ${nextDirection === DIRECTIONS.OPEN ? ATTS.CLASSES.COLLAPSE : ATTS.CLASSES.EXPAND}`}
+        style={{
+          display: animationStatus.isAnimating || isOpen ? '' : ATTS.NONE
         }}
+        onAnimationEnd={handleAnimationEnd}
       >
         {children}
       </div>

@@ -1,27 +1,13 @@
 @import url('../../index.css');
 
-.display-add-custom-field-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5em;
-  border: 5px solid red;
+.add-custom-field-inputs-container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  padding: var(--space-medium);
+  gap: var(--space-small) var(--space-medium);
+  align-items: center;
 }
-.display-add-custom-field-container > * {
-  flex: 1;
-}
-
-button.toggle-display-button {
-  max-width: min-content;
-}
-
-label[for='custom-field-input-type'],
-label[for='custom-field-input-type'] > select,
-label[for='custom-field-label-input'],
-label[for='custom-field-label-input'] > input,
-label[for='custom-field-value-input'],
-label[for='custom-field-value-input'] > input {
-  flex: 1;
-}
-
-.add-custom-field-button {
+.add-custom-field-inputs-container > label,
+.add-custom-field-inputs-container > .select-menu-label {
+  display: contents;
 }
