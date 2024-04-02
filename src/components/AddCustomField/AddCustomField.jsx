@@ -7,6 +7,7 @@ import DropDownContainer from '../common/DropDownContainer/DropDownContainer';
 import { ATTS } from './AddCustomFieldConstants';
 import './AddCustomField.css';
 import SelectMenu from '../common/SelectMenu/SelectMenu';
+import TextArea from '../common/TextArea/TextArea';
 
 export default function AddCustomField({ onAdd }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,6 +25,7 @@ export default function AddCustomField({ onAdd }) {
     setFieldInfo({ ...fieldInfo, value: e.target.value });
 
   const handleSubmit = () => {
+    if (!fieldInfo.label || fieldInfo.label.trim().length <= 0) return;
     onAdd({ ...fieldInfo });
     setFieldInfo({ type: '', label: '', value: '' });
   };
@@ -47,18 +49,25 @@ export default function AddCustomField({ onAdd }) {
           label={ATTS.LABEL_INPUT_LABEL}
           handleChange={handleLabelChange}
           value={fieldInfo.label}
-          placeholder={ATTS.LABEL_INPUT_PLACEHOLDER}
           labelProps={{ htmlFor: 'custom-field-label-input' }}
         />
-        <Input
-          id="custom-field-value-input"
-          handleChange={handleValueChange}
-          label="Value"
-          value={fieldInfo.value}
-          placeholder={ATTS.VALUE_INPUT_PLACEHOLDER}
-          labelProps={{ htmlFor: 'custom-field-value-input' }}
+        {fieldInfo.type === 'text-area' ? (
+          <TextArea label="Value" />
+        ) : (
+          <Input
+            id="custom-field-value-input"
+            type={fieldInfo.type}
+            handleChange={handleValueChange}
+            label="Value"
+            value={fieldInfo.value}
+            labelProps={{ htmlFor: 'custom-field-value-input' }}
+          />
+        )}
+        <Button
+          text="Add"
+          className="add-custom-field"
+          handleClick={handleSubmit}
         />
-        <Button text="Add" name="add-custom-field" handleClick={handleSubmit} />
       </div>
     </DropDownContainer>
   );

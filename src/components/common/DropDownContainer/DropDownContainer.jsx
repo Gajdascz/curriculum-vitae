@@ -54,7 +54,7 @@ export default function DropDownContainer({
   };
   const handleAnimationEnd = (e) => {
     e.stopPropagation();
-    animationStatus.nextDirection = null;
+    setAnimationStatus({ isAnimating: false, nextDirection: null });
   };
 
   const headerProps = addToggleToHeader

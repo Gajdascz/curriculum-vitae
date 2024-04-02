@@ -11,3 +11,8 @@
 .add-custom-field-inputs-container > .select-menu-label {
   display: contents;
 }
+.add-custom-field {
+  grid-column: 1/-1;
+  width: 25%;
+  padding: var(--space-medium);
+}
