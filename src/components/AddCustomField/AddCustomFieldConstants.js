@@ -1,4 +1,4 @@
-const INPUT_TYPES = {
+const FIELD_TYPES = {
   TEXT: 'text',
   EMAIL: 'email',
   TEL: 'tel',
@@ -13,8 +13,8 @@ const ATTS = {
   CLASS_INPUTS_CONTAINER: 'add-custom-field-inputs-container',
   TYPE_SELECT_LABEL: 'Type',
   TYPE_SELECT_ID: 'custom-field-input-type',
-  TYPE_SELECT_OPTIONS: Object.values(INPUT_TYPES),
+  TYPE_SELECT_OPTIONS: Object.values(FIELD_TYPES),
   LABEL_INPUT_LABEL: 'Label'
 };
 
-export { INPUT_TYPES, ATTS };
+export { FIELD_TYPES, ATTS };

@@ -2,17 +2,15 @@
 
 .add-custom-field-inputs-container {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: repeat(auto-fill, minMax(240px, 1fr));
+  flex-direction: column;
   padding: var(--space-medium);
   gap: var(--space-small) var(--space-medium);
-  align-items: center;
+  align-items: start;
 }
-.add-custom-field-inputs-container > label,
-.add-custom-field-inputs-container > .select-menu-label {
-  display: contents;
-}
+
 .add-custom-field {
   grid-column: 1/-1;
-  width: 25%;
+  width: 33%;
   padding: var(--space-medium);
 }

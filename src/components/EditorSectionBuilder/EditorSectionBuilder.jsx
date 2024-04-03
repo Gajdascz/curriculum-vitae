@@ -1,7 +1,11 @@
 import { useState } from 'react';
-import Input from './common/Input/Input';
-import AddCustomField from './AddCustomField/AddCustomField';
-import DropDownContainer from './common/DropDownContainer/DropDownContainer';
+import Button from '../common/Button/Button';
+import TextArea from '../common/TextArea/TextArea';
+import AddCustomField from '../AddCustomField/AddCustomField';
+import DropDownContainer from '../common/DropDownContainer/DropDownContainer';
+import ListBuilder from '../common/List/List';
+import './EditorSectionBuilder.css';
+import FieldWrapper from '../common/Input/FieldWrapper';
 
 export default function EditorSection({
   className,
@@ -18,7 +22,8 @@ export default function EditorSection({
         id: `${label.toLowerCase().replace(/\s+/g, '-')}-${inputs.length - 1}`,
         type,
         label: `${label.charAt(0).toUpperCase() + label.slice(1)}`,
-        value
+        value,
+        includeRemove: true
       }
     ]);
   };
@@ -38,12 +43,12 @@ export default function EditorSection({
         {inputs.map((input) => {
           const { id, type, label, value } = input;
           return (
-            <Input
+            <FieldWrapper
               key={id}
               type={type}
               label={label}
               value={value}
-              handleChange={(e) => handleInputChange(id, e.target.value)}
+              onChange={(e) => handleInputChange(id, e.target.value)}
             />
           );
         })}
@@ -52,3 +57,13 @@ export default function EditorSection({
     </section>
   );
 }
+// <div key={id} className="editor-input-container">
+//   <div className="editor-input">{InputTypeElement}</div>
+//   <Button
+//     text="X"
+//     handleClick={() =>
+//       setInputs(inputs.filter((input) => input.id !== id))
+//     }
+//     className="remove-input"
+//   />
+// </div>

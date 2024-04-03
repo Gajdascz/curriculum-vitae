@@ -1,13 +1,12 @@
 import { useState } from 'react';
 
 import Button from '../common/Button/Button';
-import Input from '../common/Input/Input';
 import DropDownContainer from '../common/DropDownContainer/DropDownContainer';
 
 import { ATTS } from './AddCustomFieldConstants';
+import FieldWrapper from '../common/Input/FieldWrapper';
+
 import './AddCustomField.css';
-import SelectMenu from '../common/SelectMenu/SelectMenu';
-import TextArea from '../common/TextArea/TextArea';
 
 export default function AddCustomField({ onAdd }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -38,31 +37,26 @@ export default function AddCustomField({ onAdd }) {
       addToggleToHeader={true}
     >
       <div className="add-custom-field-inputs-container">
-        <SelectMenu
+        <FieldWrapper
+          type="select"
           label={ATTS.TYPE_SELECT_LABEL}
           id={ATTS.TYPE_SELECT_ID}
           options={ATTS.TYPE_SELECT_OPTIONS}
-          handleChange={handleTypeChange}
+          onChange={handleTypeChange}
         />
-        <Input
+        <FieldWrapper
           id="custom-field-label-input"
           label={ATTS.LABEL_INPUT_LABEL}
-          handleChange={handleLabelChange}
+          onChange={handleLabelChange}
           value={fieldInfo.label}
-          labelProps={{ htmlFor: 'custom-field-label-input' }}
         />
-        {fieldInfo.type === 'text-area' ? (
-          <TextArea label="Value" />
-        ) : (
-          <Input
-            id="custom-field-value-input"
-            type={fieldInfo.type}
-            handleChange={handleValueChange}
-            label="Value"
-            value={fieldInfo.value}
-            labelProps={{ htmlFor: 'custom-field-value-input' }}
-          />
-        )}
+        <FieldWrapper
+          id="custom-field-value-input"
+          type={fieldInfo.type}
+          onChange={handleValueChange}
+          label="Value"
+          value={fieldInfo.value}
+        />
         <Button
           text="Add"
           className="add-custom-field"

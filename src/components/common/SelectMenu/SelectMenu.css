@@ -1,13 +1,10 @@
 @import url('../../../index.css');
 
-.select-menu-header,
-.select-menu-label,
 .select-menu > .drop-down-container-content {
   display: flex;
 }
 .select-menu {
   position: relative;
-  width: 100%;
   max-width: 200px;
   min-width: 100px;
 }

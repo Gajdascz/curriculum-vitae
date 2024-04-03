@@ -3,13 +3,13 @@ import DropDownContainer from '../DropDownContainer/DropDownContainer';
 import Button from '../Button/Button';
 import './SelectMenu.css';
 
-export default function SelectMenu({ label, options, handleChange }) {
+export default function SelectMenu({ options, onChange, className }) {
   const [selectedStatus, setSelectedStatus] = useState({
     selected: options[0],
     isSelecting: false
   });
-  const onChange = (option) => {
-    handleChange(option);
+  const handleChange = (option) => {
+    onChange(option);
     setSelectedStatus({ selected: option, isSelecting: false });
   };
   const toggleSelecting = () =>
@@ -19,27 +19,24 @@ export default function SelectMenu({ label, options, handleChange }) {
     });
 
   return (
-    <span className="select-menu-label">
-      {label}
-      <DropDownContainer
-        containerHeaderText={selectedStatus.selected}
-        className="select-menu"
-        isOpen={selectedStatus.isSelecting}
-        toggle={toggleSelecting}
-        addToggleToHeader={true}
-      >
-        {options.map((option) =>
-          option === selectedStatus.selected ? null : (
-            <Button
-              key={option}
-              className="select-menu-option"
-              data-value={option}
-              onClick={() => onChange(option)}
-              text={option}
-            />
-          )
-        )}
-      </DropDownContainer>
-    </span>
+    <DropDownContainer
+      containerHeaderText={selectedStatus.selected}
+      className={`select-menu ${className}`}
+      isOpen={selectedStatus.isSelecting}
+      toggle={toggleSelecting}
+      addToggleToHeader={true}
+    >
+      {options.map((option) =>
+        option === selectedStatus.selected ? null : (
+          <Button
+            key={option}
+            className="select-menu-option"
+            data-value={option}
+            onClick={() => handleChange(option)}
+            text={option}
+          />
+        )
+      )}
+    </DropDownContainer>
   );
 }
