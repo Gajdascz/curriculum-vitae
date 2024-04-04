@@ -1,0 +1,11 @@
+@import url('../../../index.css');
+
+.field-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  align-items: center;
+}
+.field-wrapper > * {
+  flex: 1;
+}

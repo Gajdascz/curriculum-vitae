@@ -1,0 +1,40 @@
+@import url('../../index.css');
+
+.index-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-primary-accent);
+  color: var(--color-primary-accent-secondary);
+  padding: var(--space-small) var(--space-large);
+}
+
+h1.app-name {
+  font-size: 2rem;
+}
+
+svg.settings-icon {
+  height: 48px;
+  width: 48px;
+  fill: var(--color-primary-accent-secondary);
+  transform: none;
+  transition: none;
+  stroke-width: 1.5px;
+}
+
+button.settings-button {
+  width: 64px;
+  height: 64px;
+  background-color: none;
+  transition: none;
+  transform: none;
+}
+
+button.settings-button:hover {
+  background-color: inherit;
+}
+button.settings-button:hover > svg {
+  stroke: var(--color-primary-accent-secondary);
+  background-color: none;
+  transform: scale(1.25);
+}

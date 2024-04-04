@@ -1,6 +1,6 @@
 @import url('../../index.css');
 
-.add-custom-field-inputs-container {
+/* .add-custom-field-inputs-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minMax(240px, 1fr));
   flex-direction: column;
@@ -13,4 +13,4 @@
   grid-column: 1/-1;
   width: 33%;
   padding: var(--space-medium);
-}
+} */

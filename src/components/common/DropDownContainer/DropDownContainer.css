@@ -44,23 +44,43 @@ div.drop-down-interactive-header {
   cursor: pointer;
 }
 
-div.drop-down-interactive-header:hover,
-div.drop-down-interactive-header:hover > h3 {
+.open-menu,
+div.drop-down-interactive-header:hover {
   background-color: var(--color-primary-accent);
+}
+.open-menu > h3,
+div.drop-down-interactive-header:hover > h3 {
   color: var(--color-primary-accent-secondary);
 }
+.open-menu,
 .drop-down-container-header,
-div.drop-down-interactive-header:hover,
-div.drop-down-interactive-header:hover > h3 {
+div.drop-down-interactive-header:hover {
   border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
 
+div.drop-down-interactive-header.open-menu:hover {
+  background-color: var(--color-primary-accent-secondary);
+}
+div.drop-down-interactive-header.open-menu:hover > h3 {
+  color: var(--color-primary-accent);
+}
+
+div.drop-down-interactive-header:hover > *::selection {
+  background-color: var(--color-primary-accent-secondary);
+  color: var(--color-primary-accent);
+}
+div.drop-down-interactive-header:hover > *::-moz-selection {
+  background-color: var(--color-primary-accent-secondary);
+  color: var(--color-primary-accent);
+}
 .drop-down-chevron.rotated {
   transform: rotate(180deg);
 }
 
 .drop-down-container-content {
   border-radius: 0 0 var(--border-radius) var(--border-radius);
+  border: 3px solid var(--color-primary-accent);
+  padding: var(--space-large);
 }
 
 .collapse,

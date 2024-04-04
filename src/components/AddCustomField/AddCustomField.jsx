@@ -4,20 +4,21 @@ import Button from '../common/Button/Button';
 import DropDownContainer from '../common/DropDownContainer/DropDownContainer';
 
 import { ATTS } from './AddCustomFieldConstants';
-import FieldWrapper from '../common/Input/FieldWrapper';
+import FieldWrapper from '../common/Fields/FieldWrapper';
 
 import './AddCustomField.css';
 
 export default function AddCustomField({ onAdd }) {
   const [isOpen, setIsOpen] = useState(false);
   const [fieldInfo, setFieldInfo] = useState({
-    type: '',
+    type: 'text',
     label: '',
     value: ''
   });
 
   const handleTypeChange = (newType) =>
     setFieldInfo({ ...fieldInfo, type: newType });
+
   const handleLabelChange = (e) =>
     setFieldInfo({ ...fieldInfo, label: e.target.value });
   const handleValueChange = (e) =>
@@ -25,6 +26,7 @@ export default function AddCustomField({ onAdd }) {
 
   const handleSubmit = () => {
     if (!fieldInfo.label || fieldInfo.label.trim().length <= 0) return;
+    console.log(fieldInfo);
     onAdd({ ...fieldInfo });
     setFieldInfo({ type: '', label: '', value: '' });
   };

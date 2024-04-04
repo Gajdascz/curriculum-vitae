@@ -3,12 +3,12 @@ import './Button.css';
 export default function Button({
   className = null,
   text = '',
-  handleClick = () => {},
+  onclick = () => {},
   type = 'button',
   ...rest
 }) {
   return (
-    <button type={type} className={className} onClick={handleClick} {...rest}>
+    <button type={type} className={className} onClick={onclick} {...rest}>
       {text}
     </button>
   );

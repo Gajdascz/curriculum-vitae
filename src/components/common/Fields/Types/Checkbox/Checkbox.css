@@ -1,0 +1,12 @@
+@import url('../../../../../index.css');
+
+.custom-checkbox {
+  max-width: 64px;
+  max-height: 64px;
+}
+.custom-checkbox.checked {
+  background-color: var(--color-primary-accent);
+}
+.custom-checkbox.unchecked {
+  background-color: white;
+}

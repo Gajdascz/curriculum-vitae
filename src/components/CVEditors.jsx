@@ -1,38 +1,40 @@
-import { useState } from 'react';
-import EditorSection from './EditorSectionBuilder/EditorSectionBuilder';
+import AddCustomField from './AddCustomField/AddCustomField';
+import DropDownContainer from './common/DropDownContainer/DropDownContainer';
+import FieldWrapper from './common/Fields/FieldWrapper';
+import { useCVAppContext } from '../CVAppContext';
 
-const initialEditors = [
-  {
-    key: 'header-0',
-    className: 'header-editor',
-    headerText: 'Header',
-    isOpen: false,
-    initialInputs: [
-      { id: 'name-0', type: 'text', label: 'Name', value: '' },
-      { id: 'email-1', type: 'email', label: 'Email', value: '' },
-      { id: 'phone-2', type: 'tel', label: 'Phone', value: '' },
-      { id: 'address-3', type: 'text', label: 'Address', value: '' }
-    ]
-  }
-];
 export default function CVEditors() {
-  const [editors, setEditors] = useState(initialEditors);
-  const handleToggle = (toggledKey) =>
-    setEditors(
-      editors.map((editor) => ({
-        ...editor,
-        isOpen: editor.key === toggledKey
-      }))
-    );
+  const { sections, onFieldChange, onAddField, onSectionSelect } =
+    useCVAppContext();
+
   return (
-    <section className="cv-editors">
-      {editors.map((editor) => {
+    <section className={`cv-editors`}>
+      {sections.map((section) => {
+        const { headerText, isSelected, fields } = section;
         return (
-          <EditorSection
-            key={editor.key}
-            {...editor}
-            toggle={() => handleToggle(editor.key)}
-          />
+          <DropDownContainer
+            key={section.id}
+            containerHeaderText={headerText}
+            toggle={() => onSectionSelect(section.id)}
+            isOpen={isSelected}
+            addToggleToHeader={true}
+          >
+            {fields.map((field) => {
+              const { type, label, value } = field;
+              return (
+                <FieldWrapper
+                  key={field.id}
+                  type={type}
+                  label={label}
+                  value={value}
+                  onChange={(e) =>
+                    onFieldChange(section.id, field.id, e.target.value)
+                  }
+                />
+              );
+            })}
+            <AddCustomField onAdd={(field) => onAddField(section.id, field)} />
+          </DropDownContainer>
         );
       })}
     </section>

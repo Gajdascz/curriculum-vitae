@@ -40,21 +40,14 @@ export default function DropDownContainer({
   addToggleToHeader = false
 }) {
   const nextDirection = isOpen ? DIRECTIONS.CLOSE : DIRECTIONS.OPEN;
-  const [animationStatus, setAnimationStatus] = useState({
-    isAnimating: false,
-    nextDirection
-  });
-
+  const [isAnimating, setIsAnimating] = useState(false);
   const handleClick = () => {
-    setAnimationStatus({
-      ...animationStatus,
-      isAnimating: true
-    });
+    setIsAnimating(true);
     toggle();
   };
   const handleAnimationEnd = (e) => {
     e.stopPropagation();
-    setAnimationStatus({ isAnimating: false, nextDirection: null });
+    setIsAnimating(false);
   };
 
   const headerProps = addToggleToHeader
@@ -63,7 +56,7 @@ export default function DropDownContainer({
         onKeyDown: (e) => {
           if (e.key === 'Enter' || e.key === ' ') handleClick();
         },
-        className: `${ATTS.CLASSES.HEADER} ${ATTS.CLASSES.INTERACTIVE_HEADER}`,
+        className: `${ATTS.CLASSES.HEADER} ${ATTS.CLASSES.INTERACTIVE_HEADER} ${isOpen ? 'open-menu' : ''}`,
         tabIndex: 0,
         'aria-expanded': isOpen
       }
@@ -88,7 +81,7 @@ export default function DropDownContainer({
       <div
         className={`${ATTS.CLASSES.CONTENT} ${nextDirection === DIRECTIONS.OPEN ? ATTS.CLASSES.COLLAPSE : ATTS.CLASSES.EXPAND}`}
         style={{
-          display: animationStatus.isAnimating || isOpen ? '' : ATTS.NONE
+          display: isAnimating || isOpen ? '' : ATTS.NONE
         }}
         onAnimationEnd={handleAnimationEnd}
       >

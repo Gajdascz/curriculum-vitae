@@ -5,7 +5,6 @@
   --color-primary-text: #fdfffc;
   --color-primary-accent: #cc9dd7;
   --color-primary-accent-secondary: #000000;
-  --box-shadow-full: 0 4px 8px rgba(0, 0, 0, 0.33);
   --effect-transition-time: 0.2s;
   --border-radius: 5px;
   --space-small: 0.25em;
@@ -13,6 +12,8 @@
   --space-large: 1em;
   --space-xl: 1.5em;
   --space-xxl: 2em;
+  --view-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 :root.light-theme {
@@ -33,4 +34,13 @@ svg {
   height: 32px;
   fill: var(--color-primary-accent-secondary);
   transition: fill 0.3s;
+}
+
+::selection {
+  background-color: var(--color-primary-accent);
+  color: var(--color-primary-accent-secondary);
+}
+::-moz-selection {
+  background-color: var(--color-primary-accent);
+  color: var(--color-primary-accent-secondary);
 }

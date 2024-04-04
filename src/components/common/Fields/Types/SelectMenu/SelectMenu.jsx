@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import DropDownContainer from '../DropDownContainer/DropDownContainer';
-import Button from '../Button/Button';
+import DropDownContainer from '../../../DropDownContainer/DropDownContainer';
+import Button from '../../../Button/Button';
 import './SelectMenu.css';
 
 export default function SelectMenu({ options, onChange, className }) {
