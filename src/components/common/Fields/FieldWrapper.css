@@ -10,17 +10,22 @@
   flex: 1;
 }
 
-.field-input-button-wrapper {
+textarea {
+  resize: none;
+}
+
+.field-input-container {
   display: flex;
   border: 3px solid var(--color-primary-accent);
   border-radius: var(--border-radius);
 }
-.field-input-button-wrapper > * {
+.field-input-container > * {
   border-radius: 0;
-  border: none;
-  padding: var(--space-medium);
+  padding: var(--space-small);
 }
-
+.field-wrapper-delete-button {
+  border: none;
+}
 .field-wrapper-delete-button:hover {
   border-left: 3px solid var(--color-primary-accent);
 }

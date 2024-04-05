@@ -3,6 +3,7 @@ import DropDownContainer from '../common/DropDownContainer/DropDownContainer';
 import FieldWrapper from '../common/Fields/FieldWrapper';
 import Button from '../common/Button/Button';
 
+import UtilButtons from './UtilButtons/UtilButtons';
 import { useCVAppContext } from '../../CVAppContext';
 
 import './CVEditors.css';
@@ -18,7 +19,7 @@ export default function CVEditors() {
   } = useCVAppContext();
 
   const EditorContainer = (section) => {
-    const { headerText, isSelected, fields, saved, actions } = section;
+    const { headerText, isSelected, fields, type } = section;
     return (
       <DropDownContainer
         key={section.id}
@@ -27,14 +28,14 @@ export default function CVEditors() {
         isOpen={isSelected}
         addToggleToHeader={true}
       >
-        {EditorFields(fields, section.id)}
+        {EditorFields({ fields, sectionId: section.id, sectionType: type })}
       </DropDownContainer>
     );
   };
 
-  const EditorFields = (fields, sectionId) =>
+  const EditorFields = ({ fields, sectionId, sectionType }) =>
     fields.map((field) => {
-      const { type, label, value, addDelete } = field;
+      const { type, label, value } = field;
       return (
         <FieldWrapper
           key={field.id}
@@ -42,36 +43,19 @@ export default function CVEditors() {
           label={label}
           value={value}
           onChange={(e) => onFieldChange(sectionId, field.id, e.target.value)}
-          onDelete={addDelete && (() => onRemoveField(sectionId, field.id))}
+          onDelete={
+            sectionType === 'custom' || sectionType === 'list'
+              ? () => onRemoveField(sectionId, field.id)
+              : null
+          }
+          isDraggable={sectionType === 'custom' ? () => {} : null}
         />
       );
     });
 
   return (
     <section className={`cv-editors-section`}>
-      <div className="cv-editors-util-sections">
-        <div className="util-section-wrapper">
-          <h3 className="util-section-header">Memory</h3>
-          <div className="util-section-buttons">
-            <Button text="Save" onclick={onSave} />
-            <Button text="Clear" onclick={() => localStorage.clear()} />
-          </div>
-        </div>
-        <div className="util-section-wrapper">
-          <h3 className="util-section-header">Export</h3>
-          <div className="util-section-buttons">
-            <Button text="PDF" />
-            <Button text="HTML" />
-          </div>
-        </div>
-        <div className="util-section-wrapper">
-          <h3 className="util-section-header">Print</h3>
-          <div className="util-section-buttons">
-            <Button text="Preview" />
-            <Button text="Start" />
-          </div>
-        </div>
-      </div>
+      <UtilButtons onSave={onSave} />
       <div className="cv-section-editors">
         <h2 className="cv-section-editors-header">CV Editors</h2>
         <div className="cv-section-editors-container">

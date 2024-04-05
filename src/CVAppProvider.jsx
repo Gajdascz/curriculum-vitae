@@ -10,6 +10,15 @@ export default function CVAppProvider({ children }) {
 
   const onSave = () => storeSectionData(sections);
 
+  const onExpandSection = (expandedSection) =>
+    setSections(
+      sections.map((section) =>
+        section.id === expandedSection.id
+          ? { ...section, ...expandedSection }
+          : section
+      )
+    );
+
   const onFieldChange = (sectionId, fieldId, newValue) =>
     setSections(
       sections.map((section) =>
@@ -51,16 +60,14 @@ export default function CVAppProvider({ children }) {
       })
     );
 
-  const onSectionSelect = (sectionId) => {
+  const onSectionSelect = (sectionId) =>
     setSections(
       sections.map((section) => ({
         ...section,
         isSelected: section.id === sectionId && !section.isSelected
       }))
     );
-    console.log(sections);
-    console.log(sectionId);
-  };
+
   const onSectionOrderChange = (newOrder) => {};
   const onAddSection = (sectionInfo) => {};
   const onRemoveSection = (sectionId) => {};
@@ -70,6 +77,7 @@ export default function CVAppProvider({ children }) {
       value={{
         sections,
         onSave,
+        onExpandSection,
         onFieldChange,
         onRemoveField,
         onAddField,

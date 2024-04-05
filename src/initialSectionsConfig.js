@@ -6,6 +6,7 @@ const uid = () =>
 const config = {
   id: uid(),
   headerText: 'General',
+  type: 'static',
   index: -1,
   isSelected: false,
   fields: [
@@ -25,30 +26,25 @@ const config = {
   ]
 };
 
-const field = ({
-  label,
-  type = 'text',
-  value = '',
-  addDelete = false
-} = {}) => ({
+const field = ({ label, type = 'text', value = '' } = {}) => ({
   id: uid(),
   type,
   label,
-  value,
-  addDelete
+  value
 });
 
-const base = ({ headerText, fields = [], saved = [], actions = [] } = {}) => ({
+const base = ({ headerText, fields = [], type } = {}) => ({
   id: uid(),
   headerText,
   isSelected: false,
-  saved,
-  actions: ['save', ...actions],
-  fields
+  fields,
+  type,
+  ...(type === 'structured' && { saved: [] })
 });
 
 const header = base({
   headerText: 'Header',
+  type: 'static',
   fields: [
     field({ type: 'text', label: 'Name' }),
     field({ type: 'text', label: 'Title' }),
@@ -57,7 +53,7 @@ const header = base({
 });
 const contact = base({
   headerText: 'Contact',
-  actions: ['add-field'],
+  type: 'expandable',
   fields: [
     field({ type: 'email', label: 'Email' }),
     field({ type: 'tel', label: 'Phone' }),
@@ -67,12 +63,13 @@ const contact = base({
 
 const profile = base({
   headerText: 'Profile',
+  type: 'static',
   fields: [field({ type: 'text-area', label: 'Profile' })]
 });
 
 const education = base({
   headerText: 'Education',
-  actions: ['add', 'delete', 'move'],
+  type: 'structured',
   fields: [
     field({ type: 'text', label: 'University' }),
     field({ type: 'number', label: 'GPA' }),
@@ -87,7 +84,7 @@ const education = base({
 
 const experience = base({
   headerText: 'Experience',
-  actions: ['add', 'delete', 'move'],
+  type: 'structured',
   fields: [
     field({ type: 'text', label: 'Position' }),
     field({ type: 'date', label: 'Start' }),
@@ -98,8 +95,8 @@ const experience = base({
 
 const skills = base({
   headerText: 'Skills',
-  actions: ['add', 'move'],
-  fields: [field({ type: 'text', label: 'Skill', addDelete: true })]
+  type: 'list',
+  fields: [field({ type: 'text' })]
 });
 
 const getDefaultConfig = () =>
