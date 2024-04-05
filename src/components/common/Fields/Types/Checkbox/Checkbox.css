@@ -1,9 +1,18 @@
 @import url('../../../../../index.css');
 
 .custom-checkbox {
-  max-width: 64px;
-  max-height: 64px;
+  max-width: 32px;
+  max-height: 32px;
+  min-width: 32px;
+  min-height: 32px;
+  transition: none;
+  transform: none;
 }
+
+button.custom-checkbox:hover {
+  background-color: var(--color-primary-accent-secondary);
+}
+
 .custom-checkbox.checked {
   background-color: var(--color-primary-accent);
 }

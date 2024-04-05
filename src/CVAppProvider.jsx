@@ -1,9 +1,14 @@
 import { useState } from 'react';
 import { uid, getInitialSections } from './initialSectionsConfig';
+import { storeSectionData } from './storage';
 import CVAppContext from './CVAppContext';
 
 export default function CVAppProvider({ children }) {
-  const [sections, setSections] = useState(getInitialSections());
+  const [sections, setSections] = useState(
+    getInitialSections().sort((a, b) => a.index - b.index)
+  );
+
+  const onSave = () => storeSectionData(sections);
 
   const onFieldChange = (sectionId, fieldId, newValue) =>
     setSections(
@@ -35,14 +40,15 @@ export default function CVAppProvider({ children }) {
 
   const onRemoveField = (sectionId, fieldId) =>
     setSections(
-      sections.map((section) =>
-        section.id === sectionId
+      sections.map((section) => {
+        if (sectionId === section.id) console.log(section.fields);
+        return section.id === sectionId
           ? {
               ...section,
-              fields: section.fields.filter((field) => field.id === fieldId)
+              fields: section.fields.filter((field) => field.id !== fieldId)
             }
-          : section
-      )
+          : section;
+      })
     );
 
   const onSectionSelect = (sectionId) => {
@@ -63,6 +69,7 @@ export default function CVAppProvider({ children }) {
     <CVAppContext.Provider
       value={{
         sections,
+        onSave,
         onFieldChange,
         onRemoveField,
         onAddField,

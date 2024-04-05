@@ -9,3 +9,18 @@
 .field-wrapper > * {
   flex: 1;
 }
+
+.field-input-button-wrapper {
+  display: flex;
+  border: 3px solid var(--color-primary-accent);
+  border-radius: var(--border-radius);
+}
+.field-input-button-wrapper > * {
+  border-radius: 0;
+  border: none;
+  padding: var(--space-medium);
+}
+
+.field-wrapper-delete-button:hover {
+  border-left: 3px solid var(--color-primary-accent);
+}

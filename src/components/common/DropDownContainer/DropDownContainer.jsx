@@ -73,7 +73,7 @@ export default function DropDownContainer({
             />
           }
           className={ATTS.CLASSES.BUTTON}
-          handleClick={handleClick}
+          onclick={handleClick}
           aria-expanded={isOpen}
         />
         {containerHeaderText && <h3>{containerHeaderText}</h3>}

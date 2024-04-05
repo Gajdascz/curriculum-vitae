@@ -3,6 +3,7 @@ import Input from './Types/Input/Input';
 import TextArea from './Types/TextArea/TextArea';
 import Checkbox from './Types/Checkbox/Checkbox';
 import './FieldWrapper.css';
+import Button from '../Button/Button';
 
 const FieldType = ({ type, className, ...rest }) => {
   switch (type) {
@@ -12,17 +13,28 @@ const FieldType = ({ type, className, ...rest }) => {
       return <SelectMenu {...rest} className={className} />;
     case 'checkbox':
       return <Checkbox></Checkbox>;
+    case 'visual':
+      return <div></div>;
     default:
       return <Input type={type} {...rest} className={className} />;
   }
+};
+
+const DraggableField = ({ type, className, ...rest }) => {
+  <div className="draggable-field">
+    <div className="drag-handle">|||</div>
+    <FieldType type={type} className={className} {...rest} />;
+    <Button className="delete-field-button" onclick={onclick}></Button>
+  </div>;
 };
 
 export default function FieldWrapper({
   type = 'text',
   label = '',
   id,
-  className = null,
   onChange,
+  className = null,
+  children,
   ...rest
 }) {
   return (
@@ -31,10 +43,11 @@ export default function FieldWrapper({
       <FieldType
         type={type}
         id={id}
-        className={className}
+        className={`${className} field-input`}
         onChange={onChange}
         {...rest}
       />
+      {children}
     </div>
   );
 }

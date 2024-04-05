@@ -33,7 +33,7 @@ export default function AddCustomField({ onAdd }) {
 
   return (
     <DropDownContainer
-      containerHeaderText="Add Custom Field"
+      containerHeaderText="Add Field"
       isOpen={isOpen}
       toggle={() => setIsOpen(!isOpen)}
       addToggleToHeader={true}
@@ -62,7 +62,7 @@ export default function AddCustomField({ onAdd }) {
         <Button
           text="Add"
           className="add-custom-field"
-          handleClick={handleSubmit}
+          onclick={handleSubmit}
         />
       </div>
     </DropDownContainer>

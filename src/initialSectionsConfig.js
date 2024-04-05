@@ -1,98 +1,113 @@
+import { getStoredSectionsConfig } from './storage';
+
 const uid = () =>
   `${Math.round((Math.random() * Date.now()) / Math.PI ** Math.PI)}`;
 
-const header = {
+const config = {
   id: uid(),
+  headerText: 'General',
+  index: -1,
+  isSelected: false,
+  fields: [
+    {
+      id: uid(),
+      type: 'color',
+      label: 'Accent Color',
+      value: '#add8e6'
+    },
+    {
+      id: uid(),
+      type: 'visual',
+      label: 'Font',
+      value: 'times-new-roman'
+    },
+    { id: uid(), type: 'visual', label: 'Layout', value: 'top-right' }
+  ]
+};
+
+const field = ({
+  label,
+  type = 'text',
+  value = '',
+  addDelete = false
+} = {}) => ({
+  id: uid(),
+  type,
+  label,
+  value,
+  addDelete
+});
+
+const base = ({ headerText, fields = [], saved = [], actions = [] } = {}) => ({
+  id: uid(),
+  headerText,
+  isSelected: false,
+  saved,
+  actions: ['save', ...actions],
+  fields
+});
+
+const header = base({
   headerText: 'Header',
-  index: 0,
-  isSelected: false,
   fields: [
-    { id: uid(), type: 'text', label: 'Name', value: 'Name' },
-    { id: uid(), type: 'text', label: 'Title', value: 'Title' }
+    field({ type: 'text', label: 'Name' }),
+    field({ type: 'text', label: 'Title' }),
+    field({ type: 'text', label: 'Other' })
   ]
-};
-
-const contact = {
-  id: uid(),
+});
+const contact = base({
   headerText: 'Contact',
-  index: 1,
-  isSelected: false,
+  actions: ['add-field'],
   fields: [
-    { id: uid(), type: 'email', label: 'Email', value: 'Email' },
-    { id: uid(), type: 'tel', label: 'Phone', value: 'Phone' },
-    { id: uid(), type: 'text', label: 'Address', value: 'Address' }
+    field({ type: 'email', label: 'Email' }),
+    field({ type: 'tel', label: 'Phone' }),
+    field({ type: 'text', label: 'Address' })
   ]
-};
+});
 
-const profile = {
-  id: uid(),
+const profile = base({
   headerText: 'Profile',
-  index: 2,
-  isSelected: false,
-  fields: [
-    {
-      id: uid(),
-      type: 'text-area',
-      label: 'Profile',
-      value: 'Short description of yourself.'
-    },
-    { id: uid(), type: 'checkbox', label: 'Emphasize First Word' }
-  ]
-};
+  fields: [field({ type: 'text-area', label: 'Profile' })]
+});
 
-const education = {
-  id: uid(),
+const education = base({
   headerText: 'Education',
-  index: 3,
-  isSelected: false,
+  actions: ['add', 'delete', 'move'],
   fields: [
-    { id: uid(), type: 'text', label: 'University', value: '' },
-    { id: uid(), type: 'number', label: 'GPA', value: '' },
-    { id: uid(), type: 'text', label: 'Degree', value: '' },
-    { id: uid(), type: 'date', label: 'Start', value: '' },
-    { id: uid(), type: 'date', label: 'End', value: '' },
-    { id: uid(), type: 'text', label: 'Location', value: '' },
-    {
-      id: uid(),
-      type: 'text-area',
-      label: 'Relevant Courses',
-      value: ''
-    },
-    {
-      id: uid(),
-      type: 'text-area',
-      label: 'Achievements',
-      value: 'Achievement'
-    }
+    field({ type: 'text', label: 'University' }),
+    field({ type: 'number', label: 'GPA' }),
+    field({ type: 'text', label: 'Degree' }),
+    field({ type: 'date', label: 'Start' }),
+    field({ type: 'date', label: 'End' }),
+    field({ type: 'text', label: 'Location' }),
+    field({ type: 'text-area', label: 'Relevant Courses' }),
+    field({ type: 'text-area', label: 'Achievements' })
   ]
-};
-const skills = {
-  id: uid(),
-  headerText: 'Skills',
-  index: 4,
-  isSelected: false,
-  fields: [{ id: uid(), type: 'text', label: 'Skill', value: '' }]
-};
-const experience = {
-  id: uid(),
-  headerText: 'Experience',
-  index: 5,
-  isSelected: false,
-  fields: [
-    { id: uid(), type: 'text', label: 'Position', value: '' },
-    { id: uid(), type: 'date', label: 'Start', value: '' },
-    { id: uid(), type: 'date', label: 'End', value: '' },
-    { id: uid(), type: 'text-area', label: 'Description', value: '' }
-  ]
-};
+});
 
-const getInitialSections = () => [
-  header,
-  contact,
-  profile,
-  education,
-  skills,
-  experience
-];
+const experience = base({
+  headerText: 'Experience',
+  actions: ['add', 'delete', 'move'],
+  fields: [
+    field({ type: 'text', label: 'Position' }),
+    field({ type: 'date', label: 'Start' }),
+    field({ type: 'date', label: 'End' }),
+    field({ type: 'text-area', label: 'Description' })
+  ]
+});
+
+const skills = base({
+  headerText: 'Skills',
+  actions: ['add', 'move'],
+  fields: [field({ type: 'text', label: 'Skill', addDelete: true })]
+});
+
+const getDefaultConfig = () =>
+  [config, header, contact, profile, education, experience, skills].map(
+    (section, index) => ({ ...section, index })
+  );
+
+const getInitialSections = () =>
+  localStorage.length === 0 ? getDefaultConfig() : getStoredSectionsConfig();
 
 export { getInitialSections, uid };

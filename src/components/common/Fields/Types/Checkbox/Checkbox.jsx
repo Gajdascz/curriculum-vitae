@@ -8,6 +8,7 @@ export default function Checkbox() {
     <Button
       text={isChecked ? '✔' : 'X'}
       className={`custom-checkbox ${isChecked ? 'checked' : 'unchecked'}`}
+      value={isChecked}
       onclick={() => setIsChecked(!isChecked)}
     />
   );
