@@ -27,11 +27,7 @@ export default function CVView() {
   };
 
   const AdditionalInfoSidebar = () => {
-    return (
-      <div className="view-additional-info-sidebar">
-        <p>Test</p>
-      </div>
-    );
+    return <div className="view-additional-info-sidebar"></div>;
   };
 
   const Profile = () => {

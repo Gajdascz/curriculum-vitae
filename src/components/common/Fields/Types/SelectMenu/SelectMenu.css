@@ -34,13 +34,13 @@
   position: absolute;
   top: 100%;
   flex-direction: column;
+  padding: 0;
 }
-.select-menu > .drop-down-container-content > *:last-child {
-  border-bottom-left-radius: var(--border-radius);
-  border-bottom-right-radius: var(--border-radius);
+.select-menu-options-container {
+  display: flex;
+  flex-direction: column;
 }
-.select-menu-option,
-.select-menu > .drop-down-container-content > *:last-child:hover {
+.select-menu-option {
   border-radius: 0;
 }
 .select-menu-option {

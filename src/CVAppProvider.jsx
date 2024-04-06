@@ -72,6 +72,70 @@ export default function CVAppProvider({ children }) {
   const onAddSection = (sectionInfo) => {};
   const onRemoveSection = (sectionId) => {};
 
+  const onSaveStructuredData = (sectionId) =>
+    setSections(
+      sections.map((section) =>{
+        if(section.id !== sectionId) return section;
+          ? {
+              ...section,
+              saved: [
+                ...section.saved,
+                {
+                  id: uid(),
+                  index: section.saved.length + 1,
+                  data: section.fields.map((field) => ({ ...field }))
+                }
+              ],
+              fields: section.fields.map((field) => ({ ...field, value: '' })),
+              loadedData: null
+            }
+          : section}
+      )
+    );
+
+  const onDeleteStructuredData = (sectionId) =>
+    setSections(
+      sections.map((section) =>
+        section.id === sectionId
+          ? {
+              ...section,
+              saved: section.saved
+                .filter((savedData) => savedData.id !== section.loadedData)
+                .map((data, index) => ({ ...data, index }))
+            }
+          : section
+      )
+    );
+
+  const onEditSavedStructuredData = (sectionId, dataId) =>
+    setSections(
+      sections.map((section) =>
+        section.id === sectionId
+          ? {
+              ...section,
+              fields: [
+                ...section.saved.find((data) => data.id === dataId).data
+              ],
+              loadedData: dataId
+            }
+          : section
+      )
+    );
+
+  const onReorderStructuredData = (sectionId, startIndex, targetIndex) =>
+    setSections(
+      sections.map((section) => {
+        if (section.id !== sectionId) return section;
+        const itemToMove = section.saved[startIndex];
+        const newSaved = [...section.saved];
+        newSaved.splice(startIndex, 1);
+        newSaved.splice(targetIndex, 0, itemToMove);
+        const updated = newSaved.map((data, index) => ({ ...data, index }));
+        console.log(updated);
+        return { ...section, saved: updated };
+      })
+    );
+
   return (
     <CVAppContext.Provider
       value={{
@@ -81,6 +145,12 @@ export default function CVAppProvider({ children }) {
         onFieldChange,
         onRemoveField,
         onAddField,
+
+        onSaveStructuredData,
+        onDeleteStructuredData,
+        onEditSavedStructuredData,
+        onReorderStructuredData,
+
         onSectionSelect,
         onSectionOrderChange,
         onAddSection,

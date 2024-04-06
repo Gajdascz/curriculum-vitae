@@ -26,17 +26,19 @@ export default function SelectMenu({ options, onChange, className }) {
       toggle={toggleSelecting}
       addToggleToHeader={true}
     >
-      {options.map((option) =>
-        option === selectedStatus.selected ? null : (
-          <Button
-            key={option}
-            className="select-menu-option"
-            data-value={option}
-            onClick={() => handleChange(option)}
-            text={option}
-          />
-        )
-      )}
+      <div className="select-menu-options-container">
+        {options.map((option) =>
+          option === selectedStatus.selected ? null : (
+            <Button
+              key={option}
+              className="select-menu-option"
+              data-value={option}
+              onClick={() => handleChange(option)}
+              text={option}
+            />
+          )
+        )}
+      </div>
     </DropDownContainer>
   );
 }

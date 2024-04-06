@@ -1,17 +1,26 @@
 @import url('../../../index.css');
 
 .field-wrapper {
+  gap: var(--space-medium);
   display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  align-items: center;
+  flex-direction: column;
 }
-.field-wrapper > * {
-  flex: 1;
+
+label {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+input[type='color'] {
+  padding: 0;
+  border: 0;
+  background-color: inherit;
+  cursor: pointer;
 }
 
 textarea {
   resize: none;
+  width: 100%;
 }
 
 .field-input-container {
@@ -25,7 +34,154 @@ textarea {
 }
 .field-wrapper-delete-button {
   border: none;
+  max-width: 10%;
+  font-weight: bolder;
+}
+.field-input-container > input {
+  width: 100%;
+}
+.field-input-container > .drag-handle {
+  max-width: 10%;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-primary-accent);
+  color: var(--color-primary-accent-secondary);
+  font-weight: bolder;
+  font-size: 1.25rem;
+  cursor: grab;
+}
+.field-input-container > .drag-handle:hover {
+  background-color: var(--color-primary-accent-secondary);
+  color: var(--color-primary-accent);
+  border-right: 3px solid var(--color-primary-accent);
 }
 .field-wrapper-delete-button:hover {
   border-left: 3px solid var(--color-primary-accent);
+}
+
+.visual-input {
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  color: black;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  cursor: pointer;
+  position: relative;
+}
+
+.font-field.selected,
+.font-field:hover {
+  background-color: var(--color-primary-accent);
+  border: 3px solid var(--color-primary-accent-secondary);
+}
+
+.layout-field {
+  background-color: darkgray;
+  --color-mock-header: blue;
+  --color-mock-sidebar: white;
+}
+
+.layout-field.selected,
+.layout-field:hover {
+  border: 3px solid var(--color-primary-accent-secondary);
+  background-color: white;
+  --color-mock-sidebar: darkgray;
+}
+
+.visual-input.top-right::before,
+.visual-input.top-right::after,
+.visual-input.top-left::before,
+.visual-input.top-left::after,
+.visual-input.top::before,
+.visual-input.right::before,
+.visual-input.left::before {
+  content: '';
+  position: absolute;
+}
+/* header */
+.visual-input.top::before,
+.visual-input.top-right::before {
+  background-color: var(--color-mock-header);
+  height: 35%;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: 0;
+}
+/* sidebar */
+.visual-input.top-right::after {
+  background-color: var(--color-mock-sidebar);
+  width: 40%;
+  bottom: 0;
+  right: 0;
+  top: 35%;
+}
+/* header */
+.visual-input.top-left::before {
+  background-color: var(--color-mock-header);
+  height: 35%;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: 0;
+}
+/* sidebar */
+.visual-input.top-left::after {
+  background-color: var(--color-mock-sidebar);
+  width: 40%;
+  bottom: 0;
+  left: 0;
+  top: 35%;
+}
+
+.visual-input.right::before {
+  background-color: var(--color-mock-sidebar);
+  width: 40%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+.visual-input.left::before {
+  background-color: var(--color-mock-sidebar);
+  width: 40%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.times-new-roman::after {
+  font-family: 'Times New Roman';
+  content: 'Ti';
+}
+.arial::after {
+  font-family: Arial;
+  content: 'Ar';
+}
+
+.atkinson::after {
+  font-family: 'atkinson-hyper-legible';
+  content: 'At';
+}
+
+.field-input.saved-data {
+  flex: 1;
+  height: 100%;
+  padding: var(--space-small);
+  font-size: 1rem;
+  display: flex;
+  white-space: nowrap;
+  justify-content: start;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.field-input.saved-data:hover {
+  background-color: var(--color-primary-accent-secondary);
+  color: var(--color-primary-accent);
 }

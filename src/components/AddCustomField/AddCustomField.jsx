@@ -25,8 +25,8 @@ export default function AddCustomField({ onAdd }) {
     setFieldInfo({ ...fieldInfo, value: e.target.value });
 
   const handleSubmit = () => {
-    if (!fieldInfo.label || fieldInfo.label.trim().length <= 0) return;
     console.log(fieldInfo);
+    if (!fieldInfo.label || fieldInfo.label.trim().length <= 0) return;
     onAdd({ ...fieldInfo });
     setFieldInfo({ type: '', label: '', value: '' });
   };
@@ -61,8 +61,8 @@ export default function AddCustomField({ onAdd }) {
         />
         <Button
           text="Add"
-          className="add-custom-field"
-          onclick={handleSubmit}
+          className="add-custom-field-button"
+          onClick={handleSubmit}
         />
       </div>
     </DropDownContainer>

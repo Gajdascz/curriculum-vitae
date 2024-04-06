@@ -6,8 +6,8 @@ export default function UtilButtons({ onSave }) {
       <div className="util-section-wrapper">
         <h3 className="util-section-header">Memory</h3>
         <div className="util-section-buttons">
-          <Button text="Save" onclick={onSave} />
-          <Button text="Clear" onclick={() => localStorage.clear()} />
+          <Button text="Save" onClick={onSave} />
+          <Button text="Clear" onClick={() => localStorage.clear()} />
         </div>
       </div>
       <div className="util-section-wrapper">

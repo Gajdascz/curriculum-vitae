@@ -2,6 +2,7 @@
 
 .cv-editors-util-sections {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--space-small);
 }
 

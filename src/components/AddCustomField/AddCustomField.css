@@ -1,16 +1,17 @@
 @import url('../../index.css');
 
-/* .add-custom-field-inputs-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minMax(240px, 1fr));
+.add-custom-field-inputs-container {
+  display: flex;
   flex-direction: column;
   padding: var(--space-medium);
-  gap: var(--space-small) var(--space-medium);
+  gap: 1em;
   align-items: start;
 }
+.add-custom-field-inputs-container > * {
+  width: 100%;
+}
 
-.add-custom-field {
-  grid-column: 1/-1;
-  width: 33%;
+.add-custom-field-button {
+  width: 50%;
   padding: var(--space-medium);
-} */
+}

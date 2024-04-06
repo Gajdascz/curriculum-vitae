@@ -3,34 +3,19 @@ import { getStoredSectionsConfig } from './storage';
 const uid = () =>
   `${Math.round((Math.random() * Date.now()) / Math.PI ** Math.PI)}`;
 
-const config = {
-  id: uid(),
-  headerText: 'General',
-  type: 'static',
-  index: -1,
-  isSelected: false,
-  fields: [
-    {
-      id: uid(),
-      type: 'color',
-      label: 'Accent Color',
-      value: '#add8e6'
-    },
-    {
-      id: uid(),
-      type: 'visual',
-      label: 'Font',
-      value: 'times-new-roman'
-    },
-    { id: uid(), type: 'visual', label: 'Layout', value: 'top-right' }
-  ]
-};
-
-const field = ({ label, type = 'text', value = '' } = {}) => ({
+const field = ({
+  label,
+  type = 'text',
+  value = '',
+  className = '',
+  content = ''
+} = {}) => ({
   id: uid(),
   type,
   label,
-  value
+  value,
+  className,
+  content
 });
 
 const base = ({ headerText, fields = [], type } = {}) => ({
@@ -41,6 +26,81 @@ const base = ({ headerText, fields = [], type } = {}) => ({
   type,
   ...(type === 'structured' && { saved: [] })
 });
+
+const config = {
+  id: uid(),
+  headerText: 'General',
+  type: 'static',
+  index: -1,
+  isSelected: false,
+  fields: [
+    field({
+      type: 'color',
+      label: 'Accent',
+      value: '#add8e6'
+    }),
+    [
+      uid(),
+      'Font',
+      [
+        field({
+          type: 'visual',
+          value: 'times-new-roman',
+          label: 'Times New Roman',
+          content: 'font'
+        }),
+        field({
+          type: 'visual',
+          value: 'atkinson',
+          label: 'Atkinson Hyper-legible',
+          content: 'font'
+        }),
+        field({
+          type: 'visual',
+          value: 'arial',
+          label: 'Arial',
+          content: 'font'
+        })
+      ]
+    ],
+    [
+      uid(),
+      'Layout',
+      [
+        field({
+          type: 'visual',
+          value: 'top-right',
+          label: 'Header and right sidebar',
+          content: 'layout'
+        }),
+        field({
+          type: 'visual',
+          value: 'top-left',
+          label: 'Header and left sidebar',
+          content: 'layout'
+        }),
+        field({
+          type: 'visual',
+          value: 'top',
+          label: 'Just header',
+          content: 'layout'
+        }),
+        field({
+          type: 'visual',
+          value: 'right',
+          label: 'Just right sidebar',
+          content: 'layout'
+        }),
+        field({
+          type: 'visual',
+          value: 'left',
+          label: 'Just left sidebar',
+          content: 'layout'
+        })
+      ]
+    ]
+  ]
+};
 
 const header = base({
   headerText: 'Header',
@@ -57,7 +117,7 @@ const contact = base({
   fields: [
     field({ type: 'email', label: 'Email' }),
     field({ type: 'tel', label: 'Phone' }),
-    field({ type: 'text', label: 'Address' })
+    field({ type: 'text', label: 'Area' })
   ]
 });
 
@@ -77,7 +137,7 @@ const education = base({
     field({ type: 'date', label: 'Start' }),
     field({ type: 'date', label: 'End' }),
     field({ type: 'text', label: 'Location' }),
-    field({ type: 'text-area', label: 'Relevant Courses' }),
+    field({ type: 'text-area', label: 'Courses' }),
     field({ type: 'text-area', label: 'Achievements' })
   ]
 });
