@@ -18,12 +18,18 @@ const field = ({
   content
 });
 
-const base = ({ headerText, fields = [], type } = {}) => ({
+const base = ({
+  type,
+  headerText,
+  fields = [],
+  location = { id: 'base', index: 0 }
+} = {}) => ({
   id: uid(),
   headerText,
   isSelected: false,
   fields,
   type,
+  location,
   ...(type === 'structured' && { saved: [] })
 });
 
@@ -33,6 +39,7 @@ const config = {
   type: 'static',
   index: -1,
   isSelected: false,
+  location: { id: 'base', index: 0 },
   fields: [
     field({
       type: 'color',
@@ -78,24 +85,6 @@ const config = {
           value: 'top-left',
           label: 'Header and left sidebar',
           content: 'layout'
-        }),
-        field({
-          type: 'visual',
-          value: 'top',
-          label: 'Just header',
-          content: 'layout'
-        }),
-        field({
-          type: 'visual',
-          value: 'right',
-          label: 'Just right sidebar',
-          content: 'layout'
-        }),
-        field({
-          type: 'visual',
-          value: 'left',
-          label: 'Just left sidebar',
-          content: 'layout'
         })
       ]
     ]
@@ -105,15 +94,25 @@ const config = {
 const header = base({
   headerText: 'Header',
   type: 'static',
+  location: { id: 'header', index: 0 },
   fields: [
     field({ type: 'text', label: 'Name' }),
     field({ type: 'text', label: 'Title' }),
     field({ type: 'text', label: 'Other' })
   ]
 });
+
+const profile = base({
+  headerText: 'Profile',
+  type: 'static',
+  location: { id: 'primary', index: 0 },
+  fields: [field({ type: 'text-area', label: 'Profile' })]
+});
+
 const contact = base({
   headerText: 'Contact',
   type: 'expandable',
+  location: { id: 'sidebar', index: 0 },
   fields: [
     field({ type: 'email', label: 'Email' }),
     field({ type: 'tel', label: 'Phone' }),
@@ -121,15 +120,10 @@ const contact = base({
   ]
 });
 
-const profile = base({
-  headerText: 'Profile',
-  type: 'static',
-  fields: [field({ type: 'text-area', label: 'Profile' })]
-});
-
 const education = base({
   headerText: 'Education',
   type: 'structured',
+  location: { id: 'primary', index: 1 },
   fields: [
     field({ type: 'text', label: 'University' }),
     field({ type: 'number', label: 'GPA' }),
@@ -145,6 +139,7 @@ const education = base({
 const experience = base({
   headerText: 'Experience',
   type: 'structured',
+  location: { id: 'primary', index: 2 },
   fields: [
     field({ type: 'text', label: 'Position' }),
     field({ type: 'date', label: 'Start' }),
@@ -155,16 +150,38 @@ const experience = base({
 
 const skills = base({
   headerText: 'Skills',
+  location: { id: 'sidebar', index: 1 },
   type: 'list',
   fields: [field({ type: 'text' })]
 });
 
-const getDefaultConfig = () =>
-  [config, header, contact, profile, education, experience, skills].map(
-    (section, index) => ({ ...section, index })
-  );
+const getDefaultConfig = () => [
+  config,
+  header,
+  profile,
+  contact,
+  education,
+  experience,
+  skills
+];
 
 const getInitialSections = () =>
   localStorage.length === 0 ? getDefaultConfig() : getStoredSectionsConfig();
 
-export { getInitialSections, uid };
+const sortSections = (sections) => {
+  const primary = sections.filter(
+    (section) => section.location.id === 'primary'
+  );
+  const sidebar = sections.filter(
+    (section) => section.location.id === 'sidebar'
+  );
+  const other = sections.filter(
+    (section) =>
+      section.location.id !== 'primary' && section.location.id !== 'sidebar'
+  );
+  primary.sort((a, b) => a.location.index - b.location.index);
+  sidebar.sort((a, b) => a.location.index - b.location.index);
+  return [...primary, ...sidebar, ...other];
+};
+
+export { getInitialSections, sortSections, uid };

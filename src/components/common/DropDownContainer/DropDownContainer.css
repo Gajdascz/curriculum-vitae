@@ -34,8 +34,14 @@
 
 .toggle-drop-down-button {
   border-radius: var(--border-radius) 0 0 0;
+  background-color: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
+.toggle-drop-down-button > svg {
+  fill: var(--color-primary-accent);
+}
 .drop-down-chevron {
   transition: transform var(--effect-transition-time) ease;
 }
@@ -47,6 +53,9 @@ div.drop-down-interactive-header {
 .open-menu,
 div.drop-down-interactive-header:hover {
   background-color: var(--color-primary-accent);
+}
+.open-menu > .toggle-drop-down-button > svg {
+  fill: var(--color-primary-accent-secondary);
 }
 .open-menu > h3,
 div.drop-down-interactive-header:hover > h3 {

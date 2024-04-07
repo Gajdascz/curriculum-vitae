@@ -1,0 +1,99 @@
+.drag-container {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-medium) 0;
+  width: 100%;
+}
+div.draggable-item,
+div.draggable-field-container {
+  display: flex;
+  align-items: center;
+  border: 0.5em solid transparent;
+  position: relative;
+}
+div.draggable-field-container > * {
+  border-radius: 0;
+}
+
+.render-item-wrapper {
+  flex: 1;
+  align-self: stretch;
+  display: flex;
+}
+
+.render-item-wrapper > .drop-down-container > .drop-down-container-header,
+.render-item-wrapper > .drop-down-container > .drop-down-container-header > * {
+  border-radius: 0;
+}
+.render-item-wrapper
+  > .drop-down-container
+  > .drop-down-container-header
+  > .toggle-drop-down-button {
+  background-color: inherit;
+}
+.render-item-wrapper
+  > .drop-down-container
+  > .drop-down-container-header
+  > .toggle-drop-down-button
+  > svg {
+  fill: var(--color-primary-accent);
+}
+
+.render-item-wrapper > .drop-down-container > .drop-down-container-content {
+  border-top: 0;
+}
+
+.draggable-field {
+  flex: 1;
+  font-size: 1rem;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  word-break: break-all;
+  background-color: white;
+  color: black;
+  font-weight: bold;
+  padding: var(--space-small);
+  border-top: 3px solid var(--color-primary-accent);
+  border-bottom: 3px solid var(--color-primary-accent);
+}
+.drag-handle,
+div.draggable-field {
+  cursor: grab;
+}
+
+.drag-handle,
+.draggable-item-delete-button {
+  border: 3px solid var(--color-primary-accent);
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bolder;
+  font-size: 1.1rem;
+  background-color: var(--color-primary-accent);
+  color: var(--color-primary-accent-secondary);
+  padding: var(--space-small);
+}
+.drag-handle {
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+  width: 40px;
+  height: 40px;
+}
+.draggable-item-delete-button {
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+}
+
+.drag-handle:hover,
+.draggable-item-delete-button:hover {
+  background-color: var(--color-primary-accent-secondary);
+  color: var(--color-primary-accent);
+}
+
+.draggable-item.drag-over,
+.draggable-field-container.drag-over {
+  border: 0.5em dashed var(--drag-highlight);
+}

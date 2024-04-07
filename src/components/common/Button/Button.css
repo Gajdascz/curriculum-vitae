@@ -1,6 +1,9 @@
 @import url('../../../index.css');
-
 button {
+  width: 40px;
+  height: 40px;
+}
+.default-button {
   border: 3px solid transparent;
   border-radius: var(--border-radius);
   cursor: pointer;
@@ -16,11 +19,11 @@ button {
     color var(--effect-transition-time);
 }
 
-button:hover {
+.default-button:hover {
   background-color: var(--color-primary-accent-secondary);
   border-color: var(--color-primary-accent);
   color: var(--color-primary-accent);
 }
-button:hover > svg {
+.default-button:hover > svg {
   fill: var(--color-primary-accent);
 }

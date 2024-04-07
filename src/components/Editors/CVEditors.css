@@ -5,7 +5,7 @@
   flex-direction: column;
   gap: var(--space-xl);
 }
-
+.section-editor-container,
 .cv-section-editors {
   display: flex;
   flex-direction: column;
@@ -15,6 +15,12 @@
   border-radius: var(--border-radius);
   position: relative;
 }
+
+.section-editor-container {
+  padding-top: var(--space-large);
+}
+
+.section-editor-header,
 .cv-section-editors-header {
   position: absolute;
   background-color: var(--color-background);
@@ -29,7 +35,7 @@
   padding-bottom: var(--space-medium);
   display: flex;
   flex-direction: column;
-  gap: var(--space-medium);
+  gap: var(--space-large);
 }
 
 .editor-content-container {
@@ -62,21 +68,5 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-small);
-  padding: var(--space-medium);
-}
-
-.orderable-data-container {
-  border-bottom: 3px solid var(--color-primary-accent);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-medium);
-  padding: var(--space-large) 0;
-}
-.structured-data-buttons-container {
-  display: flex;
-  gap: var(--space-medium);
-}
-.structured-data-buttons-container > button {
-  flex: 1;
   padding: var(--space-medium);
 }

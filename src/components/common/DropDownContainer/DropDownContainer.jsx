@@ -66,6 +66,7 @@ export default function DropDownContainer({
     <div className={`${ATTS.CLASSES.CONTAINER} ${className}`}>
       <div {...headerProps}>
         <Button
+          addDefaultStyling={false}
           text={
             <ChevronDown
               title={isOpen ? ATTS.TITLES.COLLAPSE : ATTS.TITLES.EXPAND}

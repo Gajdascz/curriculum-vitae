@@ -7,7 +7,7 @@ import UtilButtons from './UtilButtons/UtilButtons';
 import { useCVAppContext } from '../../CVAppContext';
 
 import './CVEditors.css';
-import { useState } from 'react';
+import DragContainer from '../DragContainer/DragContainer';
 
 export default function CVEditors() {
   const {
@@ -23,8 +23,6 @@ export default function CVEditors() {
     onReorderStructuredData
   } = useCVAppContext();
 
-  const [dragStartIndex, setDragStartIndex] = useState(null);
-
   const EditorContainer = (section) => {
     const { headerText, isSelected, fields, type } = section;
     return (
@@ -34,35 +32,24 @@ export default function CVEditors() {
         toggle={() => onSectionSelect(section.id)}
         isOpen={isSelected}
         addToggleToHeader={true}
+        data-location={section.location.id}
+        data-index={section.location.index}
       >
         <div className="editor-content-container">
           {type === 'structured' && (
-            <div className="orderable-data-container">
-              {section.saved.map((saved) => (
-                <FieldWrapper
-                  key={saved.id}
-                  type={'visual'}
-                  hideLabel={true}
-                  content={'saved-data'}
-                  display={saved.data[0].value}
-                  isDraggable={true}
-                  data-index={saved.index}
-                  onClick={() =>
-                    onEditSavedStructuredData(section.id, saved.id)
-                  }
-                  onDragStart={() => setDragStartIndex(saved.index)}
-                  onDragOver={(e) => e.preventDefault()}
-                  onDrop={(targetIndex) => {
-                    onReorderStructuredData(
-                      section.id,
-                      dragStartIndex,
-                      targetIndex
-                    );
-                    setDragStartIndex(null);
-                  }}
-                />
-              ))}
-            </div>
+            <DragContainer
+              items={section.saved}
+              onClick={(dataId) =>
+                onEditSavedStructuredData(section.id, dataId)
+              }
+              onDrop={({ startIndex, targetIndex }) =>
+                onReorderStructuredData(section.id, startIndex, targetIndex)
+              }
+              onDelete={(itemId) => onDeleteStructuredData(section.id, itemId)}
+              renderItem={(data) => (
+                <div className="draggable-field">{data.data[0].value}</div>
+              )}
+            />
           )}
           <div className="editor-fields-container">
             {EditorFields({ fields, sectionId: section.id, sectionType: type })}
@@ -71,18 +58,11 @@ export default function CVEditors() {
             <AddCustomField onAdd={(field) => onAddField(section.id, field)} />
           )}
           {type === 'structured' && (
-            <div className="structured-data-buttons-container">
-              <Button
-                className="save-data-button"
-                text="save"
-                onClick={() => onSaveStructuredData(section.id)}
-              />
-              <Button
-                className="delete-data-button"
-                text="delete"
-                onClick={() => onDeleteStructuredData(section.id)}
-              />
-            </div>
+            <Button
+              className="save-data-button"
+              text="save"
+              onClick={() => onSaveStructuredData(section.id)}
+            />
           )}
         </div>
       </DropDownContainer>
@@ -131,39 +111,45 @@ export default function CVEditors() {
       <div className="cv-section-editors">
         <h2 className="cv-section-editors-header">CV Editors</h2>
         <div className="cv-section-editors-container">
-          {sections.map(EditorContainer)}
+          <div className="general-settings-editor">
+            {sections
+              .filter((section) => section.location.id === 'base')
+              .map(EditorContainer)}
+          </div>
+          <div className="section-editor-container">
+            <h3 className="section-editor-header">Header</h3>
+            {sections
+              .filter((section) => section.location.id === 'header')
+              .map(EditorContainer)}
+          </div>
+          <div className="section-editor-container">
+            <h3 className="section-editor-header">Primary</h3>
+            <DragContainer
+              items={sections.filter(
+                (section) => section.location.id === 'primary'
+              )}
+              onClick={() => {}}
+              onDrop={() => {}}
+              onDelete={() => {}}
+              renderItem={(item) => EditorContainer(item)}
+            />
+            <Button text="Add" className="add-section-button" />
+          </div>
+          <div className="section-editor-container">
+            <h3 className="section-editor-header">Sidebar</h3>
+            <DragContainer
+              items={sections.filter(
+                (section) => section.location.id === 'sidebar'
+              )}
+              onClick={() => {}}
+              onDrop={() => {}}
+              onDelete={() => {}}
+              renderItem={(item) => EditorContainer(item)}
+            />
+            <Button text="Add" className="add-section-button" />
+          </div>
         </div>
       </div>
     </section>
   );
 }
-// {
-//   sections.map((section) => {
-//     const { headerText, isSelected, fields, saved, actions } = section;
-//     return (
-//       <DropDownContainer
-//         key={section.id}
-//         containerHeaderText={headerText}
-//         toggle={() => onSectionSelect(section.id)}
-//         isOpen={isSelected}
-//         addToggleToHeader={true}
-//       >
-//         {fields.map((field) => {
-//           const { type, label, value } = field;
-//           return (
-//             <FieldWrapper
-//               key={field.id}
-//               type={type}
-//               label={label}
-//               value={value}
-//               onChange={(e) =>
-//                 onFieldChange(section.id, field.id, e.target.value)
-//               }
-//             />
-//           );
-//         })}
-//         {/* <AddCustomField onAdd={(field) => onAddField(section.id, field)} /> */}
-//       </DropDownContainer>
-//     );
-//   });
-// }

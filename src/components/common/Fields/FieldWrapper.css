@@ -21,6 +21,7 @@ input[type='color'] {
 textarea {
   resize: none;
   width: 100%;
+  min-height: 75px;
 }
 
 .field-input-container {
@@ -40,23 +41,7 @@ textarea {
 .field-input-container > input {
   width: 100%;
 }
-.field-input-container > .drag-handle {
-  max-width: 10%;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--color-primary-accent);
-  color: var(--color-primary-accent-secondary);
-  font-weight: bolder;
-  font-size: 1.25rem;
-  cursor: grab;
-}
-.field-input-container > .drag-handle:hover {
-  background-color: var(--color-primary-accent-secondary);
-  color: var(--color-primary-accent);
-  border-right: 3px solid var(--color-primary-accent);
-}
+
 .field-wrapper-delete-button:hover {
   border-left: 3px solid var(--color-primary-accent);
 }
@@ -167,21 +152,4 @@ textarea {
 .atkinson::after {
   font-family: 'atkinson-hyper-legible';
   content: 'At';
-}
-
-.field-input.saved-data {
-  flex: 1;
-  height: 100%;
-  padding: var(--space-small);
-  font-size: 1rem;
-  display: flex;
-  white-space: nowrap;
-  justify-content: start;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.field-input.saved-data:hover {
-  background-color: var(--color-primary-accent-secondary);
-  color: var(--color-primary-accent);
 }

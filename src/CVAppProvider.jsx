@@ -1,12 +1,10 @@
 import { useState } from 'react';
-import { uid, getInitialSections } from './initialSectionsConfig';
+import { uid, getInitialSections, sortSections } from './sectionsConfig';
 import { storeSectionData } from './storage';
 import CVAppContext from './CVAppContext';
 
 export default function CVAppProvider({ children }) {
-  const [sections, setSections] = useState(
-    getInitialSections().sort((a, b) => a.index - b.index)
-  );
+  const [sections, setSections] = useState(sortSections(getInitialSections()));
 
   const onSave = () => storeSectionData(sections);
 
@@ -72,36 +70,53 @@ export default function CVAppProvider({ children }) {
   const onAddSection = (sectionInfo) => {};
   const onRemoveSection = (sectionId) => {};
 
-  const onSaveStructuredData = (sectionId) =>
+  const onSaveStructuredData = (sectionId) => {
+    const getFieldData = (fields) => fields.map((field) => ({ ...field }));
+    const getEmptyFields = (section) =>
+      section.fields.map((field) => ({ ...field, value: '' }));
     setSections(
-      sections.map((section) =>{
-        if(section.id !== sectionId) return section;
-          ? {
-              ...section,
-              saved: [
-                ...section.saved,
-                {
-                  id: uid(),
-                  index: section.saved.length + 1,
-                  data: section.fields.map((field) => ({ ...field }))
-                }
-              ],
-              fields: section.fields.map((field) => ({ ...field, value: '' })),
-              loadedData: null
+      sections.map((section) => {
+        if (section.id !== sectionId) return section;
+        if (section.loadedDataId) {
+          return {
+            ...section,
+            saved: section.saved.map((savedData) =>
+              savedData.id !== section.loadedDataId
+                ? savedData
+                : {
+                    ...savedData,
+                    data: getFieldData(section.fields)
+                  }
+            ),
+            fields: getEmptyFields(section),
+            loadedDataId: null
+          };
+        }
+        return {
+          ...section,
+          saved: [
+            ...section.saved,
+            {
+              id: uid(),
+              index: section.saved.length,
+              data: getFieldData(section.fields)
             }
-          : section}
-      )
+          ],
+          fields: getEmptyFields(section)
+        };
+      })
     );
-
-  const onDeleteStructuredData = (sectionId) =>
+  };
+  const onDeleteStructuredData = (sectionId, dataId) =>
     setSections(
       sections.map((section) =>
         section.id === sectionId
           ? {
               ...section,
               saved: section.saved
-                .filter((savedData) => savedData.id !== section.loadedData)
-                .map((data, index) => ({ ...data, index }))
+                .filter((savedData) => savedData.id !== dataId)
+                .map((data, index) => ({ ...data, index })),
+              loadedDataId: null
             }
           : section
       )
@@ -116,7 +131,7 @@ export default function CVAppProvider({ children }) {
               fields: [
                 ...section.saved.find((data) => data.id === dataId).data
               ],
-              loadedData: dataId
+              loadedDataId: dataId
             }
           : section
       )
@@ -131,7 +146,6 @@ export default function CVAppProvider({ children }) {
         newSaved.splice(startIndex, 1);
         newSaved.splice(targetIndex, 0, itemToMove);
         const updated = newSaved.map((data, index) => ({ ...data, index }));
-        console.log(updated);
         return { ...section, saved: updated };
       })
     );
