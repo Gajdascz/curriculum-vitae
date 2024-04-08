@@ -12,3 +12,8 @@
   flex-wrap: wrap;
   gap: var(--space-medium);
 }
+
+button.save-data-button {
+  width: 50%;
+  align-self: center;
+}

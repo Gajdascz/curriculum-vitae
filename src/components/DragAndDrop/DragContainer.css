@@ -24,6 +24,10 @@ div.draggable-field-container > * {
   max-width: 100%;
   overflow: hidden;
 }
+.render-item-wrapper > * {
+  width: 100%;
+}
+
 .render-item-wrapper > .field-wrapper > .field-input-container {
   border-radius: 0;
 }
@@ -77,6 +81,8 @@ div.draggable-field {
   height: 40px;
 }
 .draggable-item-delete-button {
+  width: 40px;
+  height: 40px;
   border-top-right-radius: var(--border-radius);
   border-bottom-right-radius: var(--border-radius);
 }

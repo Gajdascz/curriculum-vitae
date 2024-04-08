@@ -68,8 +68,22 @@ export default function CVAppProvider({ children }) {
       }))
     );
 
+  const onAddSection = (location, headerText) =>
+    setSections(
+      sortSections([
+        ...sections,
+        {
+          id: uid(),
+          headerText,
+          isSelected: false,
+          fields: [],
+          type: 'configurable',
+          location: { id: location, index: 999 }
+        }
+      ])
+    );
+
   const onSectionOrderChange = (newOrder) => {};
-  const onAddSection = (sectionInfo) => {};
   const onRemoveSection = (sectionId) => {};
 
   const onSaveStructuredData = (sectionId) => {

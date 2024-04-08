@@ -8,7 +8,7 @@ import FieldWrapper from '../common/Fields/FieldWrapper';
 
 import './AddCustomField.css';
 
-export default function AddCustomField({ onAdd, onRemove }) {
+export default function AddCustomField({ onAdd }) {
   const [isOpen, setIsOpen] = useState(false);
   const [fieldInfo, setFieldInfo] = useState({
     type: 'text',

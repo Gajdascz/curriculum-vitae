@@ -1,0 +1,24 @@
+@import url('../../../index.css');
+
+.add-section-input-container {
+  display: flex;
+  border: 3px solid var(--color-primary-accent);
+  border-radius: var(--border-radius);
+  align-self: baseline;
+  margin-left: var(--space-medium);
+}
+
+.add-section-input-container > input {
+  width: 100%;
+  height: 100%;
+}
+
+.add-section-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bolder;
+  font-size: 1.5rem;
+  padding: var(--space-small);
+  background-color: var(--color-primary-accent);
+}

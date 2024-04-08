@@ -166,16 +166,28 @@ const getInitialSections = () =>
   localStorage.length === 0 ? getDefaultConfig() : getStoredSectionsConfig();
 
 const sortSections = (sections) => {
-  const primary = sections.filter(
-    (section) => section.location.id === 'primary'
+  const normalizeIndices = (sections) => {
+    const max = sections.length - 1;
+    return sections.map((section) => ({
+      ...section,
+      location: {
+        ...section.location,
+        index: Math.min(section.location.index, max)
+      }
+    }));
+  };
+
+  const primary = normalizeIndices(
+    sections.filter((section) => section.location.id === 'primary')
   );
-  const sidebar = sections.filter(
-    (section) => section.location.id === 'sidebar'
+  const sidebar = normalizeIndices(
+    sections.filter((section) => section.location.id === 'sidebar')
   );
   const other = sections.filter(
     (section) =>
       section.location.id !== 'primary' && section.location.id !== 'sidebar'
   );
+
   primary.sort((a, b) => a.location.index - b.location.index);
   sidebar.sort((a, b) => a.location.index - b.location.index);
   return [...primary, ...sidebar, ...other];

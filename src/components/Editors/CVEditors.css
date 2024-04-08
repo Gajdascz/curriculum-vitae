@@ -4,7 +4,9 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-large);
+  min-width: min-content;
 }
+
 .section-editor-container,
 .cv-section-editors {
   display: flex;
@@ -18,14 +20,6 @@
 
 .section-editor-container {
   padding-top: var(--space-large);
-}
-.add-section-button {
-  height: 35px;
-  width: 50px;
-  align-self: baseline;
-  margin-left: var(--space-small);
-  font-weight: bolder;
-  font-size: 1.5rem;
 }
 
 .section-editor-header,
