@@ -13,30 +13,24 @@ div.draggable-field-container {
 }
 div.draggable-field-container > * {
   border-radius: 0;
+  max-width: 100%;
 }
 
 .render-item-wrapper {
   flex: 1;
   align-self: stretch;
+  justify-content: center;
   display: flex;
+  max-width: 100%;
+  overflow: hidden;
+}
+.render-item-wrapper > .field-wrapper > .field-input-container {
+  border-radius: 0;
 }
 
 .render-item-wrapper > .drop-down-container > .drop-down-container-header,
 .render-item-wrapper > .drop-down-container > .drop-down-container-header > * {
   border-radius: 0;
-}
-.render-item-wrapper
-  > .drop-down-container
-  > .drop-down-container-header
-  > .toggle-drop-down-button {
-  background-color: inherit;
-}
-.render-item-wrapper
-  > .drop-down-container
-  > .drop-down-container-header
-  > .toggle-drop-down-button
-  > svg {
-  fill: var(--color-primary-accent);
 }
 
 .render-item-wrapper > .drop-down-container > .drop-down-container-content {
@@ -96,4 +90,48 @@ div.draggable-field {
 .draggable-item.drag-over,
 .draggable-field-container.drag-over {
   border: 0.5em dashed var(--drag-highlight);
+}
+div[data-container-context='sections-container'] {
+  display: grid;
+  grid-template-columns: min-content 1fr min-content;
+  grid-template-rows: min-content 1fr;
+}
+div[data-container-context='sections-container'] > * {
+  display: inherit;
+}
+div[data-container-context='sections-container']
+  > .render-item-wrapper
+  > .drag-handle {
+  grid-column: 1;
+  grid-row: 1;
+  border-radius: var(--border-radius) 0 0 0;
+}
+
+div[data-container-context='sections-container'] > .render-item-wrapper,
+div[data-container-context='sections-container']
+  > .render-item-wrapper
+  > .drop-down-container {
+  display: contents;
+}
+div[data-container-context='sections-container']
+  > .render-item-wrapper
+  > .drop-down-container
+  > .drop-down-container-header {
+  grid-column: 2;
+  grid-row: 1;
+}
+div[data-container-context='sections-container']
+  > .render-item-wrapper
+  > .draggable-item-delete-button {
+  grid-column: 3;
+  grid-row: 1;
+  border-radius: 0 var(--border-radius) 0 0;
+}
+div[data-container-context='sections-container']
+  > .render-item-wrapper
+  > .drop-down-container
+  > .drop-down-container-content {
+  grid-column: 1/-1;
+  grid-row: 2;
+  border-top: 3px solid var(--color-primary-accent);
 }

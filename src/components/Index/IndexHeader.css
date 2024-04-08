@@ -13,28 +13,47 @@ h1.app-name {
   font-size: 2rem;
 }
 
-svg.settings-icon {
+svg.header-icon {
   height: 48px;
   width: 48px;
-  fill: var(--color-primary-accent-secondary);
+  fill: var(--color-primary-accent);
   transform: none;
   transition: none;
   stroke-width: 1.5px;
 }
 
-button.settings-button {
-  width: 64px;
-  height: 64px;
-  background-color: none;
-  transition: none;
-  transform: none;
+.header-buttons-container {
+  display: flex;
+  gap: var(--space-large);
+}
+.header-icon-button {
+  width: 36px;
+  height: 36px;
+  background-color: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  background-color: var(--color-primary-accent-secondary);
+}
+.header-icon-button:hover > svg {
+  fill: var(--color-primary-accent-secondary);
+}
+.header-icon-button:hover {
+  background-color: var(--color-primary-accent);
+  border: 3px solid var(--color-primary-accent-secondary);
+}
+.header-icon-button.dark-active:hover > svg,
+.header-icon-button.light-active > svg {
+  fill: yellow;
+}
+.header-icon-button.light-active:hover > svg,
+.header-icon-button.dark-active > svg {
+  fill: lightblue;
 }
 
-button.settings-button:hover {
-  background-color: inherit;
+.header-icon-button.light-theme:hover > svg {
 }
-button.settings-button:hover > svg {
-  stroke: var(--color-primary-accent-secondary);
-  background-color: none;
-  transform: scale(1.25);
+
+.header-icon-button.dark-theme:hover > svg {
 }

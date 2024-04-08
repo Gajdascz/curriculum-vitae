@@ -5,6 +5,9 @@
   display: flex;
   flex-direction: column;
 }
+.field-wrapper > * {
+  height: 100%;
+}
 
 label {
   font-size: 1.2rem;
@@ -32,20 +35,30 @@ textarea {
 .field-input-container > * {
   border-radius: 0;
   padding: var(--space-small);
+  min-height: 100%;
 }
-.field-wrapper-delete-button {
-  border: none;
+
+.field-input-container > button.field-wrapper-delete-button {
+  display: flex;
   max-width: 10%;
+  min-height: 100%;
+  height: inherit;
+  border-bottom: 3px solid var(--color-primary-accent);
   font-weight: bolder;
+  background-color: var(--color-primary-accent);
+  justify-content: center;
+  align-items: center;
+}
+
+.field-input-container > button.field-wrapper-delete-button:hover {
+  background-color: var(--color-primary-accent-secondary);
+  border-left: 3px solid var(--color-primary-accent);
+  color: var(--color-primary-accent);
 }
 .field-input-container > input {
   width: 100%;
+  height: 100%;
 }
-
-.field-wrapper-delete-button:hover {
-  border-left: 3px solid var(--color-primary-accent);
-}
-
 .visual-input {
   width: 50px;
   height: 50px;
@@ -67,16 +80,14 @@ textarea {
 }
 
 .layout-field {
-  background-color: darkgray;
+  background-color: white;
   --color-mock-header: blue;
-  --color-mock-sidebar: white;
+  --color-mock-sidebar: darkgray;
 }
 
 .layout-field.selected,
 .layout-field:hover {
   border: 3px solid var(--color-primary-accent-secondary);
-  background-color: white;
-  --color-mock-sidebar: darkgray;
 }
 
 .visual-input.top-right::before,

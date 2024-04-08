@@ -34,12 +34,14 @@ export default function CVAppProvider({ children }) {
   const onAddField = (sectionId, field) =>
     setSections(
       sections.map((section) => {
-        console.log(field);
         if (sectionId === section.id) console.log(section.fields);
         return sectionId === section.id
           ? {
               ...section,
-              fields: [...section.fields, { id: uid(), ...field }]
+              fields: [
+                ...section.fields,
+                { id: uid(), ...field, addDelete: true }
+              ]
             }
           : section;
       })

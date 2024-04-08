@@ -1,0 +1,21 @@
+@import url('../../../index.css');
+
+.nested-input {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--color-primary-accent);
+}
+.nested-input > label {
+  width: min-content;
+  text-align: center;
+}
+
+.nested-input-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-small);
+  padding: var(--space-medium);
+}

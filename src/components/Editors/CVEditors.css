@@ -3,7 +3,7 @@
 .cv-editors-section {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xl);
+  gap: var(--space-large);
 }
 .section-editor-container,
 .cv-section-editors {
@@ -19,6 +19,14 @@
 .section-editor-container {
   padding-top: var(--space-large);
 }
+.add-section-button {
+  height: 35px;
+  width: 50px;
+  align-self: baseline;
+  margin-left: var(--space-small);
+  font-weight: bolder;
+  font-size: 1.5rem;
+}
 
 .section-editor-header,
 .cv-section-editors-header {
@@ -31,42 +39,9 @@
 .cv-section-editors-container {
   flex: 1;
   min-width: 100%;
+  max-width: 100%;
   padding-top: var(--space-medium);
-  padding-bottom: var(--space-medium);
   display: flex;
   flex-direction: column;
   gap: var(--space-large);
-}
-
-.editor-content-container {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-large);
-}
-
-.editor-fields-container {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  gap: var(--space-medium);
-}
-
-.nested-input {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  width: 100%;
-  justify-content: space-between;
-  border-bottom: 3px solid var(--color-primary-accent);
-}
-.nested-input > label {
-  width: min-content;
-  text-align: center;
-}
-
-.nested-input-fields {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-small);
-  padding: var(--space-medium);
 }

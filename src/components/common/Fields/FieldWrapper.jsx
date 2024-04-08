@@ -34,11 +34,7 @@ export default function FieldWrapper({
   hideLabel = false,
   id,
   onChange,
-  isDraggable,
   onDelete,
-  onDragStart = null,
-  onDragOver = null,
-  onDrop = null,
   content = '',
   ...rest
 }) {
@@ -52,16 +48,7 @@ export default function FieldWrapper({
       >
         {label}
       </label>
-      <div
-        className="field-input-container"
-        draggable={isDraggable}
-        onDragStart={onDragStart}
-        onDragOver={onDragOver}
-        onDrop={(e) => {
-          onDrop(e.target.closest('.field-input').dataset.index);
-        }}
-      >
-        {isDraggable && <div className="drag-handle">&#x283F;</div>}
+      <div className="field-input-container">
         <Field
           type={type}
           id={id}
@@ -72,6 +59,7 @@ export default function FieldWrapper({
         />
         {onDelete && (
           <Button
+            addDefaultStyling={false}
             text="X"
             className="field-wrapper-delete-button"
             onClick={onDelete}

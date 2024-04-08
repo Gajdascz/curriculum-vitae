@@ -1,0 +1,14 @@
+@import url('../../../index.css');
+
+.editor-content-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-large);
+}
+
+.editor-fields-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: var(--space-medium);
+}

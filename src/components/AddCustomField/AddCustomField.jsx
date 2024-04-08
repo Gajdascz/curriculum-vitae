@@ -8,7 +8,7 @@ import FieldWrapper from '../common/Fields/FieldWrapper';
 
 import './AddCustomField.css';
 
-export default function AddCustomField({ onAdd }) {
+export default function AddCustomField({ onAdd, onRemove }) {
   const [isOpen, setIsOpen] = useState(false);
   const [fieldInfo, setFieldInfo] = useState({
     type: 'text',
@@ -25,7 +25,6 @@ export default function AddCustomField({ onAdd }) {
     setFieldInfo({ ...fieldInfo, value: e.target.value });
 
   const handleSubmit = () => {
-    console.log(fieldInfo);
     if (!fieldInfo.label || fieldInfo.label.trim().length <= 0) return;
     onAdd({ ...fieldInfo });
     setFieldInfo({ type: '', label: '', value: '' });

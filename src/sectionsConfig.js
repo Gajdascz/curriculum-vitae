@@ -111,7 +111,7 @@ const profile = base({
 
 const contact = base({
   headerText: 'Contact',
-  type: 'expandable',
+  type: 'configurable',
   location: { id: 'sidebar', index: 0 },
   fields: [
     field({ type: 'email', label: 'Email' }),
@@ -130,9 +130,7 @@ const education = base({
     field({ type: 'text', label: 'Degree' }),
     field({ type: 'date', label: 'Start' }),
     field({ type: 'date', label: 'End' }),
-    field({ type: 'text', label: 'Location' }),
-    field({ type: 'text-area', label: 'Courses' }),
-    field({ type: 'text-area', label: 'Achievements' })
+    field({ type: 'text', label: 'Location' })
   ]
 });
 
@@ -143,15 +141,14 @@ const experience = base({
   fields: [
     field({ type: 'text', label: 'Position' }),
     field({ type: 'date', label: 'Start' }),
-    field({ type: 'date', label: 'End' }),
-    field({ type: 'text-area', label: 'Description' })
+    field({ type: 'date', label: 'End' })
   ]
 });
 
 const skills = base({
   headerText: 'Skills',
   location: { id: 'sidebar', index: 1 },
-  type: 'list',
+  type: 'configurable',
   fields: [field({ type: 'text' })]
 });
 

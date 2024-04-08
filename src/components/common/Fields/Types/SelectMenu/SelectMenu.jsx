@@ -31,6 +31,7 @@ export default function SelectMenu({ options, onChange, className }) {
           option === selectedStatus.selected ? null : (
             <Button
               key={option}
+              addDefaultStyling={false}
               className="select-menu-option"
               data-value={option}
               onClick={() => handleChange(option)}

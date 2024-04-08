@@ -39,16 +39,17 @@
 .select-menu-options-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
+
 .select-menu-option {
   border-radius: 0;
-}
-.select-menu-option {
+  width: 100%;
   cursor: pointer;
   padding: 0 var(--space-medium) 0 var(--space-medium);
   background-color: inherit;
-  transform: none;
-  transition: none;
+  font-weight: bold;
 }
 .select-menu-option:hover {
   background-color: var(--color-primary-accent);
