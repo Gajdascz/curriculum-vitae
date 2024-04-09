@@ -8,6 +8,13 @@ export default function CVAppProvider({ children }) {
 
   const onSave = () => storeSectionData(sections);
 
+  const onUpdateSettings = () =>
+    setSections(
+      sections.map((section) => {
+        if (section.location.id !== 'base') return section;
+      })
+    );
+
   const onUpdateField = (sectionId, fieldId, newValue) =>
     setSections(
       sections.map((section) =>
