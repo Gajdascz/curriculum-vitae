@@ -8,14 +8,16 @@ const field = ({
   type = 'text',
   value = '',
   className = '',
-  content = ''
+  content = '',
+  ...rest
 } = {}) => ({
   id: uid(),
   type,
   label,
   value,
   className,
-  content
+  content,
+  ...rest
 });
 
 const base = ({
@@ -40,54 +42,48 @@ const config = {
   index: -1,
   isSelected: false,
   location: { id: 'base', index: 0 },
-  fields: [
+  selected: {
+    accent: '#add8e6',
+    font: 'atkinson-hyper-legible',
+    layout: 'right'
+  },
+  accentColor: {
+    id: uid(),
+    type: 'color',
+    label: 'Accent',
+    selected: '#add8e6'
+  },
+  fonts: [
     field({
-      type: 'color',
-      label: 'Accent',
-      value: '#add8e6'
+      type: 'visual',
+      value: 'times-new-roman',
+      label: 'Times New Roman',
+      content: 'Ti'
     }),
-    [
-      uid(),
-      'Font',
-      [
-        field({
-          type: 'visual',
-          value: 'times-new-roman',
-          label: 'Times New Roman',
-          content: 'font'
-        }),
-        field({
-          type: 'visual',
-          value: 'atkinson',
-          label: 'Atkinson Hyper-legible',
-          content: 'font'
-        }),
-        field({
-          type: 'visual',
-          value: 'arial',
-          label: 'Arial',
-          content: 'font'
-        })
-      ]
-    ],
-    [
-      uid(),
-      'Layout',
-      [
-        field({
-          type: 'visual',
-          value: 'top-right',
-          label: 'Header and right sidebar',
-          content: 'layout'
-        }),
-        field({
-          type: 'visual',
-          value: 'top-left',
-          label: 'Header and left sidebar',
-          content: 'layout'
-        })
-      ]
-    ]
+    field({
+      type: 'visual',
+      value: 'atkinson-hyper-legible',
+      label: 'Atkinson Hyper Legible',
+      content: 'At'
+    }),
+    field({
+      type: 'visual',
+      value: 'arial',
+      label: 'Arial',
+      content: 'Ar'
+    })
+  ],
+  layouts: [
+    field({
+      type: 'visual',
+      value: 'right',
+      label: 'Sidebar on right'
+    }),
+    field({
+      type: 'visual',
+      value: 'left',
+      label: 'Sidebar on left'
+    })
   ]
 };
 

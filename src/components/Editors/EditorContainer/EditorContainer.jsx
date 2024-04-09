@@ -1,6 +1,5 @@
 import DropDownContainer from '../../common/DropDownContainer/DropDownContainer';
 import DragContainer from '../../DragAndDrop/DragContainer';
-import EditorFields from '../EditorFields/EditorFields';
 import AddCustomField from '../../AddCustomField/AddCustomField';
 import Button from '../../common/Button/Button';
 import FieldWrapper from '../../common/Fields/FieldWrapper';
@@ -11,26 +10,28 @@ export default function EditorContainer({ section }) {
     onSectionSelect,
     onAddField,
     onRemoveField,
-    onFieldChange,
+    onUpdateField,
     onSaveStructuredData,
     onDeleteStructuredData,
     onEditSavedStructuredData,
     onReorderStructuredData
   } = useCVAppContext();
 
-  const { headerText, isSelected, fields, type } = section;
+  const { headerText, isSelected, fields } = section;
 
-  const StaticEditorContent = () => {
-    return (
-      <div className="editor-fields-container">
-        {EditorFields({
-          fields,
-          sectionId: section.id,
-          sectionType: type
-        })}
-      </div>
-    );
-  };
+  const Fields = () =>
+    fields.map((field) => (
+      <FieldWrapper
+        key={field.id}
+        type={field.type}
+        label={field.label}
+        value={field.value}
+        onBlur={(value) => onUpdateField(section.id, field.id, value)}
+        onDelete={
+          field.addDelete ? () => onRemoveField(section.id, field.id) : null
+        }
+      />
+    ));
 
   const StructuredEditorContent = () => {
     return (
@@ -49,11 +50,7 @@ export default function EditorContainer({ section }) {
           )}
         />
         <div className="editor-fields-container">
-          {EditorFields({
-            fields,
-            sectionId: section.id,
-            sectionType: type
-          })}
+          <Fields />
           <AddCustomField
             onAdd={(field) => onAddField(section.id, field)}
             onDelete={(fieldId) => onRemoveField(section.id, fieldId)}
@@ -83,9 +80,7 @@ export default function EditorContainer({ section }) {
               {...field}
               hideLabel={true}
               placeholder={field.label}
-              onChange={(e) =>
-                onFieldChange(section.id, field.id, e.target.value)
-              }
+              onBlur={(value) => onUpdateField(section.id, field.id, value)}
             />
           )}
         />
@@ -100,7 +95,11 @@ export default function EditorContainer({ section }) {
   const EditorContent = () => {
     switch (section.type) {
       case 'static':
-        return <StaticEditorContent />;
+        return (
+          <div className="editor-fields-container">
+            <Fields />
+          </div>
+        );
       case 'structured':
         return <StructuredEditorContent />;
       case 'configurable':

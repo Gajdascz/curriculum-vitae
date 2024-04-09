@@ -1,29 +1,16 @@
 import SelectMenu from './Types/SelectMenu/SelectMenu';
-import Checkbox from './Types/Checkbox/Checkbox';
-import './FieldWrapper.css';
 import Button from '../Button/Button';
+import { useState } from 'react';
+
+import './FieldWrapper.css';
 
 function Field({ type, className, content, ...rest } = {}) {
+  if (content === 'font') console.log(rest);
   switch (type) {
     case 'text-area':
       return <textarea {...rest} className={className} />;
     case 'select':
       return <SelectMenu {...rest} className={className} />;
-    case 'checkbox':
-      return <Checkbox></Checkbox>;
-    case 'visual': {
-      const contentClass =
-        content === 'font'
-          ? ` font-field ${rest.value}`
-          : content === 'layout'
-            ? ` layout-field ${rest.value}`
-            : ` saved-data`;
-      return (
-        <div className={`${className} visual-input${contentClass}`} {...rest}>
-          {content === 'saved-data' && rest.display}
-        </div>
-      );
-    }
     default:
       return <input type={type} {...rest} className={className} />;
   }
@@ -33,11 +20,14 @@ export default function FieldWrapper({
   label = '',
   hideLabel = false,
   id,
-  onChange,
   onDelete,
+  onBlur,
   content = '',
+  value = '',
   ...rest
 }) {
+  const [fieldValue, setFieldValue] = useState(value);
+  if (content === 'font') console.log(rest);
   return (
     <div className="field-wrapper">
       <label
@@ -53,8 +43,13 @@ export default function FieldWrapper({
           type={type}
           id={id}
           className={`field-input`}
-          onChange={onChange}
+          onBlur={(e) => onBlur(e.target.value)}
+          onChange={(e) => setFieldValue(e.target.value)}
           content={content}
+          value={fieldValue}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') e.target.blur();
+          }}
           {...rest}
         />
         {onDelete && (

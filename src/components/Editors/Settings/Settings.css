@@ -1,0 +1,114 @@
+@import url('../../../index.css');
+
+.color-picker-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-large);
+}
+
+input[type='color'] {
+  background-color: inherit;
+  cursor: pointer;
+  border: 3px solid var(--color-primary-accent);
+  border-radius: var(--border-radius);
+  width: 50%;
+  height: 40px;
+}
+
+.visual-input {
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  color: black;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  cursor: pointer;
+  position: relative;
+  border-radius: var(--border-radius);
+  border: 3px solid var(--color-primary-accent);
+}
+
+.font-field.selected,
+.font-field:hover {
+  background-color: var(--color-primary-accent);
+  transform: scale(1.15);
+}
+
+.layout-field {
+  background-color: white;
+  --color-mock-header: blue;
+  --color-mock-sidebar: darkgray;
+}
+
+.layout-field.selected,
+.layout-field:hover {
+  transform: scale(1.15);
+  border-width: 4px;
+}
+
+.visual-input.right::before,
+.visual-input.right::after,
+.visual-input.left::before,
+.visual-input.left::after {
+  content: '';
+  position: absolute;
+}
+/* header */
+.visual-input.right::before {
+  background-color: var(--color-mock-header);
+  height: 35%;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: 0;
+}
+/* sidebar */
+.visual-input.right::after {
+  background-color: var(--color-mock-sidebar);
+  width: 40%;
+  bottom: 0;
+  right: 0;
+  top: 35%;
+}
+/* header */
+.visual-input.left::before {
+  background-color: var(--color-mock-header);
+  height: 35%;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: 0;
+}
+/* sidebar */
+.visual-input.left::after {
+  background-color: var(--color-mock-sidebar);
+  width: 40%;
+  bottom: 0;
+  left: 0;
+  top: 35%;
+}
+.nested-input-container {
+  display: flex;
+  align-items: center;
+  border-bottom: 3px solid var(--color-primary-accent);
+}
+
+.nested-input {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-large);
+  padding: var(--space-medium);
+}
+
+.nested-input-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-small);
+  padding: var(--space-medium);
+}

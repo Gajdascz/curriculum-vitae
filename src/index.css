@@ -37,6 +37,17 @@ svg {
   transition: fill 0.3s;
 }
 
+.times-new-roman {
+  font-family: 'Times New Roman';
+}
+.arial {
+  font-family: Arial;
+}
+
+.atkinson-hyper-legible {
+  font-family: 'atkinson-hyper-legible';
+}
+
 ::selection {
   background-color: var(--color-primary-accent);
   color: var(--color-primary-accent-secondary);
