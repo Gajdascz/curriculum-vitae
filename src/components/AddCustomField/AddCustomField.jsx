@@ -4,6 +4,8 @@ import Button from '../common/Button/Button';
 import DropDownContainer from '../common/DropDownContainer/DropDownContainer';
 
 import { ATTS } from './AddCustomFieldConstants';
+
+import SelectMenu from '../common/Fields/Types/SelectMenu/SelectMenu';
 import FieldWrapper from '../common/Fields/FieldWrapper';
 
 import './AddCustomField.css';
@@ -19,10 +21,9 @@ export default function AddCustomField({ onAdd }) {
   const handleTypeChange = (newType) =>
     setFieldInfo({ ...fieldInfo, type: newType });
 
-  const handleLabelChange = (e) =>
-    setFieldInfo({ ...fieldInfo, label: e.target.value });
-  const handleValueChange = (e) =>
-    setFieldInfo({ ...fieldInfo, value: e.target.value });
+  const handleLabelChange = (value) =>
+    setFieldInfo({ ...fieldInfo, label: value });
+  const handleValueChange = (value) => setFieldInfo({ ...fieldInfo, value });
 
   const handleSubmit = () => {
     if (!fieldInfo.label || fieldInfo.label.trim().length <= 0) return;
@@ -38,7 +39,7 @@ export default function AddCustomField({ onAdd }) {
       addToggleToHeader={true}
     >
       <div className="add-custom-field-inputs-container">
-        <FieldWrapper
+        <SelectMenu
           type="select"
           label={ATTS.TYPE_SELECT_LABEL}
           id={ATTS.TYPE_SELECT_ID}
@@ -48,15 +49,13 @@ export default function AddCustomField({ onAdd }) {
         <FieldWrapper
           id="custom-field-label-input"
           label={ATTS.LABEL_INPUT_LABEL}
-          onChange={handleLabelChange}
-          value={fieldInfo.label}
+          onBlur={handleLabelChange}
         />
         <FieldWrapper
           id="custom-field-value-input"
           type={fieldInfo.type}
-          onChange={handleValueChange}
+          onBlur={handleValueChange}
           label="Value"
-          value={fieldInfo.value}
         />
         <Button
           text="Add"

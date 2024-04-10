@@ -24,7 +24,8 @@ const base = ({
   type,
   headerText,
   fields = [],
-  location = { id: 'base', index: 0 }
+  location = { id: 'base', index: 0 },
+  ...rest
 } = {}) => ({
   id: uid(),
   headerText,
@@ -32,7 +33,8 @@ const base = ({
   fields,
   type,
   location,
-  ...(type === 'structured' && { saved: [] })
+  ...(type === 'structured' && { saved: [] }),
+  ...rest
 });
 
 const config = {
@@ -50,8 +52,7 @@ const config = {
   accentColor: {
     id: uid(),
     type: 'color',
-    label: 'Accent',
-    selected: '#add8e6'
+    label: 'Accent'
   },
   fonts: [
     field({
@@ -90,24 +91,27 @@ const config = {
 const header = base({
   headerText: 'Header',
   type: 'static',
+  draggable: false,
   location: { id: 'header', index: 0 },
   fields: [
-    field({ type: 'text', label: 'Name' }),
-    field({ type: 'text', label: 'Title' }),
-    field({ type: 'text', label: 'Other' })
+    field({ type: 'text', label: 'Name', ref: 'name' }),
+    field({ type: 'text', label: 'Title', ref: 'title' }),
+    field({ type: 'text', label: 'Other', ref: 'other' })
   ]
 });
 
 const profile = base({
   headerText: 'Profile',
   type: 'static',
-  location: { id: 'primary', index: 0 },
-  fields: [field({ type: 'text-area', label: 'Profile' })]
+  draggable: false,
+  location: { id: 'profile', index: 0 },
+  fields: [field({ type: 'text-area', label: 'Profile', ref: 'profile' })]
 });
 
 const contact = base({
   headerText: 'Contact',
   type: 'configurable',
+  draggable: true,
   location: { id: 'sidebar', index: 0 },
   fields: [
     field({ type: 'email', label: 'Email' }),
@@ -119,33 +123,36 @@ const contact = base({
 const education = base({
   headerText: 'Education',
   type: 'structured',
+  draggable: true,
   location: { id: 'primary', index: 1 },
   fields: [
-    field({ type: 'text', label: 'University' }),
-    field({ type: 'number', label: 'GPA' }),
-    field({ type: 'text', label: 'Degree' }),
-    field({ type: 'date', label: 'Start' }),
-    field({ type: 'date', label: 'End' }),
-    field({ type: 'text', label: 'Location' })
+    field({ type: 'text', label: 'University', ref: 'university' }),
+    field({ type: 'text', label: 'GPA', ref: 'gpa' }),
+    field({ type: 'text', label: 'Degree', ref: 'degree' }),
+    field({ type: 'date', label: 'Start', ref: 'start' }),
+    field({ type: 'date', label: 'End', ref: 'end' }),
+    field({ type: 'text', label: 'Location', red: 'location' })
   ]
 });
 
 const experience = base({
   headerText: 'Experience',
   type: 'structured',
+  draggable: true,
   location: { id: 'primary', index: 2 },
   fields: [
-    field({ type: 'text', label: 'Position' }),
-    field({ type: 'date', label: 'Start' }),
-    field({ type: 'date', label: 'End' })
+    field({ type: 'text', label: 'Position', ref: 'position' }),
+    field({ type: 'date', label: 'Start', ref: 'start' }),
+    field({ type: 'date', label: 'End', ref: 'end' })
   ]
 });
 
 const skills = base({
   headerText: 'Skills',
+  draggable: true,
   location: { id: 'sidebar', index: 1 },
   type: 'configurable',
-  fields: [field({ type: 'text' })]
+  fields: []
 });
 
 const getDefaultConfig = () => [

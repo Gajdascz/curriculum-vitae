@@ -1,16 +1,12 @@
-import SelectMenu from './Types/SelectMenu/SelectMenu';
 import Button from '../Button/Button';
 import { useState } from 'react';
 
 import './FieldWrapper.css';
 
-function Field({ type, className, content, ...rest } = {}) {
-  if (content === 'font') console.log(rest);
+function Field({ type, className, ...rest } = {}) {
   switch (type) {
     case 'text-area':
       return <textarea {...rest} className={className} />;
-    case 'select':
-      return <SelectMenu {...rest} className={className} />;
     default:
       return <input type={type} {...rest} className={className} />;
   }
@@ -22,12 +18,10 @@ export default function FieldWrapper({
   id,
   onDelete,
   onBlur,
-  content = '',
   value = '',
   ...rest
 }) {
   const [fieldValue, setFieldValue] = useState(value);
-  if (content === 'font') console.log(rest);
   return (
     <div className="field-wrapper">
       <label
@@ -45,7 +39,6 @@ export default function FieldWrapper({
           className={`field-input`}
           onBlur={(e) => onBlur(e.target.value)}
           onChange={(e) => setFieldValue(e.target.value)}
-          content={content}
           value={fieldValue}
           onKeyDown={(e) => {
             if (e.key === 'Enter') e.target.blur();

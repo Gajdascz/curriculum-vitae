@@ -1,9 +1,9 @@
 @import url('../../../index.css');
 
 .field-wrapper {
-  gap: var(--space-medium);
   display: flex;
   flex-direction: column;
+  gap: var(--space-medium);
 }
 .field-wrapper > * {
   height: 100%;
@@ -14,7 +14,7 @@ label {
   font-weight: bold;
 }
 
-textarea {
+.field-input-container > textarea {
   resize: none;
   width: 100%;
   min-height: 75px;
@@ -24,11 +24,19 @@ textarea {
   display: flex;
   border: 3px solid var(--color-primary-accent);
   border-radius: var(--border-radius);
+  min-height: 40px;
 }
 .field-input-container > * {
   border-radius: 0;
   padding: var(--space-small);
   min-height: 100%;
+}
+
+.field-input[type='date'] {
+  cursor: text;
+}
+::-webkit-calendar-picker-indicator {
+  cursor: pointer;
 }
 
 .field-input-container > button.field-wrapper-delete-button {
@@ -50,5 +58,4 @@ textarea {
 }
 .field-input-container > input {
   width: 100%;
-  height: 100%;
 }

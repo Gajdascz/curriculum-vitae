@@ -1,20 +1,30 @@
 import DropDownContainer from '../../common/DropDownContainer/DropDownContainer';
+import Button from '../../common/Button/Button';
 import { useCVAppContext } from '../../../CVAppContext';
 
 import './Settings.css';
+import { useState } from 'react';
 
 export default function Settings({ section }) {
   const { headerText, isSelected } = section;
-  const { onSectionSelect } = useCVAppContext();
+  const { onSectionSelect, onUpdateSettings } = useCVAppContext();
+  const [settings, setSettings] = useState({ ...section.selected });
 
-  const NestedInput = ({ inputs, label, className }) => (
+  const NestedInput = ({ inputs, label, className, selectedAttribute }) => (
     <div className="nested-input-container">
       <label htmlFor={label.htmlFor}>{label.text}</label>
       <div className="nested-input">
         {inputs.map((option) => (
           <div
             key={option.id}
-            className={`visual-input ${className} ${option.value}`}
+            className={`visual-input ${className} ${option.value}${option.value === settings[selectedAttribute] ? ` selected` : ''}`}
+            data-value={option.value}
+            onClick={(e) =>
+              setSettings({
+                ...settings,
+                [selectedAttribute]: e.target.dataset.value
+              })
+            }
           >
             {option.content}
           </div>
@@ -23,7 +33,6 @@ export default function Settings({ section }) {
     </div>
   );
 
-  console.log(section);
   return (
     <DropDownContainer
       key={section.id}
@@ -37,19 +46,26 @@ export default function Settings({ section }) {
         <input
           type="color"
           id="settings-color-picker"
-          onChange={() => {}}
-          value={section.accentColor.selected}
+          onChange={(e) => setSettings({ ...settings, accent: e.target.value })}
+          value={settings.accent}
         />
       </div>
       <NestedInput
-        inputs={section.fonts.options}
+        inputs={section.fonts}
         label={{ text: 'Font', htmlFor: 'settings-font-picker' }}
         className="font-field"
+        selectedAttribute="font"
       />
       <NestedInput
-        inputs={section.layouts.options}
+        inputs={section.layouts}
         label={{ text: 'Layout', htmlFor: 'settings-layout-picker' }}
         className="layout-field"
+        selectedAttribute="layout"
+      />
+      <Button
+        text="Apply"
+        className="apply-settings-button"
+        onClick={(e) => onUpdateSettings({ settings })}
       />
     </DropDownContainer>
   );

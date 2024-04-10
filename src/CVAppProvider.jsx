@@ -8,26 +8,70 @@ export default function CVAppProvider({ children }) {
 
   const onSave = () => storeSectionData(sections);
 
-  const onUpdateSettings = () =>
+  const onUpdateSettings = ({ settings }) =>
     setSections(
       sections.map((section) => {
         if (section.location.id !== 'base') return section;
+        return {
+          ...section,
+          selected: { ...section.selected, ...settings }
+        };
       })
     );
 
-  const onUpdateField = (sectionId, fieldId, newValue) =>
+  const updateRegularSection = (sectionId, updatedData) =>
     setSections(
       sections.map((section) =>
-        sectionId === section.id
+        section.id === sectionId
           ? {
               ...section,
-              fields: section.fields.map((field) =>
-                field.id === fieldId ? { ...field, value: newValue } : field
-              )
+              fields: [...updatedData]
             }
           : section
       )
     );
+
+  const updateSectionSavedData = (sectionId, updatedData) => {
+    const getEmptyFields = (section) =>
+      section.fields.map((field) => ({ ...field, value: '' }));
+    setSections(
+      sections.map((section) => {
+        if (section.id !== sectionId) return section;
+        if (section.loadedDataId) {
+          return {
+            ...section,
+            saved: section.saved.map((savedData) =>
+              savedData.id !== section.loadedDataId
+                ? savedData
+                : {
+                    ...savedData,
+                    data: updatedData
+                  }
+            ),
+            fields: getEmptyFields(section),
+            loadedDataId: null
+          };
+        }
+        return {
+          ...section,
+          saved: [
+            ...section.saved,
+            {
+              id: uid(),
+              index: section.saved.length,
+              data: updatedData
+            }
+          ],
+          fields: getEmptyFields(section)
+        };
+      })
+    );
+  };
+
+  const onUpdateSection = (sectionId, updatedData, isStructured = false) => {
+    if (!isStructured) updateRegularSection(sectionId, updatedData);
+    else updateSectionSavedData(sectionId, updatedData);
+  };
 
   const onAddField = (sectionId, field) =>
     setSections(
@@ -81,46 +125,34 @@ export default function CVAppProvider({ children }) {
       ])
     );
 
-  const onSectionOrderChange = (newOrder) => {};
-  const onRemoveSection = (sectionId) => {};
-
-  const onSaveStructuredData = (sectionId) => {
-    const getFieldData = (fields) => fields.map((field) => ({ ...field }));
-    const getEmptyFields = (section) =>
-      section.fields.map((field) => ({ ...field, value: '' }));
-    setSections(
-      sections.map((section) => {
-        if (section.id !== sectionId) return section;
-        if (section.loadedDataId) {
-          return {
+  const onSectionOrderChange = (sectionId, targetIndex, targetLocation) => {
+    let updatedSection = null;
+    const [inTarget, staticInTarget, rest] = sections.reduce(
+      (acc, section) => {
+        if (section.id === sectionId) {
+          updatedSection = {
             ...section,
-            saved: section.saved.map((savedData) =>
-              savedData.id !== section.loadedDataId
-                ? savedData
-                : {
-                    ...savedData,
-                    data: getFieldData(section.fields)
-                  }
-            ),
-            fields: getEmptyFields(section),
-            loadedDataId: null
-          };
-        }
-        return {
-          ...section,
-          saved: [
-            ...section.saved,
-            {
-              id: uid(),
-              index: section.saved.length,
-              data: getFieldData(section.fields)
+            location: {
+              ...section.location,
+              id: targetLocation,
+              index: targetIndex
             }
-          ],
-          fields: getEmptyFields(section)
-        };
-      })
+          };
+        } else if (!section.draggable) acc[2].push(section);
+        else acc[section.location.id === targetLocation ? 0 : 1].push(section);
+        return acc;
+      },
+      [[], [], []]
     );
+    inTarget.splice(targetIndex, 0, updatedSection);
+    inTarget.forEach((section, index) => (section.location.index = index));
+    staticInTarget.push(...inTarget);
+    setSections(sortSections([...rest, ...staticInTarget]));
   };
+
+  const onRemoveSection = (sectionId) =>
+    setSections(sections.filter((section) => section.id !== sectionId));
+
   const onDeleteStructuredData = (sectionId, dataId) =>
     setSections(
       sections.map((section) =>
@@ -169,11 +201,15 @@ export default function CVAppProvider({ children }) {
       value={{
         sections,
         onSave,
-        onUpdateField,
+
+        onUpdateSettings,
+
+        onUpdateSection,
+
         onRemoveField,
         onAddField,
 
-        onSaveStructuredData,
+        // onSaveStructuredData,
         onDeleteStructuredData,
         onEditSavedStructuredData,
         onReorderStructuredData,

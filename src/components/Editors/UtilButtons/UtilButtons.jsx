@@ -20,8 +20,7 @@ export default function UtilButtons({ onSave }) {
       <div className="util-section-wrapper">
         <h3 className="util-section-header">Print</h3>
         <div className="util-section-buttons">
-          <Button text="Preview" />
-          <Button text="Start" />
+          <Button text="Open" onClick={() => window.print()} />
         </div>
       </div>
     </div>

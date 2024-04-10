@@ -4,20 +4,29 @@ import AddCustomField from '../../AddCustomField/AddCustomField';
 import Button from '../../common/Button/Button';
 import FieldWrapper from '../../common/Fields/FieldWrapper';
 import { useCVAppContext } from '../../../CVAppContext';
+import { useRef } from 'react';
 import './EditorContainer.css';
 export default function EditorContainer({ section }) {
   const {
     onSectionSelect,
     onAddField,
     onRemoveField,
-    onUpdateField,
-    onSaveStructuredData,
     onDeleteStructuredData,
     onEditSavedStructuredData,
-    onReorderStructuredData
+    onReorderStructuredData,
+    onUpdateSection
   } = useCVAppContext();
 
   const { headerText, isSelected, fields } = section;
+  const fieldsRef = useRef([...fields]);
+
+  const bufferFieldChange = (fieldId, value) =>
+    (fieldsRef.current = fieldsRef.current.map((field) =>
+      field.id !== fieldId ? field : { ...field, value }
+    ));
+
+  const onSaveChanges = (isStructured = false) =>
+    onUpdateSection(section.id, [...fieldsRef.current], isStructured);
 
   const Fields = () =>
     fields.map((field) => (
@@ -26,7 +35,7 @@ export default function EditorContainer({ section }) {
         type={field.type}
         label={field.label}
         value={field.value}
-        onBlur={(value) => onUpdateField(section.id, field.id, value)}
+        onBlur={(value) => bufferFieldChange(field.id, value)}
         onDelete={
           field.addDelete ? () => onRemoveField(section.id, field.id) : null
         }
@@ -56,9 +65,9 @@ export default function EditorContainer({ section }) {
             onDelete={(fieldId) => onRemoveField(section.id, fieldId)}
           />
           <Button
-            className="save-data-button"
-            text="save"
-            onClick={() => onSaveStructuredData(section.id)}
+            className="add-data-button"
+            text="Add"
+            onClick={() => onSaveChanges(true)}
           />
         </div>
       </>
@@ -73,14 +82,17 @@ export default function EditorContainer({ section }) {
           itemSelectorClassName="configurable-section-input-selector"
           containerContext={section.id}
           onClick={() => {}}
-          onDragDrop={() => {}}
+          onDragDrop={(fieldId) => onRemoveField(section.id, fieldId)}
           onDelete={() => {}}
           renderItem={(field) => (
             <FieldWrapper
-              {...field}
+              key={field.id}
+              type={field.type}
+              label={field.label}
               hideLabel={true}
+              value={field.value}
+              onBlur={(value) => bufferFieldChange(field.id, value)}
               placeholder={field.label}
-              onBlur={(value) => onUpdateField(section.id, field.id, value)}
             />
           )}
         />
@@ -98,6 +110,11 @@ export default function EditorContainer({ section }) {
         return (
           <div className="editor-fields-container">
             <Fields />
+            <Button
+              className="save-section-changes-button"
+              text="Save"
+              onClick={() => onSaveChanges()}
+            />
           </div>
         );
       case 'structured':

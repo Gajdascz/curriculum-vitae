@@ -10,10 +10,20 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  gap: var(--space-medium);
+  gap: var(--space-large);
 }
 
-button.save-data-button {
+.drag-container + .editor-fields-container {
+  border-top: 3px solid var(--color-primary-accent);
+}
+.drag-container + .editor-fields-container > .field-wrapper:first-child {
+  padding-top: var(--space-large);
+}
+
+button.add-data-button {
   width: 50%;
-  align-self: center;
+}
+
+button.save-section-changes-button {
+  width: 50%;
 }

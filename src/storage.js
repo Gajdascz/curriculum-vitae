@@ -1,4 +1,3 @@
-const getStorageKey = (obj) => `${obj.label}@${obj.id}`;
 const storeSectionData = (sectionsObjArr) => {
   sectionsObjArr.forEach((sectionObj) =>
     localStorage.setItem(sectionObj.id, JSON.stringify(sectionObj))

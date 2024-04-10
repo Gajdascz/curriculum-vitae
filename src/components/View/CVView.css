@@ -1,15 +1,17 @@
 @import url('../../index.css');
 
 .cv-view {
+  --accent-color: #add8e6;
+  --sidebar-location: 2;
+  --selected-font: 'atkinson-hyper-legible';
+
   display: grid;
   grid-template-columns: 1fr 0.5fr;
   grid-template-rows: 0.15fr 1fr;
   background-color: white;
   box-shadow: var(--view-shadow);
   color: black;
-  --accent-color: #add8e6;
-  --sidebar-location: 2;
-  --selected-font: 'atkinson-hyper-legible';
+  font-family: var(--selected-font);
 }
 
 .view-header {
@@ -30,4 +32,28 @@
   grid-row: 2;
   grid-column: var(--sidebar-location);
   background-color: #d0dde0;
+}
+
+@media print {
+  html,
+  body {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    background-color: white;
+  }
+  section.cv-editors-section,
+  header.index-header {
+    display: none;
+  }
+
+  section.cv-view,
+  section.cv-view * {
+    display: block;
+    margin: 0;
+    padding: 0;
+  }
+  @page {
+    margin: 0;
+  }
 }

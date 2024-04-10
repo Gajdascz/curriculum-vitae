@@ -112,3 +112,9 @@ input[type='color'] {
   gap: var(--space-small);
   padding: var(--space-medium);
 }
+
+button.apply-settings-button {
+  width: 50%;
+  padding: var(--space-large);
+  margin-top: var(--space-medium);
+}

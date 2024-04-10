@@ -7,7 +7,8 @@ export default function DragAndDropProvider({ children }) {
     startIndex: null,
     startLocation: null,
     overIndex: -1,
-    overLocation: null
+    overLocation: null,
+    draggedItem: null
   });
   return (
     <DragAndDropContext.Provider value={{ dragStatus, setDragStatus }}>
