@@ -45,6 +45,7 @@ export default function EditorContainer({ section }) {
         key={field.id}
         type={field.type}
         label={field.label}
+        hideLabel={field.hideLabel}
         value={field.value}
         onBlur={(value) => bufferFieldChange(field.id, value)}
         onDelete={field.addDelete ? () => removeField(field.id) : null}
@@ -105,15 +106,17 @@ export default function EditorContainer({ section }) {
             />
           )}
         />
-        <AddCustomField
-          onAdd={(field) => addField(field)}
-          onDelete={(fieldId) => removeField(fieldId)}
-        />
-        <Button
-          className="save-section-changes-button"
-          text="Save"
-          onClick={() => onSaveChanges()}
-        />
+        <div className="configurable-section-item-container">
+          <AddCustomField
+            onAdd={(field) => addField(field)}
+            onDelete={(fieldId) => removeField(fieldId)}
+          />
+          <Button
+            className="save-section-changes-button"
+            text="Apply"
+            onClick={() => onSaveChanges()}
+          />
+        </div>
       </>
     );
   };
@@ -126,7 +129,7 @@ export default function EditorContainer({ section }) {
             <Fields />
             <Button
               className="save-section-changes-button"
-              text="Save"
+              text="Apply"
               onClick={() => onSaveChanges()}
             />
           </div>

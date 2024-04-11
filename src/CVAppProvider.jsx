@@ -127,7 +127,8 @@ export default function CVAppProvider({ children }) {
           isSelected: false,
           fields: [],
           type: 'configurable',
-          location: { id: location, index: 999 }
+          location: { id: location, index: 999 },
+          draggable: true
         }
       ])
     );

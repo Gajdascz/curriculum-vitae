@@ -3,6 +3,8 @@
 .cv-view {
   --accent-color: #add8e6;
   --sidebar-location: 2;
+  --sidebar-right-padding: 0;
+  --sidebar-left-padding: 0.5em;
   --selected-font: 'atkinson-hyper-legible';
   display: grid;
   grid-template-columns: 1fr 0.5fr;
@@ -65,16 +67,23 @@
   grid-template-columns: min-content 1fr;
   gap: 1em;
 }
-
-.view-edu-section-label {
-  display: flex;
-  flex-direction: column;
+.view-edu-attendance-date {
+  grid-column: 1;
+  grid-row: 1/-1;
 }
-.view-edu-degree {
+
+.view-text-field-label {
   font-weight: bold;
 }
+
+.view-edu-degree {
+  font-weight: bold;
+  font-size: var(--subheader-size);
+}
+.view-edu-degree-secondary,
 .view-edu-university,
 .view-edu-location {
+  font-weight: bold;
   font-style: italic;
 }
 
@@ -85,8 +94,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-large);
-  padding-right: 0;
-  padding-left: 0.5em;
+  padding-right: var(--sidebar-right-padding);
+  padding-left: var(--sidebar-left-padding);
   padding-top: var(--space-from-header);
 }
 .view-sidebar-section {

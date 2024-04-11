@@ -7,6 +7,14 @@ function Field({ type, className, ...rest } = {}) {
   switch (type) {
     case 'text-area':
       return <textarea {...rest} className={className} />;
+    case 'list':
+      return (
+        <textarea
+          {...rest}
+          className={className}
+          placeholder={`Enter each list item on a new line.\nItem 1\nItem 2\nItem 3`}
+        />
+      );
     default:
       return <input type={type} {...rest} className={className} />;
   }
@@ -26,7 +34,7 @@ export default function FieldWrapper({
     <div className="field-wrapper">
       <label
         htmlFor={id}
-        {...((hideLabel || type === 'visual') && {
+        {...(hideLabel && {
           style: { display: 'none' }
         })}
       >

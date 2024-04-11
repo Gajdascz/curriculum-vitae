@@ -9,6 +9,7 @@ const field = ({
   value = '',
   className = '',
   content = '',
+  hideLabel = false,
   ...rest
 } = {}) => ({
   id: uid(),
@@ -17,6 +18,7 @@ const field = ({
   value,
   className,
   content,
+  hideLabel,
   ...rest
 });
 
@@ -105,7 +107,14 @@ const profile = base({
   type: 'static',
   draggable: false,
   location: { id: 'profile', index: 0 },
-  fields: [field({ type: 'text-area', label: 'Profile', ref: 'profile' })]
+  fields: [
+    field({
+      type: 'text-area',
+      label: 'Profile',
+      hideLabel: true,
+      ref: 'profile'
+    })
+  ]
 });
 
 const contact = base({

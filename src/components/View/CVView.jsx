@@ -10,6 +10,10 @@ export default function CVView() {
     ['--accent-color']: selectedSettings.accent,
     ['--selected-font']: selectedSettings.font,
     ['--sidebar-location']: selectedSettings.layout === 'right' ? 2 : 1,
+    ['--sidebar-left-padding']:
+      selectedSettings.layout === 'right' ? '0.5em' : '0',
+    ['--sidebar-right-padding']:
+      selectedSettings.layout === 'right' ? '0' : '0.5em',
     ['gridTemplateColumns']:
       selectedSettings.layout === 'right' ? '1fr 0.5fr' : '0.5fr 1fr'
   };
@@ -31,6 +35,31 @@ export default function CVView() {
     );
   };
 
+  const List = ({ field }) => {
+    return (
+      <ul className="view-list">
+        {field.label && <p className="view-list-label">{field.label}</p>}
+        {field.value
+          .split('\n')
+          .filter((item) => item.trim() !== '')
+          .map((item, index) => (
+            <li key={index} className="view-list-item">
+              {item}
+            </li>
+          ))}
+      </ul>
+    );
+  };
+
+  const Text = ({ field }) => (
+    <p key={field.id} className="view-text-field">
+      {field.label && (
+        <span className="view-text-field-label">{field.label}: </span>
+      )}
+      {field.value}
+    </p>
+  );
+
   const PrimaryInfo = () => {
     const profileSection = sections.find(
       (section) => section.location.id === 'profile'
@@ -40,13 +69,14 @@ export default function CVView() {
     );
 
     const EduSection = ({ section }) => {
-      const rest = [];
       return section.saved.map((savedData) => {
-        const { university, degree, start, end, location } =
+        const rest = [];
+        const { university, degree, degreeSecondary, start, end, location } =
           savedData.data.reduce((acc, field) => {
             switch (field.ref) {
               case 'university':
               case 'degree':
+              case 'degreeSecondary':
               case 'start':
               case 'end':
               case 'location':
@@ -64,17 +94,27 @@ export default function CVView() {
             </p>
             <div className="view-edu-info">
               <p className="view-edu-degree">{degree}</p>
+              {degreeSecondary && (
+                <p className="view-edu-degree-secondary">{degreeSecondary}</p>
+              )}
               <p className="view-edu-university">
                 {university} -
                 {location && (
                   <span className="view-edu-location"> {location}</span>
                 )}
               </p>
-            </div>
-            <div className="view-edu-section-additional">
-              {rest.map((data) => (
-                <p key={data.id}>{data.value}</p>
-              ))}
+              <div className="view-edu-section-additional">
+                {rest.map((field) => {
+                  switch (field.type) {
+                    case 'text':
+                      return <Text key={field.id} field={field} />;
+                    case 'text-area':
+                      return <Text key={field.id} field={field} />;
+                    case 'list':
+                      return <List key={field.id} field={field} />;
+                  }
+                })}
+              </div>
             </div>
           </div>
         );

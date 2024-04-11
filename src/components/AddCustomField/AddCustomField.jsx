@@ -26,7 +26,6 @@ export default function AddCustomField({ onAdd }) {
   const handleValueChange = (value) => setFieldInfo({ ...fieldInfo, value });
 
   const handleSubmit = () => {
-    if (!fieldInfo.label || fieldInfo.label.trim().length <= 0) return;
     onAdd({ ...fieldInfo });
     setFieldInfo({ type: '', label: '', value: '' });
   };
@@ -43,7 +42,7 @@ export default function AddCustomField({ onAdd }) {
           type="select"
           label={ATTS.TYPE_SELECT_LABEL}
           id={ATTS.TYPE_SELECT_ID}
-          options={['text', 'text-area']}
+          options={['text', 'text-area', 'list']}
           onChange={handleTypeChange}
         />
         <FieldWrapper

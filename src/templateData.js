@@ -57,6 +57,12 @@ const educationData = [
       }),
       field({
         type: 'text',
+        label: 'Degree Secondary',
+        ref: 'degreeSecondary',
+        value: 'Mathematics and Engineering Focus'
+      }),
+      field({
+        type: 'text',
         label: 'University',
         ref: 'university',
         value: 'A School'
@@ -73,7 +79,23 @@ const educationData = [
         type: 'text',
         label: 'Location',
         ref: 'location',
-        value: 'a Place'
+        value: 'A Place'
+      }),
+      field({
+        type: 'text',
+        label: 'GPA',
+        value: '4.0'
+      }),
+      field({
+        type: 'text-area',
+        label: '',
+        value:
+          'Learned a lot about learning about learning a lot about learning a lot about learning a lot.'
+      }),
+      field({
+        type: 'list',
+        label: 'Achievements',
+        value: `Manga Cum Laude\nDean's List Every Attended Semester`
       })
     ]
   },
@@ -105,7 +127,39 @@ const educationData = [
         type: 'text',
         label: 'Location',
         ref: 'location',
-        value: 'a Place'
+        value: 'A Place'
+      })
+    ]
+  },
+  {
+    id: uid(),
+    index: 2,
+    data: [
+      field({
+        type: 'text',
+        label: 'Degree',
+        ref: 'degree',
+        value: 'M.S. Information Technology'
+      }),
+      field({
+        type: 'text',
+        label: 'University',
+        ref: 'university',
+        value: 'A School'
+      }),
+
+      field({
+        type: 'month',
+        label: 'Start',
+        ref: 'start',
+        value: '1996'
+      }),
+      field({ type: 'month', label: 'End', ref: 'end', value: '2020' }),
+      field({
+        type: 'text',
+        label: 'Location',
+        ref: 'location',
+        value: 'A Place'
       })
     ]
   }
@@ -155,7 +209,8 @@ const experienceData = [
 const skillsData = [
   field({ type: 'text', value: 'HTML Engineer' }),
   field({ type: 'text', value: 'CSS Aficionado' }),
-  field({ type: 'text', value: 'JS Pro' })
+  field({ type: 'text', value: 'JS Pro' }),
+  field({ type: 'text', value: 'Part-time Magician' })
 ];
 
 const templateData = {
