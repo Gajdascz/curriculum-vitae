@@ -1,5 +1,10 @@
 import { useState } from 'react';
-import { uid, getInitialSections, sortSections } from './sectionsConfig';
+import {
+  uid,
+  getInitialSections,
+  sortSections,
+  loadTemplate
+} from './sectionsConfig';
 import { storeSectionData } from './storage';
 import CVAppContext from './CVAppContext';
 
@@ -7,6 +12,8 @@ export default function CVAppProvider({ children }) {
   const [sections, setSections] = useState(sortSections(getInitialSections()));
 
   const onSave = () => storeSectionData(sections);
+
+  const onLoadTemplate = () => setSections(sortSections(loadTemplate()));
 
   const onUpdateSettings = ({ settings }) =>
     setSections(
@@ -73,21 +80,21 @@ export default function CVAppProvider({ children }) {
     else updateSectionSavedData(sectionId, updatedData);
   };
 
-  const onAddField = (sectionId, field) =>
+  const onAddField = (sectionId, field) => {
+    const fieldData = { id: uid(), ...field, addDelete: true };
     setSections(
       sections.map((section) => {
         if (sectionId === section.id) console.log(section.fields);
         return sectionId === section.id
           ? {
               ...section,
-              fields: [
-                ...section.fields,
-                { id: uid(), ...field, addDelete: true }
-              ]
+              fields: [...section.fields, fieldData]
             }
           : section;
       })
     );
+    return fieldData;
+  };
 
   const onRemoveField = (sectionId, fieldId) =>
     setSections(
@@ -202,6 +209,8 @@ export default function CVAppProvider({ children }) {
         sections,
         onSave,
 
+        onLoadTemplate,
+
         onUpdateSettings,
 
         onUpdateSection,
@@ -209,7 +218,6 @@ export default function CVAppProvider({ children }) {
         onRemoveField,
         onAddField,
 
-        // onSaveStructuredData,
         onDeleteStructuredData,
         onEditSavedStructuredData,
         onReorderStructuredData,

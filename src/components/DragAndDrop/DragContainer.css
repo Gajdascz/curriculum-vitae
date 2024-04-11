@@ -16,17 +16,37 @@ div.draggable-field-container > * {
   max-width: 100%;
 }
 
+div.draggable-item
+  > .render-item-wrapper
+  > .render-item
+  > .draggable-field:hover {
+  color: var(--color-primary-accent);
+  background-color: var(--color-primary-accent-secondary);
+}
+
 .render-item-wrapper {
   flex: 1;
   display: flex;
   max-width: 100%;
+  min-width: 0;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .render-item-wrapper > * {
   width: 100%;
+  min-width: 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-
+.render-item > .draggable-field {
+  display: flex;
+  flex-wrap: nowrap;
+  height: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+}
 .render-item-wrapper > .render-item > .field-wrapper > .field-input-container {
   border-radius: 0;
 }

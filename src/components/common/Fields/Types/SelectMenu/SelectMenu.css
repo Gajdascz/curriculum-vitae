@@ -54,4 +54,5 @@
 .select-menu-option:hover {
   background-color: var(--color-primary-accent);
   color: var(--color-primary-accent-secondary);
+  border: 3px solid var(--color-primary-accent-secondary);
 }

@@ -43,7 +43,7 @@ export default function AddCustomField({ onAdd }) {
           type="select"
           label={ATTS.TYPE_SELECT_LABEL}
           id={ATTS.TYPE_SELECT_ID}
-          options={ATTS.TYPE_SELECT_OPTIONS}
+          options={['text', 'text-area']}
           onChange={handleTypeChange}
         />
         <FieldWrapper

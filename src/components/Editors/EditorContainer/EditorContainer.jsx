@@ -28,6 +28,17 @@ export default function EditorContainer({ section }) {
   const onSaveChanges = (isStructured = false) =>
     onUpdateSection(section.id, [...fieldsRef.current], isStructured);
 
+  const removeField = (fieldId) => {
+    fieldsRef.current = fieldsRef.current.filter(
+      (field) => field.id !== fieldId
+    );
+    onRemoveField(section.id, fieldId);
+  };
+  const addField = (field) => {
+    const fieldData = onAddField(section.id, field);
+    fieldsRef.current.push(fieldData);
+  };
+
   const Fields = () =>
     fields.map((field) => (
       <FieldWrapper
@@ -36,9 +47,7 @@ export default function EditorContainer({ section }) {
         label={field.label}
         value={field.value}
         onBlur={(value) => bufferFieldChange(field.id, value)}
-        onDelete={
-          field.addDelete ? () => onRemoveField(section.id, field.id) : null
-        }
+        onDelete={field.addDelete ? () => removeField(field.id) : null}
       />
     ));
 
@@ -61,8 +70,8 @@ export default function EditorContainer({ section }) {
         <div className="editor-fields-container">
           <Fields />
           <AddCustomField
-            onAdd={(field) => onAddField(section.id, field)}
-            onDelete={(fieldId) => onRemoveField(section.id, fieldId)}
+            onAdd={(field) => addField(field)}
+            onDelete={(fieldId) => removeField(fieldId)}
           />
           <Button
             className="add-data-button"
@@ -82,8 +91,8 @@ export default function EditorContainer({ section }) {
           itemSelectorClassName="configurable-section-input-selector"
           containerContext={section.id}
           onClick={() => {}}
-          onDragDrop={(fieldId) => onRemoveField(section.id, fieldId)}
-          onDelete={() => {}}
+          onDragDrop={() => {}}
+          onDelete={(fieldId) => removeField(fieldId)}
           renderItem={(field) => (
             <FieldWrapper
               key={field.id}
@@ -97,8 +106,13 @@ export default function EditorContainer({ section }) {
           )}
         />
         <AddCustomField
-          onAdd={(field) => onAddField(section.id, field)}
-          onDelete={(fieldId) => onRemoveField(section.id, fieldId)}
+          onAdd={(field) => addField(field)}
+          onDelete={(fieldId) => removeField(fieldId)}
+        />
+        <Button
+          className="save-section-changes-button"
+          text="Save"
+          onClick={() => onSaveChanges()}
         />
       </>
     );

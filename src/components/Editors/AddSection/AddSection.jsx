@@ -11,7 +11,10 @@ export default function AddSection({ location }) {
         addDefaultStyling={false}
         text="+"
         className="add-section-button"
-        onClick={() => onAddSection(location, fieldInput)}
+        onClick={() => {
+          if (fieldInput && fieldInput.trim().length > 0)
+            onAddSection(location, fieldInput);
+        }}
       />
       <input
         className="add-section-header-input"

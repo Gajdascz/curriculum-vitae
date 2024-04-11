@@ -18,6 +18,7 @@ label {
   resize: none;
   width: 100%;
   min-height: 75px;
+  resize: vertical;
 }
 
 .field-input-container {
@@ -29,7 +30,6 @@ label {
 .field-input-container > * {
   border-radius: 0;
   padding: var(--space-small);
-  min-height: 100%;
 }
 
 .field-input[type='date'] {
@@ -42,13 +42,13 @@ label {
 .field-input-container > button.field-wrapper-delete-button {
   display: flex;
   max-width: 10%;
-  min-height: 100%;
-  height: inherit;
+  align-self: stretch;
   border-bottom: 3px solid var(--color-primary-accent);
   font-weight: bolder;
   background-color: var(--color-primary-accent);
   justify-content: center;
   align-items: center;
+  height: auto;
 }
 
 .field-input-container > button.field-wrapper-delete-button:hover {

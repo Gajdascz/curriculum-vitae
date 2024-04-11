@@ -4,7 +4,6 @@
   --accent-color: #add8e6;
   --sidebar-location: 2;
   --selected-font: 'atkinson-hyper-legible';
-
   display: grid;
   grid-template-columns: 1fr 0.5fr;
   grid-template-rows: 0.15fr 1fr;
@@ -12,6 +11,11 @@
   box-shadow: var(--view-shadow);
   color: black;
   font-family: var(--selected-font);
+  letter-spacing: 0;
+  font-size: 12pt;
+  --header-size: 14pt;
+  --subheader-size: 13pt;
+  --space-from-header: 2em;
 }
 
 .view-header {
@@ -19,19 +23,95 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  padding: var(--space-medium);
+  align-items: start;
+  justify-content: center;
   background-color: var(--accent-color);
 }
 .view-header-name {
-  font-size: 2rem;
+  font-size: 30pt;
 }
 .view-header-title {
-  font-size: 1.25rem;
+  font-size: 16pt;
+  font-weight: normal;
 }
-.view-additional-info-sidebar {
+.view-header-other {
+  font: 14pt;
+  font-weight: normal;
+}
+
+.view-header,
+.view-primary-info {
+  padding-left: 1em;
+}
+
+.view-primary-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-large);
+  padding-top: var(--space-from-header);
+  padding-right: 1em;
+}
+
+.view-profile {
+}
+
+.view-primary-info-section-header {
+  border-bottom: 3px solid black;
+  margin-bottom: 0.25em;
+}
+
+.view-edu-section {
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  gap: 1em;
+}
+
+.view-edu-section-label {
+  display: flex;
+  flex-direction: column;
+}
+.view-edu-degree {
+  font-weight: bold;
+}
+.view-edu-university,
+.view-edu-location {
+  font-style: italic;
+}
+
+.view-sidebar {
   grid-row: 2;
   grid-column: var(--sidebar-location);
   background-color: #d0dde0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-large);
+  padding-right: 0;
+  padding-left: 0.5em;
+  padding-top: var(--space-from-header);
+}
+.view-sidebar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  justify-content: center;
+}
+.view-sidebar-section-item {
+  display: flex;
+  flex-direction: column;
+  margin: var(--space-small);
+  height: min-content;
+  width: 100%;
+  line-height: 1;
+}
+
+.view-sidebar-section-header {
+  width: 100%;
+  border-bottom: 3px solid black;
+  font-size: var(--header-size);
+}
+
+.view-sidebar-item-label {
+  font-weight: bold;
 }
 
 @media print {
@@ -42,6 +122,10 @@
     overflow: hidden;
     background-color: white;
   }
+  .cv-app-container {
+    padding: 0;
+  }
+
   section.cv-editors-section,
   header.index-header {
     display: none;
@@ -49,11 +133,11 @@
 
   section.cv-view,
   section.cv-view * {
-    display: block;
     margin: 0;
     padding: 0;
   }
   @page {
     margin: 0;
+    size: auto;
   }
 }

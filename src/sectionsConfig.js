@@ -1,5 +1,5 @@
 import { getStoredSectionsConfig } from './storage';
-
+import { templateData } from './templateData';
 const uid = () =>
   `${Math.round((Math.random() * Date.now()) / Math.PI ** Math.PI)}`;
 
@@ -125,13 +125,26 @@ const education = base({
   type: 'structured',
   draggable: true,
   location: { id: 'primary', index: 1 },
+  ref: 'edu',
   fields: [
-    field({ type: 'text', label: 'University', ref: 'university' }),
-    field({ type: 'text', label: 'GPA', ref: 'gpa' }),
     field({ type: 'text', label: 'Degree', ref: 'degree' }),
-    field({ type: 'date', label: 'Start', ref: 'start' }),
-    field({ type: 'date', label: 'End', ref: 'end' }),
-    field({ type: 'text', label: 'Location', red: 'location' })
+    field({ type: 'text', label: 'Degree Secondary', ref: 'degree' }),
+    field({ type: 'text', label: 'University', ref: 'university' }),
+    field({
+      type: 'text',
+      label: 'Location',
+      ref: 'location'
+    }),
+    field({
+      type: 'text',
+      label: 'Start',
+      ref: 'start'
+    }),
+    field({
+      type: 'text',
+      label: 'End',
+      ref: 'end'
+    })
   ]
 });
 
@@ -140,10 +153,11 @@ const experience = base({
   type: 'structured',
   draggable: true,
   location: { id: 'primary', index: 2 },
+  ref: 'exp',
   fields: [
     field({ type: 'text', label: 'Position', ref: 'position' }),
-    field({ type: 'date', label: 'Start', ref: 'start' }),
-    field({ type: 'date', label: 'End', ref: 'end' })
+    field({ type: 'month', label: 'Start', ref: 'start' }),
+    field({ type: 'month', label: 'End', ref: 'end' })
   ]
 });
 
@@ -164,6 +178,16 @@ const getDefaultConfig = () => [
   experience,
   skills
 ];
+
+const loadTemplate = () => {
+  header.fields = templateData.header;
+  profile.fields = templateData.profile;
+  contact.fields = templateData.contact;
+  education.saved = templateData.education;
+  experience.saved = templateData.experience;
+  skills.fields = templateData.skills;
+  return [config, header, profile, contact, education, experience, skills];
+};
 
 const getInitialSections = () =>
   localStorage.length === 0 ? getDefaultConfig() : getStoredSectionsConfig();
@@ -196,4 +220,4 @@ const sortSections = (sections) => {
   return [...primary, ...sidebar, ...other];
 };
 
-export { getInitialSections, sortSections, uid };
+export { getInitialSections, loadTemplate, sortSections, uid, field };

@@ -2,8 +2,9 @@
 
 .cv-editors-util-sections {
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
-  gap: var(--space-small);
+  gap: var(--space-xl);
 }
 
 .util-section-wrapper {
@@ -16,13 +17,6 @@
   border: 3px solid var(--color-primary-accent);
   border-radius: var(--border-radius);
   position: relative;
-}
-.util-section-header {
-  position: absolute;
-  color: var(--color-primary-accent);
-  padding: 0 var(--space-medium) 0 var(--space-medium);
-  top: -25%;
-  background-color: var(--color-background);
 }
 
 .util-section-buttons {

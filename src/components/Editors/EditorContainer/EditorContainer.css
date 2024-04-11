@@ -26,4 +26,5 @@ button.add-data-button {
 
 button.save-section-changes-button {
   width: 50%;
+  margin-top: var(--space-large);
 }
