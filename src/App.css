@@ -3,9 +3,8 @@
 .cv-app-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minMax(300px, 1fr));
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
-  padding: var(--space-xl);
-  padding-top: var(--space-xxl);
+  padding: var(--space-large);
   gap: var(--space-large);
 }

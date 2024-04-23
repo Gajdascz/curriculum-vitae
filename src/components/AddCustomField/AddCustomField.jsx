@@ -23,6 +23,7 @@ export default function AddCustomField({ onAdd }) {
 
   const handleLabelChange = (value) =>
     setFieldInfo({ ...fieldInfo, label: value });
+
   const handleValueChange = (value) => setFieldInfo({ ...fieldInfo, value });
 
   const handleSubmit = () => {
@@ -46,15 +47,26 @@ export default function AddCustomField({ onAdd }) {
           onChange={handleTypeChange}
         />
         <FieldWrapper
-          id="custom-field-label-input"
-          label={ATTS.LABEL_INPUT_LABEL}
-          onBlur={handleLabelChange}
+          fieldData={{
+            type: 'text',
+            id: 'custom-field-label-input'
+          }}
+          labelData={{
+            text: ATTS.LABEL_INPUT_LABEL
+          }}
+          fieldFns={{ onBlur: (e) => handleLabelChange(e.target.value) }}
         />
         <FieldWrapper
-          id="custom-field-value-input"
-          type={fieldInfo.type}
-          onBlur={handleValueChange}
-          label="Value"
+          fieldData={{
+            id: 'custom-field-value-input',
+            type: fieldInfo.type
+          }}
+          labelData={{
+            text: 'Value'
+          }}
+          fieldFns={{
+            onBlur: (e) => handleValueChange(e.target.value)
+          }}
         />
         <Button
           text="Add"

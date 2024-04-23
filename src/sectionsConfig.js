@@ -3,6 +3,12 @@ import { templateData } from './templateData';
 const uid = () =>
   `${Math.round((Math.random() * Date.now()) / Math.PI ** Math.PI)}`;
 
+const getRef = (labelText) =>
+  labelText
+    .toLowerCase()
+    .split(' ')
+    .reduce((acc, str) => acc + str.charAt(0).toUpperCase() + str.slice(1), '');
+
 const field = ({
   label,
   type = 'text',
@@ -10,6 +16,7 @@ const field = ({
   className = '',
   content = '',
   hideLabel = false,
+  removable = true,
   ...rest
 } = {}) => ({
   id: uid(),
@@ -19,6 +26,7 @@ const field = ({
   className,
   content,
   hideLabel,
+  removable,
   ...rest
 });
 
@@ -27,6 +35,7 @@ const base = ({
   headerText,
   fields = [],
   location = { id: 'base', index: 0 },
+  removable = true,
   ...rest
 } = {}) => ({
   id: uid(),
@@ -35,6 +44,7 @@ const base = ({
   fields,
   type,
   location,
+  removable,
   ...(type === 'structured' && { saved: [] }),
   ...rest
 });
@@ -43,7 +53,6 @@ const config = {
   id: uid(),
   headerText: 'General',
   type: 'static',
-  index: -1,
   isSelected: false,
   location: { id: 'base', index: 0 },
   selected: {
@@ -122,6 +131,7 @@ const contact = base({
   type: 'configurable',
   draggable: true,
   location: { id: 'sidebar', index: 0 },
+  removable: false,
   fields: [
     field({ type: 'email', label: 'Email' }),
     field({ type: 'tel', label: 'Phone' }),
@@ -133,26 +143,29 @@ const education = base({
   headerText: 'Education',
   type: 'structured',
   draggable: true,
-  location: { id: 'primary', index: 1 },
+  location: { id: 'primary', index: 0 },
   ref: 'edu',
+  removable: false,
   fields: [
-    field({ type: 'text', label: 'Degree', ref: 'degree' }),
-    field({ type: 'text', label: 'Degree Secondary', ref: 'degree' }),
-    field({ type: 'text', label: 'University', ref: 'university' }),
     field({
       type: 'text',
-      label: 'Location',
-      ref: 'location'
+      label: 'Degree',
+      ref: 'degree',
+      inHeader: 'primary'
     }),
     field({
       type: 'text',
-      label: 'Start',
-      ref: 'start'
+      label: 'Degree Secondary',
+      ref: 'degreeSecondary',
+      inHeader: 'secondary'
     }),
+    field({ type: 'text', label: 'Date', ref: 'date', inHeader: 'date' }),
     field({
       type: 'text',
-      label: 'End',
-      ref: 'end'
+      label: 'University',
+      ref: 'university',
+      hideViewLabel: true,
+      bold: true
     })
   ]
 });
@@ -161,12 +174,23 @@ const experience = base({
   headerText: 'Experience',
   type: 'structured',
   draggable: true,
-  location: { id: 'primary', index: 2 },
+  location: { id: 'primary', index: 1 },
   ref: 'exp',
+  removable: false,
   fields: [
-    field({ type: 'text', label: 'Position', ref: 'position' }),
-    field({ type: 'month', label: 'Start', ref: 'start' }),
-    field({ type: 'month', label: 'End', ref: 'end' })
+    field({
+      type: 'text',
+      label: 'Position',
+      ref: 'position',
+      inHeader: 'primary'
+    }),
+    field({
+      type: 'text',
+      label: 'Employer',
+      ref: 'employer',
+      inHeader: 'secondary'
+    }),
+    field({ type: 'text', label: 'Date', ref: 'date', inHeader: 'date' })
   ]
 });
 
@@ -178,6 +202,14 @@ const skills = base({
   fields: []
 });
 
+const goals = base({
+  headerText: 'Goals',
+  draggable: true,
+  location: { id: 'sidebar', index: 2 },
+  type: 'configurable',
+  fields: []
+});
+
 const getDefaultConfig = () => [
   config,
   header,
@@ -185,7 +217,8 @@ const getDefaultConfig = () => [
   contact,
   education,
   experience,
-  skills
+  skills,
+  goals
 ];
 
 const loadTemplate = () => {
@@ -195,7 +228,17 @@ const loadTemplate = () => {
   education.saved = templateData.education;
   experience.saved = templateData.experience;
   skills.fields = templateData.skills;
-  return [config, header, profile, contact, education, experience, skills];
+  goals.fields = templateData.goals;
+  return [
+    config,
+    header,
+    profile,
+    contact,
+    education,
+    experience,
+    skills,
+    goals
+  ];
 };
 
 const getInitialSections = () =>

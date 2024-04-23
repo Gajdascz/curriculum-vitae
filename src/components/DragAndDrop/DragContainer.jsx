@@ -117,7 +117,7 @@ export default function DragContainer({
               <div className="render-item" onClick={() => onClick(item.id)}>
                 {renderItem(item, index)}
               </div>
-              {onDelete && (
+              {onDelete && item.removable && (
                 <Button
                   text="X"
                   className="draggable-item-delete-button"

@@ -65,6 +65,7 @@ export default function CVAppProvider({ children }) {
             ...section.saved,
             {
               id: uid(),
+              removable: true,
               index: section.saved.length,
               data: updatedData
             }
@@ -128,7 +129,8 @@ export default function CVAppProvider({ children }) {
           fields: [],
           type: 'configurable',
           location: { id: location, index: 999 },
-          draggable: true
+          draggable: true,
+          removable: true
         }
       ])
     );

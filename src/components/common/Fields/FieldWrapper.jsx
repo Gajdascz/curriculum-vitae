@@ -3,55 +3,51 @@ import { useState } from 'react';
 
 import './FieldWrapper.css';
 
-function Field({ type, className, ...rest } = {}) {
-  switch (type) {
+function Field({ data, fns, className, value } = {}) {
+  switch (data.type) {
     case 'text-area':
-      return <textarea {...rest} className={className} />;
+      return (
+        <textarea {...data} className={className} {...fns} value={value} />
+      );
     case 'list':
       return (
         <textarea
-          {...rest}
           className={className}
           placeholder={`Enter each list item on a new line.\nItem 1\nItem 2\nItem 3`}
+          {...fns}
+          value={value}
         />
       );
     default:
-      return <input type={type} {...rest} className={className} />;
+      return <input {...data} {...fns} className={className} value={value} />;
   }
 }
 export default function FieldWrapper({
-  type = 'text',
-  label = '',
-  hideLabel = false,
-  id,
-  onDelete,
-  onBlur,
-  value = '',
-  ...rest
+  fieldData,
+  fieldFns,
+  labelData,
+  onDelete
 }) {
-  const [fieldValue, setFieldValue] = useState(value);
+  const [fieldValue, setFieldValue] = useState(fieldData.value);
   return (
     <div className="field-wrapper">
       <label
-        htmlFor={id}
-        {...(hideLabel && {
+        htmlFor={labelData.id}
+        {...(labelData.hide && {
           style: { display: 'none' }
         })}
       >
-        {label}
+        {labelData.text}
       </label>
       <div className="field-input-container">
         <Field
-          type={type}
-          id={id}
           className={`field-input`}
-          onBlur={(e) => onBlur(e.target.value)}
-          onChange={(e) => setFieldValue(e.target.value)}
+          data={fieldData}
           value={fieldValue}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') e.target.blur();
+          fns={{
+            onChange: (e) => setFieldValue(e.target.value),
+            ...fieldFns
           }}
-          {...rest}
         />
         {onDelete && (
           <Button

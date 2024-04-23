@@ -39,6 +39,7 @@ div.draggable-item
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 .render-item > .draggable-field {
   display: flex;
   flex-wrap: nowrap;

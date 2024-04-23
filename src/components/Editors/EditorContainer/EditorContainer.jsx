@@ -20,14 +20,17 @@ export default function EditorContainer({ section }) {
   const { headerText, isSelected, fields } = section;
   const fieldsRef = useRef([...fields]);
 
-  const bufferFieldChange = (fieldId, value) =>
-    (fieldsRef.current = fieldsRef.current.map((field) =>
-      field.id !== fieldId ? field : { ...field, value }
-    ));
-
-  const onSaveChanges = (isStructured = false) =>
+  const bufferFieldChange = (fieldId, value) => {
+    fieldsRef.current = fieldsRef.current.map((field) => {
+      console.log(section);
+      console.log(fieldId, field.id);
+      return field.id !== fieldId ? field : { ...field, value };
+    });
+  };
+  const onSaveChanges = (isStructured = false) => {
+    console.log(fieldsRef.current);
     onUpdateSection(section.id, [...fieldsRef.current], isStructured);
-
+  };
   const removeField = (fieldId) => {
     fieldsRef.current = fieldsRef.current.filter(
       (field) => field.id !== fieldId
@@ -43,11 +46,17 @@ export default function EditorContainer({ section }) {
     fields.map((field) => (
       <FieldWrapper
         key={field.id}
-        type={field.type}
-        label={field.label}
-        hideLabel={field.hideLabel}
-        value={field.value}
-        onBlur={(value) => bufferFieldChange(field.id, value)}
+        fieldData={{
+          type: field.type,
+          value: field.value
+        }}
+        labelData={{
+          text: field.label,
+          hide: field.hideLabel
+        }}
+        fieldFns={{
+          onBlur: (e) => bufferFieldChange(field.id, e.target.value)
+        }}
         onDelete={field.addDelete ? () => removeField(field.id) : null}
       />
     ));
@@ -59,7 +68,12 @@ export default function EditorContainer({ section }) {
           items={section.saved}
           itemSelectorClassName="draggable-field-selector"
           containerContext={section.id}
-          onClick={(dataId) => onEditSavedStructuredData(section.id, dataId)}
+          onClick={(dataId) => {
+            onEditSavedStructuredData(section.id, dataId);
+            fieldsRef.current = section.saved.find(
+              (data) => data.id === dataId
+            ).data;
+          }}
           onDragDrop={({ startIndex, targetIndex }) =>
             onReorderStructuredData(section.id, startIndex, targetIndex)
           }
@@ -76,7 +90,7 @@ export default function EditorContainer({ section }) {
           />
           <Button
             className="add-data-button"
-            text="Add"
+            text="Add/Update"
             onClick={() => onSaveChanges(true)}
           />
         </div>
@@ -97,12 +111,17 @@ export default function EditorContainer({ section }) {
           renderItem={(field) => (
             <FieldWrapper
               key={field.id}
-              type={field.type}
-              label={field.label}
-              hideLabel={true}
-              value={field.value}
-              onBlur={(value) => bufferFieldChange(field.id, value)}
-              placeholder={field.label}
+              fieldData={{
+                type: field.type,
+                value: field.value
+              }}
+              labelData={{
+                text: field.label,
+                hide: true
+              }}
+              fieldFns={{
+                onBlur: (e) => bufferFieldChange(field.id, e.target.value)
+              }}
             />
           )}
         />

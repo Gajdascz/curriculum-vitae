@@ -6,6 +6,8 @@ const field = ({
   value = '',
   className = '',
   content = '',
+  hideLabel = false,
+  removable = true,
   ...rest
 } = {}) => ({
   id: uid(),
@@ -14,6 +16,8 @@ const field = ({
   value,
   className,
   content,
+  hideLabel,
+  removable,
   ...rest
 });
 const headerData = [
@@ -33,7 +37,7 @@ const profileData = [
     label: 'Profile',
     ref: 'profile',
     value:
-      'Passionate Full Stack Developer committed to designing and building responsive web applications. Proficient in modern JavaScript frameworks and a strong advocate for clean, maintainable code. Adept at collaborating in team environments and delivering high-quality software solutions that exceed client expectations.'
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas volutpat est sagittis, tincidunt quam ut, pretium augue. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque vel tristique nisi. Sed vulputate lacus sem, ut sagittis nulla viverra quis. Suspendisse vestibulum ultrices nibh, vel sodales tortor semper eu. Fusce quam orci, suscipit et euismod a, porta molestie turpis. Sed convallis neque suscipit, fringilla leo vel, dapibus ante. '
   })
 ];
 
@@ -48,118 +52,98 @@ const educationData = [
   {
     id: uid(),
     index: 0,
+    removable: true,
     data: [
       field({
         type: 'text',
         label: 'Degree',
         ref: 'degree',
-        value: 'A.S. Information Technology'
+        value: 'B.S. Information Technology',
+        inHeader: 'primary'
       }),
       field({
         type: 'text',
         label: 'Degree Secondary',
         ref: 'degreeSecondary',
-        value: 'Mathematics and Engineering Focus'
+        value: 'Engineering/Mathematics Focus',
+        inHeader: 'secondary'
+      }),
+      field({
+        type: 'text',
+        label: 'Date',
+        ref: 'date',
+        value: '2020-2022',
+        inHeader: 'date'
       }),
       field({
         type: 'text',
         label: 'University',
         ref: 'university',
-        value: 'A School'
+        value: 'State University - City, XY',
+        hideViewLabel: true,
+        bold: true
       }),
 
       field({
-        type: 'month',
-        label: 'Start',
-        ref: 'start',
-        value: '1996'
-      }),
-      field({ type: 'month', label: 'End', ref: 'end', value: '2020' }),
-      field({
-        type: 'text',
-        label: 'Location',
-        ref: 'location',
-        value: 'A Place'
-      }),
-      field({
         type: 'text',
         label: 'GPA',
-        value: '4.0'
-      }),
-      field({
-        type: 'text-area',
-        label: '',
-        value:
-          'Learned a lot about learning about learning a lot about learning a lot about learning a lot.'
+        value: '3.8, Magna Cum Laude Honors'
       }),
       field({
         type: 'list',
-        label: 'Achievements',
-        value: `Manga Cum Laude\nDean's List Every Attended Semester`
+        value: `achievement/additional important info
+achievement/additional important info
+achievement/additional important info
+`
       })
     ]
   },
   {
     id: uid(),
     index: 1,
+    removable: true,
     data: [
       field({
         type: 'text',
         label: 'Degree',
         ref: 'degree',
-        value: 'B.S. Information Technology'
+        value: 'A.S. Engineering Science',
+        inHeader: 'primary'
+      }),
+      field({
+        type: 'text',
+        label: 'Degree Secondary',
+        ref: 'degreeSecondary',
+        value: 'Computer/Electrical Focus',
+        inHeader: 'secondary'
+      }),
+      field({
+        type: 'text',
+        label: 'Date',
+        ref: 'date',
+        value: '2018-2020',
+        inHeader: 'date'
       }),
       field({
         type: 'text',
         label: 'University',
         ref: 'university',
-        value: 'A School'
+        value: 'Community College - City, ZX',
+        hideViewLabel: true,
+        bold: true
       }),
 
       field({
-        type: 'month',
-        label: 'Start',
-        ref: 'start',
-        value: '1996'
-      }),
-      field({ type: 'month', label: 'End', ref: 'end', value: '2020' }),
-      field({
         type: 'text',
-        label: 'Location',
-        ref: 'location',
-        value: 'A Place'
-      })
-    ]
-  },
-  {
-    id: uid(),
-    index: 2,
-    data: [
-      field({
-        type: 'text',
-        label: 'Degree',
-        ref: 'degree',
-        value: 'M.S. Information Technology'
+        label: 'GPA',
+        value: '3.5, Magna Cum Laude Honors'
       }),
       field({
-        type: 'text',
-        label: 'University',
-        ref: 'university',
-        value: 'A School'
-      }),
-
-      field({
-        type: 'month',
-        label: 'Start',
-        ref: 'start',
-        value: '1996'
-      }),
-      field({ type: 'month', label: 'End', ref: 'end', value: '2020' }),
-      field({
-        type: 'text',
-        label: 'Location',
-        ref: 'location',
-        value: 'A Place'
+        type: 'list',
+        value: `achievement/additional important info
+achievement/additional important info
+achievement/additional important info
+`
       })
     ]
   }
@@ -169,48 +153,86 @@ const experienceData = [
   {
     id: uid(),
     index: 0,
+    removable: true,
     data: [
       field({
         type: 'text',
         label: 'Position',
         ref: 'position',
-        value: 'Worker'
+        value: 'Software Engineer',
+        inHeader: 'primary'
       }),
       field({
-        type: 'month',
-        label: 'Start',
-        ref: 'start',
-        value: '2020-02'
+        type: 'text',
+        label: 'Date',
+        ref: 'date',
+        value: '2020-2022',
+        inHeader: 'date'
       }),
-      field({ type: 'month', label: 'End', ref: 'end', value: '2020-03' })
+      field({
+        type: 'text',
+        label: 'Employer',
+        ref: 'employer',
+        value: 'SoftwareEngineerEnterprises',
+        inHeader: 'secondary'
+      }),
+      field({
+        type: 'text-area',
+        value:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas volutpat est sagittis, tincidunt quam ut, pretium augue.'
+      })
     ]
   },
   {
     id: uid(),
-    index: 0,
+    index: 1,
+    removable: true,
     data: [
       field({
         type: 'text',
         label: 'Position',
         ref: 'position',
-        value: 'Worker'
+        value: 'Jr. Developer',
+        inHeader: 'primary'
       }),
       field({
-        type: 'month',
-        label: 'Start',
-        ref: 'start',
-        value: '2020-02'
+        type: 'text',
+        label: 'Date',
+        ref: 'date',
+        value: '2020-2022',
+        inHeader: 'date'
       }),
-      field({ type: 'month', label: 'End', ref: 'end', value: '2020-03' })
+      field({
+        type: 'text',
+        label: 'Employer',
+        ref: 'employer',
+        value: 'WebDevelopersLLC',
+        inHeader: 'secondary'
+      }),
+      field({
+        type: 'text-area',
+        value:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas volutpat est sagittis, tincidunt quam ut, pretium augue.'
+      })
     ]
   }
 ];
 
 const skillsData = [
-  field({ type: 'text', value: 'HTML Engineer' }),
-  field({ type: 'text', value: 'CSS Aficionado' }),
-  field({ type: 'text', value: 'JS Pro' }),
-  field({ type: 'text', value: 'Part-time Magician' })
+  field({
+    type: 'list',
+    value: 'HTML Engineer\nCSS Aficionado\nJS Pro\nPart Time Magician'
+  })
+];
+
+const goals = [
+  field({
+    type: 'list',
+    value: `Improve goals
+    Be best
+    Learn everything
+    `
+  })
 ];
 
 const templateData = {
@@ -219,7 +241,8 @@ const templateData = {
   contact: contactData,
   education: educationData,
   experience: experienceData,
-  skills: skillsData
+  skills: skillsData,
+  goals: goals
 };
 
 export { templateData };

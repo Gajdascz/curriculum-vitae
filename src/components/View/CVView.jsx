@@ -1,4 +1,7 @@
 import { useCVAppContext } from '../../CVAppContext';
+import ViewHeader from './Header/ViewHeader';
+import ViewSidebar from './Sidebar/ViewSidebar';
+import ViewPrimary from './Primary/ViewPrimary';
 import './CVView.css';
 
 export default function CVView() {
@@ -17,49 +20,54 @@ export default function CVView() {
     ['gridTemplateColumns']:
       selectedSettings.layout === 'right' ? '1fr 0.5fr' : '0.5fr 1fr'
   };
-  const Header = () => {
-    const header = sections.find((section) => section.location.id === 'header');
-    const fields = header.fields ?? [];
+
+  const List = ({ field }) => {
     return (
-      <div className="view-header">
-        <h1 className="view-header-name">
-          {fields.find((field) => field.ref === 'name').value}
-        </h1>
-        <h2 className="view-header-title">
-          {fields.find((field) => field.ref === 'title').value}
-        </h2>
-        <h3 className="view-header-other">
-          {fields.find((field) => field.ref === 'other').value}
-        </h3>
+      <div className="view-list">
+        {field.label && <p className="view-list-label">{field.label}</p>}
+        <div className="view-list-item-container">
+          {field.value
+            .split('\n')
+            .filter((item) => item.trim() !== '')
+            .map((item, index) => (
+              <div key={index} className="view-list-item">
+                &bull; {item}
+              </div>
+            ))}
+        </div>
       </div>
     );
   };
 
-  const List = ({ field }) => {
-    return (
-      <ul className="view-list">
-        {field.label && <p className="view-list-label">{field.label}</p>}
-        {field.value
-          .split('\n')
-          .filter((item) => item.trim() !== '')
-          .map((item, index) => (
-            <li key={index} className="view-list-item">
-              {item}
-            </li>
-          ))}
-      </ul>
-    );
-  };
-
-  const Text = ({ field }) => (
+  const Text = ({ field, colon = true }) => (
     <p key={field.id} className="view-text-field">
       {field.label && (
-        <span className="view-text-field-label">{field.label}: </span>
+        <span className="view-text-field-label">
+          {field.label}
+          {colon ? `: ` : ''}
+        </span>
       )}
-      {field.value}
+      <span className="view-text-field-value">{field.value}</span>
     </p>
   );
 
+  const PrimarySubsectionHeader = ({ info }) => (
+    <div className="view-primary-subsection-header">
+      <div className="view-primary-subsection-header-info">
+        <span className="view-primary-subsection-header-primary">
+          {info.primary}
+        </span>
+        {info.secondary && (
+          <span className="view-primary-subsection-header-secondary">
+            , {info.secondary}
+          </span>
+        )}
+      </div>
+      {info.date && (
+        <span className="view-primary-subsection-header-date">{info.date}</span>
+      )}
+    </div>
+  );
   const PrimaryInfo = () => {
     const profileSection = sections.find(
       (section) => section.location.id === 'profile'
@@ -71,15 +79,13 @@ export default function CVView() {
     const EduSection = ({ section }) => {
       return section.saved.map((savedData) => {
         const rest = [];
-        const { university, degree, degreeSecondary, start, end, location } =
+        const { university, degree, degreeSecondary, date } =
           savedData.data.reduce((acc, field) => {
             switch (field.ref) {
               case 'university':
               case 'degree':
               case 'degreeSecondary':
-              case 'start':
-              case 'end':
-              case 'location':
+              case 'date':
                 acc[field.ref] = field.value;
                 break;
               default:
@@ -87,32 +93,23 @@ export default function CVView() {
             }
             return acc;
           }, {});
+
         return (
           <div key={savedData.id} className="view-edu-section">
-            <p className="view-edu-attendance-date">
-              {start} - {end}
-            </p>
             <div className="view-edu-info">
-              <p className="view-edu-degree">{degree}</p>
-              {degreeSecondary && (
-                <p className="view-edu-degree-secondary">{degreeSecondary}</p>
-              )}
-              <p className="view-edu-university">
-                {university} -
-                {location && (
-                  <span className="view-edu-location"> {location}</span>
-                )}
-              </p>
+              <PrimarySubsectionHeader
+                info={{
+                  primary: degree,
+                  secondary: degreeSecondary,
+                  date: date
+                }}
+              />
+              <p className="bold">{university}</p>
               <div className="view-edu-section-additional">
                 {rest.map((field) => {
-                  switch (field.type) {
-                    case 'text':
-                      return <Text key={field.id} field={field} />;
-                    case 'text-area':
-                      return <Text key={field.id} field={field} />;
-                    case 'list':
-                      return <List key={field.id} field={field} />;
-                  }
+                  if (field.type === 'list')
+                    return <List key={field.id} field={field} />;
+                  else return <Text key={field.id} field={field} />;
                 })}
               </div>
             </div>
@@ -121,6 +118,47 @@ export default function CVView() {
       });
     };
 
+    const ExpSection = ({ section }) => {
+      return section.saved.map((savedData) => {
+        const rest = [];
+        const { position, employer, date } = savedData.data.reduce(
+          (acc, field) => {
+            switch (field.ref) {
+              case 'position':
+              case 'employer':
+              case 'date':
+                acc[field.ref] = field.value;
+                break;
+              default:
+                rest.push(field);
+            }
+            return acc;
+          },
+          {}
+        );
+
+        return (
+          <div key={savedData.id} className="view-exp-section">
+            <div className="view-exp-info">
+              <PrimarySubsectionHeader
+                info={{
+                  primary: position,
+                  secondary: employer,
+                  date: date
+                }}
+              />
+              <div className="view-exp-section-additional">
+                {rest.map((field) => {
+                  if (field.type === 'list')
+                    return <List key={field.id} field={field} />;
+                  else return <Text key={field.id} field={field} />;
+                })}
+              </div>
+            </div>
+          </div>
+        );
+      });
+    };
     return (
       <div className="view-primary-info">
         <div className="view-profile">
@@ -137,32 +175,7 @@ export default function CVView() {
               {section.headerText}
             </h2>
             {section.ref === 'edu' && <EduSection section={section} />}
-            <div className="view-primary-info-item">
-              <h3 className="view-primary-info-item-header"></h3>
-            </div>
-          </div>
-        ))}
-      </div>
-    );
-  };
-
-  const AdditionalInfoSidebar = () => {
-    const sidebarSections = sections.filter(
-      (section) => section.location.id === 'sidebar'
-    );
-    return (
-      <div className="view-sidebar">
-        {sidebarSections.map((section) => (
-          <div key={section.id} className="view-sidebar-section ">
-            <h2 className="view-sidebar-section-header">
-              {section.headerText}
-            </h2>
-            {section.fields.map((field) => (
-              <div key={field.id} className="view-sidebar-section-item">
-                <div className="view-sidebar-item-label">{field.label}</div>
-                <div className="view-sidebar-item-value">{field.value}</div>
-              </div>
-            ))}
+            {section.ref === 'exp' && <ExpSection section={section} />}
           </div>
         ))}
       </div>
@@ -171,9 +184,22 @@ export default function CVView() {
 
   return (
     <section className="cv-view" style={{ ...settingsClasses }}>
-      <Header></Header>
-      <PrimaryInfo></PrimaryInfo>
-      <AdditionalInfoSidebar></AdditionalInfoSidebar>
+      <ViewHeader
+        fields={
+          sections.find((section) => section.location.id === 'header').fields
+        }
+      />
+      <ViewPrimary
+        profile={sections.find((section) => section.location.id === 'profile')}
+        primary={sections.filter(
+          (section) => section.location.id === 'primary'
+        )}
+      />
+      <ViewSidebar
+        sections={sections.filter(
+          (section) => section.location.id === 'sidebar'
+        )}
+      />
     </section>
   );
 }
