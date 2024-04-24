@@ -1,4 +1,4 @@
-import Button from '../Button/Button';
+import Button from '../../Button/Button';
 import { useState } from 'react';
 
 import './FieldWrapper.css';
@@ -28,7 +28,7 @@ export default function FieldWrapper({
   labelData,
   onDelete
 }) {
-  const [fieldValue, setFieldValue] = useState(fieldData.value);
+  const [fieldValue, setFieldValue] = useState(fieldData.value || '');
   return (
     <div className="field-wrapper">
       <label

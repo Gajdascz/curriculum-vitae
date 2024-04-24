@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Button from '../Button/Button';
-import ChevronDown from '../../icons/ChevronDown';
+import ChevronDown from '../Icons/ChevronDown';
 import './DropDownContainer.css';
 
 const ATTS = {

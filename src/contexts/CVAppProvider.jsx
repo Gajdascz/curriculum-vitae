@@ -4,16 +4,22 @@ import {
   getInitialSections,
   sortSections,
   loadTemplate
-} from './sectionsConfig';
-import { storeSectionData } from './storage';
+} from '../config/sectionsConfig';
+import { storeSectionData } from '../storage';
 import CVAppContext from './CVAppContext';
 
 export default function CVAppProvider({ children }) {
   const [sections, setSections] = useState(sortSections(getInitialSections()));
+  const [fieldsInSync, setFieldsInSync] = useState(true);
+  const onSave = () => {
+    localStorage.clear();
+    storeSectionData(sections);
+  };
 
-  const onSave = () => storeSectionData(sections);
-
-  const onLoadTemplate = () => setSections(sortSections(loadTemplate()));
+  const onLoadTemplate = () => {
+    setSections(sortSections(loadTemplate()));
+    setFieldsInSync(false);
+  };
 
   const onUpdateSettings = ({ settings }) =>
     setSections(
@@ -89,7 +95,7 @@ export default function CVAppProvider({ children }) {
         return sectionId === section.id
           ? {
               ...section,
-              fields: [...section.fields, fieldData]
+              fields: [...section.fields, { ...fieldData, removable: true }]
             }
           : section;
       })
@@ -193,18 +199,24 @@ export default function CVAppProvider({ children }) {
       )
     );
 
-  const onReorderStructuredData = (sectionId, startIndex, targetIndex) =>
+  const sortByIndex = (sectionId, sortProperty, startIndex, targetIndex) =>
     setSections(
       sections.map((section) => {
         if (section.id !== sectionId) return section;
-        const itemToMove = section.saved[startIndex];
-        const newSaved = [...section.saved];
-        newSaved.splice(startIndex, 1);
-        newSaved.splice(targetIndex, 0, itemToMove);
-        const updated = newSaved.map((data, index) => ({ ...data, index }));
-        return { ...section, saved: updated };
+        const itemToMove = section[sortProperty][startIndex];
+        const newItemArray = [...section[sortProperty]];
+        newItemArray.splice(startIndex, 1);
+        newItemArray.splice(targetIndex, 0, itemToMove);
+        const updated = newItemArray.map((item, index) => ({ ...item, index }));
+        return { ...section, [sortProperty]: updated };
       })
     );
+
+  const onReorderStructuredData = (sectionId, startIndex, targetIndex) =>
+    sortByIndex(sectionId, 'saved', startIndex, targetIndex);
+
+  const onReorderFields = (sectionId, startIndex, targetIndex) =>
+    sortByIndex(sectionId, 'fields', startIndex, targetIndex);
 
   return (
     <CVAppContext.Provider
@@ -221,6 +233,8 @@ export default function CVAppProvider({ children }) {
         onRemoveField,
         onAddField,
 
+        onReorderFields,
+
         onDeleteStructuredData,
         onEditSavedStructuredData,
         onReorderStructuredData,
@@ -228,7 +242,10 @@ export default function CVAppProvider({ children }) {
         onSectionSelect,
         onSectionOrderChange,
         onAddSection,
-        onRemoveSection
+        onRemoveSection,
+
+        setFieldsInSync,
+        areFieldsInSync: () => fieldsInSync
       }}
     >
       {children}

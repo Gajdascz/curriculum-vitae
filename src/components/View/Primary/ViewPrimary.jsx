@@ -1,4 +1,5 @@
 import FieldView from '../FieldView/FieldView';
+import './ViewPrimary.css';
 
 const PrimarySubsectionHeader = ({ info }) => (
   <div className="view-primary-subsection-header">
@@ -8,7 +9,7 @@ const PrimarySubsectionHeader = ({ info }) => (
       </span>
       {info.secondary && (
         <span className="view-primary-subsection-header-secondary">
-          , {info.secondary}
+          , <br /> {info.secondary}
         </span>
       )}
     </div>
@@ -21,7 +22,6 @@ const PrimarySubsectionHeader = ({ info }) => (
 const parseFieldData = ({ fields }) => {
   const rest = [];
   const headerData = fields.reduce((acc, field) => {
-    console.log(field);
     switch (field.inHeader) {
       case undefined:
         rest.push(field);
@@ -44,20 +44,20 @@ const parseFieldData = ({ fields }) => {
 };
 
 const SubSection = ({ fields }) => {
-  console.log(fields);
   const { headerData, rest } = parseFieldData({ fields });
-  console.log(headerData, rest);
   return (
     <div className="view-primary-subsection">
-      <div className="view-subsection-info">
-        <PrimarySubsectionHeader
-          info={{
-            primary: headerData.primary,
-            secondary: headerData.secondary,
-            date: headerData.date
-          }}
-        />
-        <div className="view-subsection-additional">
+      <div className="view-primary-subsection-info">
+        {headerData.primary && (
+          <PrimarySubsectionHeader
+            info={{
+              primary: headerData.primary,
+              secondary: headerData.secondary,
+              date: headerData.date
+            }}
+          />
+        )}
+        <div className="view-primary-subsection-additional">
           {rest.map((field) => (
             <FieldView key={field.id} field={field} />
           ))}
@@ -67,46 +67,6 @@ const SubSection = ({ fields }) => {
   );
 };
 export default function ViewPrimary({ profile, primary }) {
-  console.log(primary);
-  const ExpSection = ({ section }) => {
-    return section.saved.map((savedData) => {
-      const rest = [];
-      const { position, employer, date } = savedData.data.reduce(
-        (acc, field) => {
-          switch (field.ref) {
-            case 'position':
-            case 'employer':
-            case 'date':
-              acc[field.ref] = field.value;
-              break;
-            default:
-              rest.push(field);
-          }
-          return acc;
-        },
-        {}
-      );
-
-      return (
-        <div key={savedData.id} className="view-exp-section">
-          <div className="view-exp-info">
-            <PrimarySubsectionHeader
-              info={{
-                primary: position,
-                secondary: employer,
-                date: date
-              }}
-            />
-            <div className="view-exp-section-additional">
-              {rest.map((field) => (
-                <FieldView key={field.id} field={field} />
-              ))}
-            </div>
-          </div>
-        </div>
-      );
-    });
-  };
   return (
     <div className="view-primary-info">
       <div className="view-profile">

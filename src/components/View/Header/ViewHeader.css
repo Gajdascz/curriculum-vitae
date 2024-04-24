@@ -1,0 +1,23 @@
+@import url('../CVView.css');
+
+.view-header {
+  grid-column: 1/-1;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: start;
+  justify-content: center;
+  background-color: var(--accent-color);
+  padding-left: 1em;
+}
+.view-header-name {
+  font-size: 30pt;
+}
+.view-header-title {
+  font-size: 16pt;
+  font-weight: normal;
+}
+.view-header-other {
+  font: 14pt;
+  font-weight: normal;
+}

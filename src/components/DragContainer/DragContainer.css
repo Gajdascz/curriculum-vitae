@@ -39,6 +39,12 @@ div.draggable-item
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.render-item
+  > .drop-down-container
+  > .drop-down-interactive-header
+  > .toggle-drop-down-button {
+  border-radius: 0;
+}
 
 .render-item > .draggable-field {
   display: flex;
@@ -72,9 +78,6 @@ div.draggable-item
   border-bottom: 3px solid var(--color-primary-accent);
   cursor: pointer;
 }
-.drag-handle {
-  cursor: grab;
-}
 
 .drag-handle,
 .draggable-item-delete-button {
@@ -94,6 +97,7 @@ div.draggable-item
   border-bottom-left-radius: var(--border-radius);
   width: 40px;
   height: 40px;
+  cursor: grab;
 }
 .draggable-item-delete-button {
   width: 40px;
@@ -112,6 +116,8 @@ div.draggable-item
 .draggable-field-container.drag-over {
   border: 0.5em dashed var(--drag-highlight);
 }
+
+/*#region Drop down container re-structure to fix view when draggable.*/
 div[data-container-context='sections-container'] {
   display: grid;
   grid-template-columns: min-content 1fr min-content;
@@ -165,3 +171,4 @@ div[data-container-context='sections-container']
   grid-row: 2;
   border-top: 3px solid var(--color-primary-accent);
 }
+/*#endregion*/

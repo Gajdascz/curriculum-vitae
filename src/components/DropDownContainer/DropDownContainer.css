@@ -1,4 +1,4 @@
-@import url('../../../index.css');
+@import url('../../styles/index.css');
 
 .drop-down-container {
   flex-wrap: wrap;

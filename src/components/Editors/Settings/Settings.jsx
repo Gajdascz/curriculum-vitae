@@ -1,6 +1,6 @@
-import DropDownContainer from '../../common/DropDownContainer/DropDownContainer';
-import Button from '../../common/Button/Button';
-import { useCVAppContext } from '../../../CVAppContext';
+import DropDownContainer from '../../DropDownContainer/DropDownContainer';
+import Button from '../../Button/Button';
+import { useCVAppContext } from '../../../contexts/CVAppContext';
 
 import './Settings.css';
 import { useState } from 'react';
@@ -65,7 +65,7 @@ export default function Settings({ section }) {
       <Button
         text="Apply"
         className="apply-settings-button"
-        onClick={(e) => onUpdateSettings({ settings })}
+        onClick={() => onUpdateSettings({ settings })}
       />
     </DropDownContainer>
   );

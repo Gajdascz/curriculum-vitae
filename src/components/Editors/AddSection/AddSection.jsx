@@ -1,5 +1,5 @@
-import Button from '../../common/Button/Button';
-import { useCVAppContext } from '../../../CVAppContext';
+import Button from '../../Button/Button';
+import { useCVAppContext } from '../../../contexts/CVAppContext';
 import { useState } from 'react';
 import './AddSection.css';
 export default function AddSection({ location }) {

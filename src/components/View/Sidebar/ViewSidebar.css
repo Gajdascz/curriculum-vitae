@@ -1,0 +1,37 @@
+@import url('../CVView.css');
+
+.view-sidebar {
+  grid-row: 2;
+  grid-column: var(--sidebar-location);
+  background-color: #d0dde0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-large);
+  padding-right: var(--sidebar-right-padding);
+  padding-left: var(--sidebar-left-padding);
+  padding-top: var(--space-from-header);
+}
+.view-sidebar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  justify-content: center;
+}
+.view-sidebar-section-item > * {
+  display: flex;
+  flex-direction: column;
+  margin: var(--space-small);
+  height: min-content;
+  width: 100%;
+  line-height: 1;
+}
+
+.view-sidebar-section-header {
+  width: 100%;
+  border-bottom: 3px solid black;
+  font-size: var(--header-size);
+}
+
+.view-sidebar-item-label {
+  font-weight: bold;
+}

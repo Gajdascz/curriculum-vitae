@@ -1,4 +1,4 @@
-import Button from '../common/Button/Button';
+import Button from '../Button/Button';
 import { useState } from 'react';
 import './DragContainer.css';
 
@@ -39,7 +39,9 @@ export default function DragContainer({
 
   const onDragStart = (e, itemId) => {
     e.stopPropagation();
-    const { containerContext, location, index } = e.currentTarget.dataset;
+    const { containerContext, location, index } = e.currentTarget.closest(
+      `.${itemSelectorClassName}`
+    ).dataset;
     setDragData({
       selectedContext: containerContext,
       startIndex: index,
@@ -102,18 +104,22 @@ export default function DragContainer({
         return (
           <div
             key={item.id}
-            draggable={true}
             className={`${itemSelectorClassName} draggable-item ${isOver(index, item.location?.id) ? ` drag-over` : ``}`}
-            onDragStart={(e) => onDragStart(e, item.id)}
-            onDragOver={(e) => onDragOver(e)}
-            onDragLeave={(e) => onDragLeave(e)}
-            onDrop={(e) => onDrop(e, item)}
             data-container-context={containerContext}
             data-index={index}
             data-location={item.location?.id ?? 'default'}
           >
             <div className="render-item-wrapper">
-              <div className="drag-handle">&#x283F;</div>
+              <div
+                className="drag-handle"
+                draggable={true}
+                onDragStart={(e) => onDragStart(e, item.id)}
+                onDragOver={(e) => onDragOver(e)}
+                onDragLeave={(e) => onDragLeave(e)}
+                onDrop={(e) => onDrop(e, item)}
+              >
+                &#x283F;
+              </div>
               <div className="render-item" onClick={() => onClick(item.id)}>
                 {renderItem(item, index)}
               </div>

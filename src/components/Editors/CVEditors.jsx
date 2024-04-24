@@ -1,9 +1,9 @@
 import EditorContainer from './EditorContainer/EditorContainer';
 import UtilButtons from './UtilButtons/UtilButtons';
-import { useCVAppContext } from '../../CVAppContext';
+import { useCVAppContext } from '../../contexts/CVAppContext';
 
 import './CVEditors.css';
-import DragContainer from '../DragAndDrop/DragContainer';
+import DragContainer from '../DragContainer/DragContainer';
 import AddSection from './AddSection/AddSection';
 import Settings from './Settings/Settings';
 

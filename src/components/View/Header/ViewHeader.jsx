@@ -1,3 +1,4 @@
+import './ViewHeader.css';
 export default function ViewHeader({ fields }) {
   return (
     <div className="view-header">

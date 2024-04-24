@@ -1,0 +1,47 @@
+@import url('../CVView.css');
+
+.view-primary-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-large);
+  padding-top: var(--space-from-header);
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+.view-primary-info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.view-primary-info-section-header {
+  border-bottom: 3px solid black;
+}
+
+.view-primary-subsection-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5em;
+}
+.view-primary-subsection-header-info {
+  width: 100%;
+}
+.view-primary-subsection-header-primary {
+  font-weight: bold;
+  font-size: var(--subheader-size);
+}
+
+.view-primary-subsection-header-secondary {
+  font-style: italic;
+  font-weight: bold;
+  font-size: 11pt;
+}
+.view-primary-subsection-header-date {
+  max-width: min-content;
+}
+.view-primary-subsection-additional {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-small);
+}

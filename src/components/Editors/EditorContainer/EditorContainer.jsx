@@ -1,9 +1,9 @@
-import DropDownContainer from '../../common/DropDownContainer/DropDownContainer';
-import DragContainer from '../../DragAndDrop/DragContainer';
+import DropDownContainer from '../../DropDownContainer/DropDownContainer';
+import DragContainer from '../../DragContainer/DragContainer';
 import AddCustomField from '../../AddCustomField/AddCustomField';
-import Button from '../../common/Button/Button';
-import FieldWrapper from '../../common/Fields/FieldWrapper';
-import { useCVAppContext } from '../../../CVAppContext';
+import Button from '../../Button/Button';
+import FieldWrapper from '../../Fields/FieldWrapper/FieldWrapper';
+import { useCVAppContext } from '../../../contexts/CVAppContext';
 import { useRef } from 'react';
 import './EditorContainer.css';
 export default function EditorContainer({ section }) {
@@ -14,7 +14,10 @@ export default function EditorContainer({ section }) {
     onDeleteStructuredData,
     onEditSavedStructuredData,
     onReorderStructuredData,
-    onUpdateSection
+    onUpdateSection,
+    onReorderFields,
+    areFieldsInSync,
+    setFieldsInSync
   } = useCVAppContext();
 
   const { headerText, isSelected, fields } = section;
@@ -22,13 +25,15 @@ export default function EditorContainer({ section }) {
 
   const bufferFieldChange = (fieldId, value) => {
     fieldsRef.current = fieldsRef.current.map((field) => {
-      console.log(section);
-      console.log(fieldId, field.id);
       return field.id !== fieldId ? field : { ...field, value };
     });
   };
   const onSaveChanges = (isStructured = false) => {
-    console.log(fieldsRef.current);
+    console.log(areFieldsInSync());
+    if (!areFieldsInSync()) {
+      fieldsRef.current = [...fields];
+      setFieldsInSync(true);
+    }
     onUpdateSection(section.id, [...fieldsRef.current], isStructured);
   };
   const removeField = (fieldId) => {
@@ -106,7 +111,9 @@ export default function EditorContainer({ section }) {
           itemSelectorClassName="configurable-section-input-selector"
           containerContext={section.id}
           onClick={() => {}}
-          onDragDrop={() => {}}
+          onDragDrop={({ startIndex, targetIndex }) =>
+            onReorderFields(section.id, startIndex, targetIndex)
+          }
           onDelete={(fieldId) => removeField(fieldId)}
           renderItem={(field) => (
             <FieldWrapper

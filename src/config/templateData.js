@@ -142,7 +142,6 @@ achievement/additional important info
         type: 'list',
         value: `achievement/additional important info
 achievement/additional important info
-achievement/additional important info
 `
       })
     ]
@@ -229,8 +228,8 @@ const goals = [
   field({
     type: 'list',
     value: `Improve goals
-    Be best
-    Learn everything
+Be best
+Learn everything
     `
   })
 ];

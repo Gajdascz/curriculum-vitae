@@ -1,12 +1,12 @@
 import { useState } from 'react';
 
-import Button from '../common/Button/Button';
-import DropDownContainer from '../common/DropDownContainer/DropDownContainer';
+import Button from '../Button/Button';
+import DropDownContainer from '../DropDownContainer/DropDownContainer';
 
 import { ATTS } from './AddCustomFieldConstants';
 
-import SelectMenu from '../common/Fields/Types/SelectMenu/SelectMenu';
-import FieldWrapper from '../common/Fields/FieldWrapper';
+import SelectMenu from '../Fields/SelectMenu/SelectMenu';
+import FieldWrapper from '../Fields/FieldWrapper/FieldWrapper';
 
 import './AddCustomField.css';
 

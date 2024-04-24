@@ -1,5 +1,4 @@
 :root {
-  /* Background colors */
   --color-background: #212121;
   --color-container-background: rgba(0, 0, 0, 0.25);
   --color-primary-text: #fdfffc;
@@ -18,11 +17,12 @@
 }
 
 :root.light-theme {
-  /* Background colors */
-  --background-color: #fdfffc;
+  --color-background: #fdfffc;
   --color-primary-text: #212121;
-  --color-primary-accent: #694979;
+  --color-primary-accent: #6d3a86;
   --color-primary-accent-secondary: #ffffff;
+  --color-container-background: rgba(0, 0, 0, 0.05);
+  --drag-highlight: #694979;
 }
 
 body {

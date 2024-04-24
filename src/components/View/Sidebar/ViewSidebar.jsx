@@ -1,5 +1,5 @@
 import FieldView from '../FieldView/FieldView';
-
+import './ViewSidebar.css';
 export default function ViewSidebar({ sections }) {
   return (
     <div className="view-sidebar">

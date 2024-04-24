@@ -1,5 +1,5 @@
-import './App.css';
-import CVAppProvider from './CVAppProvider';
+import './styles/App.css';
+import CVAppProvider from './contexts/CVAppProvider';
 import CVView from './components/View/CVView';
 import CVEditors from './components/Editors/CVEditors';
 

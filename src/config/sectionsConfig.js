@@ -1,13 +1,7 @@
-import { getStoredSectionsConfig } from './storage';
+import { getStoredSectionsConfig } from '../storage';
 import { templateData } from './templateData';
 const uid = () =>
   `${Math.round((Math.random() * Date.now()) / Math.PI ** Math.PI)}`;
-
-const getRef = (labelText) =>
-  labelText
-    .toLowerCase()
-    .split(' ')
-    .reduce((acc, str) => acc + str.charAt(0).toUpperCase() + str.slice(1), '');
 
 const field = ({
   label,

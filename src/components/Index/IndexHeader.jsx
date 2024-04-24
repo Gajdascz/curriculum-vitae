@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import Button from '../common/Button/Button';
-import Help from '../icons/Help';
-import LightBulb from '../icons/LightBulb';
+import Button from '../Button/Button';
+import Help from '../Icons/Help';
+import LightBulb from '../Icons/LightBulb';
 import './IndexHeader.css';
 
 export default function IndexHeader() {
@@ -19,13 +19,24 @@ export default function IndexHeader() {
               className={`header-icon theme-icon`}
             />
           }
-          onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+          onClick={() => {
+            if (theme === 'light') {
+              setTheme('dark');
+              document.documentElement.classList.remove('light-theme');
+            } else {
+              setTheme('light');
+              document.documentElement.classList.add('light-theme');
+            }
+          }}
         />
-        <Button
+        <a
           className="help-button header-icon-button"
-          addDefaultStyling={false}
-          text={<Help title="Help" className="help-icon header-icon" />}
-        />
+          href="https://github.com/Gajdascz/curriculum-vitae-builder"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          <Help title="Help" className="help-icon header-icon" />
+        </a>
       </div>
     </header>
   );
