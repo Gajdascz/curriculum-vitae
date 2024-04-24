@@ -120,19 +120,6 @@ const profile = base({
   ]
 });
 
-const contact = base({
-  headerText: 'Contact',
-  type: 'configurable',
-  draggable: true,
-  location: { id: 'sidebar', index: 0 },
-  removable: false,
-  fields: [
-    field({ type: 'email', label: 'Email' }),
-    field({ type: 'tel', label: 'Phone' }),
-    field({ type: 'text', label: 'Area' })
-  ]
-});
-
 const education = base({
   headerText: 'Education',
   type: 'structured',
@@ -188,6 +175,14 @@ const experience = base({
   ]
 });
 
+const contact = base({
+  headerText: 'Contact',
+  type: 'configurable',
+  draggable: true,
+  location: { id: 'sidebar', index: 0 },
+  removable: false,
+  fields: []
+});
 const skills = base({
   headerText: 'Skills',
   draggable: true,
@@ -195,7 +190,6 @@ const skills = base({
   type: 'configurable',
   fields: []
 });
-
 const goals = base({
   headerText: 'Goals',
   draggable: true,

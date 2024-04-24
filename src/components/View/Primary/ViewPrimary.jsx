@@ -66,28 +66,44 @@ const SubSection = ({ fields }) => {
     </div>
   );
 };
+
+const Section = ({ section }) => {
+  return (
+    <div className="view-primary-info-section">
+      <h2 className="view-primary-info-section-header">{section.headerText}</h2>
+      {section.saved ? (
+        section.saved.map((savedSection) => (
+          <SubSection key={savedSection.id} fields={savedSection.data} />
+        ))
+      ) : (
+        <SubSection fields={section.fields} />
+      )}
+    </div>
+  );
+};
+
+const ProfileSection = ({ profile }) => {
+  return (
+    <div className="view-profile">
+      <p className="view-profile-text">
+        {profile.fields.find((field) => field.ref === 'profile').value}
+      </p>
+    </div>
+  );
+};
+
 export default function ViewPrimary({ profile, primary }) {
   return (
     <div className="view-primary-info">
-      <div className="view-profile">
-        <p className="view-profile-text">
-          {profile.fields.find((field) => field.ref === 'profile').value}
-        </p>
-      </div>
-      {primary.map((section) => (
-        <div key={section.id} className="view-primary-info-section">
-          <h2 className="view-primary-info-section-header">
-            {section.headerText}
-          </h2>
-          {section.saved ? (
-            section.saved.map((savedSection) => (
-              <SubSection key={savedSection.id} fields={savedSection.data} />
-            ))
-          ) : (
-            <SubSection fields={section.fields} />
-          )}
-        </div>
-      ))}
+      <ProfileSection profile={profile} />
+      {primary.map((section) => {
+        if (
+          (section.saved && section.saved.length <= 0) ||
+          (!section.saved && section.fields.length <= 0)
+        ) {
+          return null;
+        } else return <Section key={section.id} section={section} />;
+      })}
     </div>
   );
 }

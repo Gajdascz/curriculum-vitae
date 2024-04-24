@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import Button from '../Button/Button';
-import Help from '../Icons/Help';
-import LightBulb from '../Icons/LightBulb';
+import Button from '../../Button/Button';
+import Help from '../../Icons/Help';
+import LightBulb from '../../Icons/LightBulb';
 import './IndexHeader.css';
 
 export default function IndexHeader() {

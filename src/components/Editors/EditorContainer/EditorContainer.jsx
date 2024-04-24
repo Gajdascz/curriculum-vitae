@@ -120,7 +120,8 @@ export default function EditorContainer({ section }) {
               key={field.id}
               fieldData={{
                 type: field.type,
-                value: field.value
+                value: field.value,
+                placeholder: field.label
               }}
               labelData={{
                 text: field.label,
