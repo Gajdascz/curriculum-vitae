@@ -31,7 +31,7 @@ export default function IndexHeader() {
         />
         <a
           className="help-button header-icon-button"
-          href="https://github.com/Gajdascz/curriculum-vitae-builder"
+          href="https://github.com/Gajdascz/curriculum-vitae-builder?tab=readme-ov-file#guide"
           target="_blank"
           rel="noreferrer noopener"
         >

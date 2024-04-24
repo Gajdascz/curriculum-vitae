@@ -20,7 +20,7 @@ export default function AddSection({ location }) {
       />
       <input
         className="add-section-header-input"
-        placeholder="Section Header"
+        placeholder="Subsection Header"
         onChange={(e) => setFieldInput(e.target.value)}
         value={fieldInput}
       />
