@@ -1,0 +1,29 @@
+@import url('../../styles/index.css');
+
+.index-footer-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-primary-accent);
+  color: var(--color-primary-accent-secondary);
+  font-weight: bold;
+  font-size: 1.5rem;
+  padding: var(--space-small);
+  gap: var(--space-medium);
+}
+
+.index-footer-github-link-anchor {
+  display: flex;
+}
+
+.index-footer-github-icon {
+  height: 64px;
+  width: 64px;
+  border-radius: 100%;
+  background-color: var(--color-primary-accent);
+}
+a:hover > .index-footer-github-icon {
+  background-color: var(--color-primary-accent-secondary);
+  fill: var(--color-primary-accent);
+}

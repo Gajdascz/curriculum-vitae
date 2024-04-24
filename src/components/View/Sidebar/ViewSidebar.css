@@ -10,6 +10,7 @@
   padding-right: var(--sidebar-right-padding);
   padding-left: var(--sidebar-left-padding);
   padding-top: var(--space-from-header);
+  padding-bottom: 1em;
 }
 .view-sidebar-section {
   display: flex;

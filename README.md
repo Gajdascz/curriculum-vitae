@@ -86,3 +86,10 @@ These challenges gave me practice and improved my skills in designing and managi
 - **Improve Custom Text Rendering and Styling in CV-View**: Provide more options for styling and displaying text in the CV-View.
 - **Enhanced Accessibility**: Improve input labels, ARIA attributes, and ensure keyboard navigability throughout the application.
 - **Code Commenting and Clean-Up**: Conduct a review of the codebase to add comments and remove redundant code.
+
+## License
+
+Copyright © 2024 Nolan Gajdascz | [GitHub](https://github.com/Gajdascz)
+
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file
+for details.

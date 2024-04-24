@@ -1,6 +1,6 @@
 @import url('../../styles/index.css');
 
-.cv-view {
+section.cv-view {
   --accent-color: #add8e6;
   --sidebar-location: 2;
   --sidebar-right-padding: 0;
@@ -8,7 +8,7 @@
   --selected-font: 'atkinson-hyper-legible';
   display: grid;
   grid-template-columns: 1fr 0.5fr;
-  grid-template-rows: 0.15fr 1fr;
+  grid-template-rows: min-content auto;
   background-color: white;
   box-shadow: var(--view-shadow);
   color: black;
@@ -17,7 +17,7 @@
   font-size: 12pt;
   --header-size: 14pt;
   --subheader-size: 13pt;
-  --space-from-header: 2em;
+  --space-from-header: 1em;
   overflow-x: auto;
 }
 
@@ -48,13 +48,11 @@
   .cv-app-container {
     padding: 0;
   }
-
+  .index-footer-container,
+  ::-webkit-scrollbar,
   section.cv-editors-section,
   header.index-header {
-    display: none;
-  }
-  ::-webkit-scrollbar {
-    display: none;
+    display: none !important;
   }
   @page {
     margin: 1cm;
