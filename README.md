@@ -2,7 +2,7 @@
 
 This repository hosts my Curriculum Vitae Builder application, [a project assigned by The Odin Project](https://www.theodinproject.com/lessons/node-path-react-new-cv-application). This interactive tool enables users to dynamically create and customize their CVs, showcasing the practical application of my React skills, as developed through The Odin Project’s coursework. This project provided an opportunity to reinforce fundamental concepts and independently explore advanced features.
 
-- **Live Preview**: [Hosted using Cloudflare Pages](https://curriculum-vitae-builder.pages.dev/)
+- **Live Preview**: [Hosted On Cloudflare Pages](https://curriculum-vitae-builder.pages.dev/)
 
 ## Learning Outcomes
 
