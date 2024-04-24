@@ -2,6 +2,8 @@
 
 This repository hosts my Curriculum Vitae Builder application, [a project assigned by The Odin Project](https://www.theodinproject.com/lessons/node-path-react-new-cv-application). This interactive tool enables users to dynamically create and customize their CVs, showcasing the practical application of my React skills, as developed through The Odin Project’s coursework. This project provided an opportunity to reinforce fundamental concepts and independently explore advanced features.
 
+- **Live Preview**: [Hosted using Cloudflare Pages](https://curriculum-vitae-builder.pages.dev/)
+
 ## Learning Outcomes
 
 The [lessons leading up to this project](https://www.theodinproject.com/paths/full-stack-javascript/courses/react) offered a solid foundation in the JavaScript React library. Throughout this project, I acquired fundamental skills and gained practical experience in several key areas:
@@ -78,6 +80,7 @@ These challenges gave me practice and improved my skills in designing and managi
 - **Prettier**: Code formatter to enforce consistency.
 - **ESLint Config Prettier**: Turns off conflicting and/or unnecessary ESLint rules for Prettier.
 - **GitHub**: Remote repository hosting.
+- **CloudFlare Pages**: Hosting live application preview.
 
 ## Potential Improvements
 
